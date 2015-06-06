@@ -1,6 +1,8 @@
 rfpcRequests
 ====================
 
+پروژه مدیریت درخواستهای انجام کار
+
 ### bootstrap3-jade-node-express-grunt
 
 + Do you want to accelerate the bootstrapping of your web applications?
@@ -20,7 +22,9 @@ rfpcRequests
 ## Release History
 
 ## License
-Copyright (c) 2013 ALT-F1, We believe in the projects we work on™
+Copyright (c) 2015 Rahavaran Fonoon Pehrochemical Company By Reza Afzalan
+
+Iran-Mahshahr-Petzone 3
 
 Licensed under the MIT license.
 
