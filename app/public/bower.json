@@ -1,0 +1,12 @@
+{
+  "name": "rfpc request",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": ">= 1.9.1",
+    "respond": ">=1.4.2",
+    "html5shiv": ">=3.7.2",
+    "bootstrap": "~3.3.4",
+    "bootstrap-rtl": "~3.3.2",
+    "bootstrap-table": "~1.7.0"
+  }
+}
