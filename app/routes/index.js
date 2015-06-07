@@ -14,7 +14,8 @@ var mypassport = require('../passport/mypassport');
 
 module.exports = function (app, passport) {
     app.get('/', function (req, res) {
-        res.render('index', { user: req.user });
+        console.log(req.user);
+        res.render('index', { user: req.user,  'pathToAssets' : '/bootstrap-3.3.1', message: req.flash('error') });
     });
 
    
@@ -27,7 +28,7 @@ module.exports = function (app, passport) {
     });
 
     app.post('/login',
-        passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+        passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
         function (req, res) {
             res.redirect('/');
         });
@@ -38,8 +39,7 @@ module.exports = function (app, passport) {
     });
 
     app.get('/site/:selectedTemplate', function (req, res) {
-      res.render('site/' + req.params.selectedTemplate, {
-        'pathToAssets': '/bootstrap-3.3.1',
-      });
+        res.render(req.params.selectedTemplate, { user: req.user, 'pathToAssets': '/bootstrap-3.3.1'
+        });
     });
 };

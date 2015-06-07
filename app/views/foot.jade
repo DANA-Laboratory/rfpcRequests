@@ -1,0 +1,15 @@
+script(src='/bower_components/jquery/dist/jquery.min.js');
+script(src='#{pathToAssets}/dist/js/bootstrap.min.js');
+script(src='#{pathToAssets}/docs/assets/js/vendor/holder.js');
+script(src='/bower_components/bootstrap-table/dist/bootstrap-table.min.js');
+script(src='/bower_components/bootstrap-table/dist/locale/bootstrap-table-fa-IR.min.js');
+script.
+  function rowStyle(row, index) {
+    var classes = ['active', 'success', 'info', 'warning', 'danger'];
+    if (index % 2 === 0) {
+      return {
+        classes: classes[(index / 2) % classes.length]
+        };
+      }
+    return {};
+  }
