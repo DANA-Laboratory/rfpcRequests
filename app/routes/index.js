@@ -15,7 +15,7 @@ var mypassport = require('../passport/mypassport');
 module.exports = function (app, passport) {
     app.get('/', function (req, res) {
         console.log(req.user);
-        res.render('index', { user: req.user,  'pathToAssets' : '/bootstrap-3.3.1', message: req.flash('error') });
+        res.render('index', { user: req.user,  'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
 
    
@@ -39,7 +39,7 @@ module.exports = function (app, passport) {
     });
 
     app.get('/site/:selectedTemplate', function (req, res) {
-        res.render(req.params.selectedTemplate, { user: req.user, 'pathToAssets': '/bootstrap-3.3.1'
+        res.render(req.params.selectedTemplate, { user: req.user, 'pathToAssets': '/bower_components'
         });
     });
 };
