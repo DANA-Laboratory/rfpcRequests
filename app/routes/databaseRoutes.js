@@ -3,9 +3,9 @@
  */
 'use strict';
 var mypassport = require('../passport/mypassport');
-function fvalue(fname,value) {
+function fvalue(fname, value) {
     if (fname.charAt(0) === '_') {
-      value='\''+value+'\'';
+        value = '\'' + value + '\'';
     }
     return value;
 }
@@ -19,17 +19,17 @@ module.exports = function (app) {
         var query = '';
         var fname = '';
         var and = '';
-        var owner =  '(SELECT id FROM SystemUsers WHERE Account=\''+req.user.username+'\')';
+        var owner =  '(SELECT id FROM SystemUsers WHERE Account=\'' + req.user.username + '\')';
         switch (req.params.type.toUpperCase()) {
         case 'UPDATE':
             query = req.params.type + ' ' + req.params.table + ' ';
             var where = '';
             var set = ' SET ';
             for (fname in req.body) {
-               if (fname === 'id') {
-                    where += ' WHERE OWNER=' + owner + ' AND ' + fname + '=' + fvalue(fname,req.body[fname]) + ' ';
+                if (fname === 'id') {
+                    where += ' WHERE OWNER=' + owner + ' AND ' + fname + '=' + fvalue(fname, req.body[fname]) + ' ';
                 } else {
-                    query += set + fname + '=' +  fvalue(fname,req.body[fname]) + ' ';
+                    query += set + fname + '=' +  fvalue(fname, req.body[fname]) + ' ';
                     set = ' , ';
                 }
             }
@@ -39,14 +39,14 @@ module.exports = function (app) {
             query = req.params.type + ' * FROM ' + req.params.table + ' WHERE OWNER=' + owner;
             and = ' AND ';
             for (fname in req.body) {
-                query += and + fname + '=' +  fvalue(fname,req.body[fname]);
+                query += and + fname + '=' +  fvalue(fname, req.body[fname]);
             }
             break;
         case 'DELETE':
             query = req.params.type +  ' ' + req.params.table + ' WHERE OWNER=' + owner;
             and = ' AND ';
             for (fname in req.body) {
-                query += and + fname + '=' +  fvalue(fname,req.body[fname]);
+                query += and + fname + '=' +  fvalue(fname, req.body[fname]);
             }
             break;
         case 'INSERT':
@@ -56,7 +56,7 @@ module.exports = function (app) {
             var colon = '';
             for (fname in req.body) {
                 names += colon + fname;
-                values += colon +  fvalue(fname,req.body[fname]);
+                values += colon +  fvalue(fname, req.body[fname]);
                 colon = ',';
             }
             names += ',OWNER)';
