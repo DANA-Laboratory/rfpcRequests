@@ -1,6 +1,6 @@
-form(action='/sql/DELETE/myTable', method='post', name='testform')
+form(action='/sql/SELECT/myTable', method='post', name='testform')
     | field1:
-    input(type='text', name='field1', placeholder='...') 
+    input(type='text', name='_field1', placeholder='...') 
     | 
     br
     |  field2:  
@@ -16,3 +16,61 @@ form(action='/sql/DELETE/myTable', method='post', name='testform')
     | 
     br
     button(type='submit') Submit
+
+form(action='/sql/UPDATE/myTable', method='post', name='testform')
+    | field1:
+    input(type='text', name='_field1', placeholder='...') 
+    | 
+    br
+    |  field2:  
+    input(type='text', name='field2', placeholder='...') 
+    | 
+    br
+    |  field3:
+    input(type='text', name='field3', placeholder='...')  
+    | 
+    br
+    |  id: 
+    input(type='text', name='id', placeholder='...') 
+    | 
+    br
+    button(type='submit') Submit
+
+form(action='/sql/INSERT/myTable', method='post', name='testform')
+    | field1:
+    input(type='text', name='_field1', placeholder='...') 
+    | 
+    br
+    |  field2:  
+    input(type='text', name='field2', placeholder='...') 
+    | 
+    br
+    |  field3:
+    input(type='text', name='field3', placeholder='...')  
+    | 
+    br
+    |  id: 
+    input(type='text', name='id', placeholder='...') 
+    | 
+    br
+    button(type='submit') Submit
+
+form(action='/sql/DELETE/myTable', method='post', name='testform')
+    | field1:
+    input(type='text', name='_field1', placeholder='...') 
+    | 
+    br
+    |  field2:  
+    input(type='text', name='field2', placeholder='...') 
+    | 
+    br
+    |  field3:
+    input(type='text', name='field3', placeholder='...')  
+    | 
+    br
+    |  id: 
+    input(type='text', name='id', placeholder='...') 
+    | 
+    br
+    button(type='submit') Submit
+

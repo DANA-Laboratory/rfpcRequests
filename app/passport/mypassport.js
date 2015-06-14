@@ -72,5 +72,6 @@ passport.use(new LocalStrategy(
 // login page.
 exports.ensureAuthenticated =  function (req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
+  req.flash('error', 'Login first');
+  res.redirect('/');
 }
