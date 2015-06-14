@@ -2,7 +2,7 @@
 
 var PORT_LISTENER = 3001;
 console.log('I am listening to this port: http://localhost:%s', PORT_LISTENER);
-
+global.DEVELOPMENT = (process.argv.indexOf('development') > 0);
 var express = require('express'),
     http = require('http'),
     path = require('path'),
