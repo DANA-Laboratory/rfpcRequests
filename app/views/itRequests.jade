@@ -2,9 +2,59 @@ doctype html
 include head.jade
   title فرم درخواست خدمات IT 
   body
-    .input-group
-      span.input-group-addon متقاضی:
-      input.form-control(type='text', placeholder='نام و نام خانوادگی')
-    .input-group
-      span.input-group-addon واحد متقاضی:
-      input.form-control(type='text', placeholder='واحد متقاضی')
+    form.form-horizontal
+      fieldset
+        // Form Name
+        legend فرم درخواست انجام کار واحد خدمات کامپیوتری
+        // Text input
+        .form-group
+          span.col-md-2.control-label Metadata
+          .col-md-6
+            .form-group.row
+              label.col-md-1.control-label(for='inputKey') Key
+              .col-md-2
+                input#inputKey.form-control(type='text', placeholder='Key')
+              label.col-md-1.control-label(for='inputValue') Value
+              .col-md-2
+                input#inputValue.form-control(type='text', placeholder='Value')
+        .form-group
+          label.col-md-4.control-label(for='textinput') تاریخ
+          .col-md-2
+            input#textinput.form-control.input-md(name='textinput', type='text', placeholder='placeholder')
+        // Text input
+        .form-group
+          label.col-md-4.control-label(for='textinput') ساعت
+          .col-md-2
+            input#textinput.form-control.input-md(name='textinput', type='text', placeholder='placeholder')
+        // Select Basic
+        .form-group
+          label.col-md-4.control-label(for='selectbasic') نام متقاضی
+          .col-md-4
+            select#selectbasic.form-control(name='selectbasic')
+              option(value='1') Option one
+              option(value='2') Option two
+        // Select Basic
+        .form-group
+          label.col-md-4.control-label(for='selectbasic') واحد متقاضی
+          .col-md-4
+            select#selectbasic.form-control(name='selectbasic')
+              option(value='1') Option one
+              option(value='2') Option two        
+        // Select Basic
+        .form-group
+          label.col-md-4.control-label(for='selectbasic') درخواست
+          .col-md-4
+            select#selectbasic.form-control(name='selectbasic')
+              option(value='1') Option one
+              option(value='2') Option two
+        // Textarea
+        .form-group
+          label.col-md-4.control-label(for='textarea') توضیحات
+          .col-md-4
+            textarea#textarea.form-control(name='textarea') default text
+        // Button (Double)
+        .form-group
+          .col-md-4
+          .col-md-3
+            button#button1id.btn.btn-success(name='button1id') تایید
+            button#button2id.btn.btn-danger(name='button2id') انصراف
