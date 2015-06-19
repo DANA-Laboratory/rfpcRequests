@@ -9,6 +9,6 @@ module.exports = function (app) {
     });
     app.get('/it', function (req, res) {
         console.log(req.user);
-        res.render('itRequests', { user: req.user,  'pathToAssets' : '/bower_components', message: req.flash('error') });
+        res.render('itRequest/itRequests', { user: req.user,  'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
 };

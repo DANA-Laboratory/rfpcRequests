@@ -1,0 +1,13 @@
+- var requestLevel= 2
+- var userLevel= 1
+if requestLevel<5
+  doctype html
+  include ../head.jade
+    title فرم درخواست خدمات IT 
+    body
+      .col-md-3
+      .col-md-6
+        include panelPrimary.jade
+        if (requestLevel==2 && userLevel==1) || requestLevel==3
+          include panelSuccess.jade
+        include panelsAction.jade

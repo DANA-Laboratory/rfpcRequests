@@ -1,0 +1,10 @@
+.panel.panel-success
+  .panel-heading
+    h3.panel-title شرح فعالیت ها
+  .panel-body
+    | فعالیت های انجام شده را انتخاب نمایید:
+    .well(style='height:100px;overflow:auto')
+      include parts\allitems.jade
+    | با اشاره به فعالیت های انتخاب شده جزئییات را ویرایش یا حذف نمایید:
+    .well(style='height:100px;overflow:auto')
+      include parts\selecteditems.jade
