@@ -3,10 +3,10 @@
     h3.panel-title شرح فعالیت ها
   .panel-body(ng-controller = 'TaskController')
     .form-group.input-group
-      input.form-control(type='text', placeholder='با ورود عبارت مناسب، فعالیت مورد نظر خود را بیابید....')
+      input.form-control(my-on-key-down-call="itemsfilter()", ng-model='filtertext', type='text', placeholder='با ورود عبارت مناسب، فعالیت مورد نظر خود را بیابید....')
       .span.input-group-btn
-        .btn.btn-info(type='button') جستجو
-          .span.glyphicon.glyphicon-filter(aria-hidden='true')
+        .btn.btn-info(type='button', ng-click='clearfilter()') همه
+          .span.glyphicon.glyphicon-remove-circle(aria-hidden='true')
     .well(style='height:180px;overflow:auto')
       include parts/allitems.jade
     | با اشاره به فعالیت های انتخاب شده جزئییات را ویرایش یا حذف نمایید:
