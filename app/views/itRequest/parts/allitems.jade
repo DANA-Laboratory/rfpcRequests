@@ -1,3 +1,2 @@
-each val,index in ['فعالیت','فعالیت','فعالیت','فعالیت','فعالیت','فعالیت','فعالیت']
-  a.btn.btn-xs.btn-primary(type='button',style='margin-left:2px',href='#AddNewItem/'+index)=val+index
-    .span.glyphicon.glyphicon-ok(aria-hidden='true')
+button.btn.btn-xs.btn-primary(ng-repeat='task in alltasks',type='button',style='margin-left:4px;margin-bottom:2px',ng-click='taskitemclick($index)'){{task.name}}
+  .span.glyphicon.glyphicon-ok(aria-hidden='true')

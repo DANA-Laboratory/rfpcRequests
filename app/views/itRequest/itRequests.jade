@@ -5,8 +5,8 @@ if requestLevel<5
   include ../head.jade
     title فرم درخواست خدمات IT 
     body(ng-app='itRequestApp')
-      .col-md-3
-      .col-md-6
+      .col-md-1
+      .col-md-10
         include panelPrimary.jade
         if (requestLevel==2 && userLevel==1) || requestLevel==3
           include panelSuccess.jade

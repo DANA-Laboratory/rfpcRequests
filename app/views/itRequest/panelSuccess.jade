@@ -1,10 +1,14 @@
 .panel.panel-success
   .panel-heading
     h3.panel-title شرح فعالیت ها
-  .panel-body
-    | فعالیت های انجام شده را انتخاب نمایید:
-    .well(style='height:100px;overflow:auto')
-      include parts\allitems.jade
+  .panel-body(ng-controller = 'TaskController')
+    .form-group.input-group
+      input.form-control(type='text', placeholder='با ورود عبارت مناسب، فعالیت مورد نظر خود را بیابید....')
+      .span.input-group-btn
+        .btn.btn-info(type='button') جستجو
+          .span.glyphicon.glyphicon-filter(aria-hidden='true')
+    .well(style='height:180px;overflow:auto')
+      include parts/allitems.jade
     | با اشاره به فعالیت های انتخاب شده جزئییات را ویرایش یا حذف نمایید:
     .well(style='height:100px;overflow:auto')
-      include parts\selecteditems.jade
+      include parts/selecteditems.jade
