@@ -1,7 +1,6 @@
 .container-fluid
-  .row
+  .row(ng-app='dashboardApp')
     .col-sm-3.col-md-2.sidebar
       include rightnav.jade
     .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-      include requeststable.jade
-      include requestbtn.jade
+      include tableplusbtn.jade 

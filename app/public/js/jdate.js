@@ -94,5 +94,3 @@ function shamsiNow() {
     var date = new Date();
     return gregorianToJalali(date, '/') + '-----'  + jalaliToGregorian(1394, 3, 26, '/');
 }
-
-console.log(shamsiNow());

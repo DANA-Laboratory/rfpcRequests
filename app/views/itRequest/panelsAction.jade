@@ -1,25 +1,22 @@
 if requestLevel>0
   if requestLevel<3
     .well
-      .form-group.input-group
-        input.form-control(type='text', placeholder='علت لغو...')
-        .span.input-group-btn
-          .btn.btn-warning(type='button') لغو درخواست
-            .span.glyphicon.glyphicon-remove(aria-hidden='true')
-      if userLevel==1
-        .row
-          .col-sm-1
-          each val in ['تاریخ','ساعت']
-            label.col-sm-1.control-label(for='inputDate')=val    
-            .col-sm-3
-              input#inputDate.form-control(type='text', placeholder=val)
+       if userLevel==1
+        .form-group
+          include parts/datetime.jade
+          .col-sm-2
           if requestLevel==1
             .btn.btn-primary(type='button') آغاز کار
               .span.glyphicon.glyphicon-play(aria-hidden='true')
           if requestLevel==2
             .btn.btn-success(type='button') خاتمه
               .span.glyphicon.glyphicon-ok(aria-hidden='true')
-  .btn-group.btn-group-justified(role='group', aria-label='...')
+        .input-group
+          input.form-control(type='text', placeholder='علت لغو...')
+          .span.input-group-btn
+            .btn.btn-warning(type='button') لغو درخواست
+              .span.glyphicon.glyphicon-remove(aria-hidden='true')
+   .btn-group.btn-group-justified(role='group', aria-label='...')
     .btn.btn-default(name='buttoncancel') بعدی
       .span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
     .btn.btn-default(name='buttoncancel')

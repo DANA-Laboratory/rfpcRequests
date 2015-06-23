@@ -1,6 +1,0 @@
-each val,index in ['نام متقاضی','واحد متقاضی']
-  label.col-sm-2.control-label(for='selectname')=val
-  .col-sm-3
-    select#selectname.form-control(name='selectname')
-      each myOption,optionIndex in ['option1','option2']
-        option(value=optionIndex)=myOption+index

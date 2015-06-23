@@ -1,2 +1,2 @@
-button.btn.btn-xs.btn-primary(ng-repeat='task in alltasks',type='button',style='margin-left:4px;margin-bottom:2px',ng-click='taskitemclick($index)'){{task.name}}
+button.btn.btn-xs.btn-primary(ng-repeat='task in tasks', ng-if='!task.selected && !task.hide',type='button',style='margin-left:4px;margin-bottom:2px',ng-click='taskitemclick($index)'){{task.name}}
   .span.glyphicon.glyphicon-ok(aria-hidden='true')
