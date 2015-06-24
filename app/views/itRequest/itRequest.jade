@@ -1,0 +1,9 @@
+if requestLevel<5
+  div(ng-hide='hiderequest')
+    .form-group
+      include requestnav.jade
+    .col-md-12
+      include panelPrimary.jade
+      if (requestLevel==2 && userLevel==1) || requestLevel==3
+        include panelSuccess.jade
+      include panelsAction.jade

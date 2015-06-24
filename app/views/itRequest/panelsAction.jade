@@ -1,24 +1,22 @@
-if requestLevel>0
-  if requestLevel<3
-    .well
-       if userLevel==1
-        .form-group
-          include parts/datetime.jade
-          .col-sm-2
-          if requestLevel==1
-            .btn.btn-primary(type='button') آغاز کار
-              .span.glyphicon.glyphicon-play(aria-hidden='true')
-          if requestLevel==2
-            .btn.btn-success(type='button') خاتمه
-              .span.glyphicon.glyphicon-ok(aria-hidden='true')
-        .input-group
-          input.form-control(type='text', placeholder='علت لغو...')
-          .span.input-group-btn
-            .btn.btn-warning(type='button') لغو درخواست
-              .span.glyphicon.glyphicon-remove(aria-hidden='true')
-   .btn-group.btn-group-justified(role='group', aria-label='...')
-    .btn.btn-default(name='buttoncancel') بعدی
-      .span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
-    .btn.btn-default(name='buttoncancel')
-      .span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
-      | قبلی
+.panel.panel-warning(ng-hide='hideaction')
+  .panel-heading
+    h3.panel-title دستورات
+  .panel-body
+    if requestLevel>0
+      if requestLevel<3
+        .well
+           if userLevel==1
+            .form-group
+              include parts/datetime.jade
+              .col-sm-2
+              if requestLevel==1
+                .btn.btn-primary(type='button') آغاز کار
+                  .span.glyphicon.glyphicon-play(aria-hidden='true')
+              if requestLevel==2
+                .btn.btn-success(type='button') خاتمه
+                  .span.glyphicon.glyphicon-ok(aria-hidden='true')
+            .input-group
+              input.form-control(type='text', placeholder='علت لغو...')
+              .span.input-group-btn
+                .btn.btn-warning(type='button') لغو درخواست
+                  .span.glyphicon.glyphicon-remove(aria-hidden='true')
