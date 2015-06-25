@@ -2,5 +2,5 @@
 - var values = ['کاربر' ,'تاریخ' , 'ساعت']
 each i in [0 , 1, 2]
   label.col-xs-1.control-label(for='inputDate')=values[i]    
-  .col-sm-2
+  .col-md-2
     input.form-control(ng-model='#{captions[i]}', type='text', placeholder=values[i], style='text-align : center', disabled) 

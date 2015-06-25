@@ -13,30 +13,24 @@
       .col-md-8
         textarea#textarea.form-control(name='textarea') 
   .panel-footer  
-    if requestLevel==0
-      .btn-group.btn-group-justified(role='group', aria-label='...')
-        .btn.btn-default(name='buttoncancel') انصراف
-          .span.glyphicon.glyphicon-remove(aria-hidden='true') 
-        .btn.btn-success(name='buttonok') ثبت درخواست
-          .span.glyphicon.glyphicon-ok(aria-hidden='true') 
-    case requestLevel
-      when 1
-        .alert.alert-info(role='alert')
-          span.glyphicon.glyphicon-hourglass(aria-hidden='true')
-          span.sr-only Error:
-          |  ثبت شده
-      when 2
-        .alert.alert-info(role='alert')
-          span.glyphicon.glyphicon-hourglass(aria-hidden='true')
-          span.sr-only Error:
-          |  در دست اقدام     
-      when 3
-        .alert.alert-success(role='alert')
-          span.glyphicon.glyphicon-ok(aria-hidden='true')
-          span.sr-only Error:
-          |  خاتمه یافته
-      when 4
-        .alert.alert-warning(role='alert')
-          span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
-          span.sr-only Error:
-          |  متوقف شده
+    .btn-group.btn-group-justified(role='group', aria-label='...', ng-if='requestLevel===0')
+      .btn.btn-default(name='buttoncancel') انصراف
+        .span.glyphicon.glyphicon-remove(aria-hidden='true') 
+      .btn.btn-success(name='buttonok') ثبت درخواست
+        .span.glyphicon.glyphicon-ok(aria-hidden='true') 
+    .alert.alert-info(role='alert', ng-if='requestLevel===1')
+      span.glyphicon.glyphicon-hourglass(aria-hidden='true')
+      span.sr-only Error:
+      |  ثبت شده
+    .alert.alert-info(role='alert', ng-if='requestLevel===2')
+      span.glyphicon.glyphicon-hourglass(aria-hidden='true')
+      span.sr-only Error:
+      |  در دست اقدام     
+    .alert.alert-success(role='alert', ng-if='requestLevel===3')
+      span.glyphicon.glyphicon-ok(aria-hidden='true')
+      span.sr-only Error:
+      |  خاتمه یافته
+    .alert.alert-warning(role='alert', ng-if='requestLevel===4')
+      span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+      span.sr-only Error:
+      |  متوقف شده

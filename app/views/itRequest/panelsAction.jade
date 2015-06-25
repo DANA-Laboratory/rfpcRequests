@@ -1,22 +1,16 @@
-.panel.panel-warning(ng-hide='hideaction')
+.panel.panel-warning(ng-hide='hideaction', ng-if='requestLevel>0 && requestLevel<3')
   .panel-heading
     h3.panel-title دستورات
   .panel-body
-    if requestLevel>0
-      if requestLevel<3
-        .well
-           if userLevel==1
-            .form-group
-              include parts/datetime.jade
-              .col-sm-2
-              if requestLevel==1
-                .btn.btn-primary(type='button') آغاز کار
-                  .span.glyphicon.glyphicon-play(aria-hidden='true')
-              if requestLevel==2
-                .btn.btn-success(type='button') خاتمه
-                  .span.glyphicon.glyphicon-ok(aria-hidden='true')
-            .input-group
-              input.form-control(type='text', placeholder='علت لغو...')
-              .span.input-group-btn
-                .btn.btn-warning(type='button') لغو درخواست
-                  .span.glyphicon.glyphicon-remove(aria-hidden='true')
+    .well
+      .form-group.col-md-12(ng-if='userLevel===1')
+        include parts/datetime.jade
+        .btn.btn-primary.pull-left(type='button', ng-if='requestLevel===1') آغاز کار
+          .span.glyphicon.glyphicon-play(aria-hidden='true')
+        .btn.btn-success.pull-left(type='button', ng-if='requestLevel===2') خاتمه
+          .span.glyphicon.glyphicon-ok(aria-hidden='true')
+      .input-group
+        input.form-control(type='text', placeholder='علت لغو...')
+        .span.input-group-btn
+          .btn.btn-warning(type='button') لغو درخواست
+            .span.glyphicon.glyphicon-remove(aria-hidden='true')

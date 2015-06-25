@@ -8,12 +8,14 @@ module.exports = function (app) {
         console.log(req.user);
         res.render('index', { user: req.user,  'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
-    app.get('/it', function (req, res) {
+    app.get('/itRequest/:requestID', function (req, res) {
         console.log(req.user);
-        res.render('itRequest/itRequests', { user: req.user,  'pathToAssets' : '/bower_components', message: req.flash('error') });
+        //find right request & user Level
+        //TODO
+        res.json({requestLevel:1, userLevel: 1});
     });
-    app.get('/itRequest/:rl/:ul', function (req, res) {
+    app.get('/itRequest', function (req, res) {
         console.log(req.user);
-        res.render('itRequest/itRequest', { user: req.user, requestLevel: req.params.rl, userLevel: req.params.ul,  'pathToAssets' : '/bower_components', message: req.flash('error') });
+        res.render('itRequest/itRequest', { user: req.user,  'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
 };

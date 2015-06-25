@@ -6,13 +6,3 @@ script(src='#{pathToAssets}/angular/angular.min.js');
 script(src='#{pathToAssets}/angular-route/angular-route.min.js');
 script(src='js/dashboardApp.js');
 script(src='js/jdate.js');
-script.
-  function rowStyle(row, index) {
-    var classes = ['active', 'success', 'info', 'warning', 'danger'];
-    if (index % 2 === 0) {
-      return {
-        classes: classes[(index / 2) % classes.length]
-        };
-      }
-    return {};
-  }
