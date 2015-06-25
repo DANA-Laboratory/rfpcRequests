@@ -1,4 +1,4 @@
-each val,index in ['کابل کشی شبکه','کند بودن کامپیوتر','سیستم یونیت','تعاریف نرم افزار','تنظیمات سخت افزاری','تنظیمات سخت افزاری','تنظیمات نرم افزاری','رفع عیب سخت افزار','رفع عیب نرم افزار','نصب نرم افزار','روشن خاموش کامپیوتر']
+each val,index in requestItems
   label.checkbox-inline(for='checkboxes-'+index)
     input(type='checkbox', name='checkboxes', value=index, id='checkboxes-'+index)
     | #{val}

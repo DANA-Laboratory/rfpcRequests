@@ -1,11 +1,9 @@
 'use strict';
 
+var appConfig = require('../config/appConfig.json');
 var LocalStrategy = require('passport-local').Strategy;
 var passport = require('passport');
-var users = [
-{ id: 1, username: 'rfpc', password: 'rfpc', email: 'rafzalan@rfpc.ir' },
-{ id: 2, username: 'afzalan', password: 'vafa', email: 'rafzalan@rfpc.ir' }
-];
+var users = appConfig.users;
 
 function findById(id, fn) {
   var idx = id - 1;
