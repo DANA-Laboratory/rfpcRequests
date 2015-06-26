@@ -23,7 +23,7 @@ module.exports = function (app) {
         var ret = [];
         var callback = function (err, rows) {
             ret.push(rows.count);
-            if (ret.length === 2*appConfig.status.length) {
+            if (ret.length === 2 * appConfig.status.length) {
                 res.json(ret);
             }
         };
@@ -36,9 +36,20 @@ module.exports = function (app) {
     });
 
     app.get('/data/table', mypassport.ensureAuthenticated, function (req, res) {
-       var callback = function (err, rows) {
+        var callback = function (err, rows) {
             res.json(rows);
         };
         db.all('SELECT * from requests where user=' + req.user.id  + ' OR owner=' + req.user.id, callback);
+    });
+    
+    app.get('/data/:requestID', function (req, res) {
+        var callback = function (err, rows) {
+            //find right request & user Level
+            //TODO
+            rows.requestLevel = 3;
+            rows.userLevel = 1;
+            res.json(rows);
+        };
+        db.get('SELECT * from requests where id=' + req.params.requestID + '  AND (user=' + req.user.id  + ' OR owner=' + req.user.id +')', callback);
     });
 };

@@ -84,10 +84,11 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
         if (selectedRequestId!==-1) {
           $http({
               method: 'GET',
-              url: '/itRequest/'+selectedRequestId
+              url: '/data/'+selectedRequestId
           }).success(function(data, status, headers, config) {
               $scope.requestLevel = data.requestLevel;
               $scope.userLevel = data.userLevel;
+              console.log(data);
           }).error(function(data, status, headers, config) {
               console.log("error get");
           });
