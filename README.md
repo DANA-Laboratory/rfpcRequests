@@ -4,7 +4,8 @@ rfpcRequests
 پروژه مدیریت درخواستهای انجام کار
 
 یک سیستم جهت مدیریت درخواستهای انجام کار، کاربر امکان ثبت درخواست و پیگیری آنرا از طریق کارتابل خود دارد.
-Angularjs + Nodejs + Sqlite
+
+Angularjs + Bootstrap [Bootstrap] + Jade [Jade] + Nodejs + Sqlite3
 
 ### bootstrap3-jade-node-express-grunt
 
