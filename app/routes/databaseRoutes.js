@@ -3,69 +3,42 @@
  */
 'use strict';
 var mypassport = require('../passport/mypassport');
-function fvalue(fname, value) {
-    if (fname.charAt(0) === '_') {
-        value = '\'' + value + '\'';
-    }
-    return value;
+var fs = require('fs');
+var file = 'app/database/Requests.sqlite';
+var appConfig = require('../config/appConfig.json');
+var exists = fs.existsSync(file);
+var sqlite3 = null;
+var db = null;
+if (!exists) {
+    console.log('database not exists!');
+} else {
+    sqlite3 = require('sqlite3').verbose();
+    db = new sqlite3.Database(file);
 }
+
 module.exports = function (app) {
 
-    app.get('/qform', mypassport.ensureAuthenticated, function (req, res) {
-        res.render('qform');
+    app.get('/data/rightnav', mypassport.ensureAuthenticated, function (req, res) {
+
+        var ret = [];
+        var callback = function (err, rows) {
+            ret.push(rows.count);
+            if (ret.length === 2*appConfig.status.length) {
+                res.json(ret);
+            }
+        };
+        db.serialize(function () {
+            for (var status in appConfig.status) {
+                db.get('SELECT count(id) as count from requests where status=\'' + appConfig.status[status]  + '\' AND owner=' + req.user.id, callback);
+                db.get('SELECT count(id) as count from requests where status=\'' + appConfig.status[status]  + '\' AND user=' + req.user.id, callback);
+            }
+        });
     });
 
-    app.post('/sql/:type/:table', mypassport.ensureAuthenticated, function (req, res) {
-        var query = '';
-        var fname = '';
-        var and = '';
-        var owner =  '(SELECT id FROM SystemUsers WHERE Account=\'' + req.user.username + '\')';
-        switch (req.params.type.toUpperCase()) {
-        case 'UPDATE':
-            query = req.params.type + ' ' + req.params.table + ' ';
-            var where = '';
-            var set = ' SET ';
-            for (fname in req.body) {
-                if (fname === 'id') {
-                    where += ' WHERE OWNER=' + owner + ' AND ' + fname + '=' + fvalue(fname, req.body[fname]) + ' ';
-                } else {
-                    query += set + fname + '=' +  fvalue(fname, req.body[fname]) + ' ';
-                    set = ' , ';
-                }
-            }
-            query += where;
-            break;
-        case 'SELECT':
-            query = req.params.type + ' * FROM ' + req.params.table + ' WHERE OWNER=' + owner;
-            and = ' AND ';
-            for (fname in req.body) {
-                query += and + fname + '=' +  fvalue(fname, req.body[fname]);
-            }
-            break;
-        case 'DELETE':
-            query = req.params.type +  ' ' + req.params.table + ' WHERE OWNER=' + owner;
-            and = ' AND ';
-            for (fname in req.body) {
-                query += and + fname + '=' +  fvalue(fname, req.body[fname]);
-            }
-            break;
-        case 'INSERT':
-            query = req.params.type + ' INTO ' + req.params.table + ' ';
-            var names = '(';
-            var values = ' VALUES (';
-            var colon = '';
-            for (fname in req.body) {
-                names += colon + fname;
-                values += colon +  fvalue(fname, req.body[fname]);
-                colon = ',';
-            }
-            names += ',OWNER)';
-            values += ',' + owner + ')';
-            query += names + values;
-            break;
-        }
-        query += '<br><a href="/qform">Try again.</a>';
-        res.send(query);
+    app.get('/data/table', mypassport.ensureAuthenticated, function (req, res) {
+       var callback = function (err, rows) {
+            res.json(rows);
+        };
+        db.all('SELECT * from requests where user=' + req.user.id  + ' OR owner=' + req.user.id, callback);
     });
-
 };
