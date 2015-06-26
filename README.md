@@ -5,7 +5,7 @@ rfpcRequests
 
 یک سیستم جهت مدیریت درخواستهای انجام کار، کاربر امکان ثبت درخواست و پیگیری آنرا از طریق کارتابل خود دارد.
 
-Angularjs + Bootstrap [Bootstrap] + Jade [Jade] + Nodejs + Sqlite3
+[AngularJS] + [Bootstrap] + [Jade] + [NodeJS] + [Express] + [Sqlite3] + [Passportjs]
 
 ### bootstrap3-jade-node-express-grunt
 
@@ -73,4 +73,5 @@ Licensed under the MIT license.
 [Simon]: https://github.com/simonjmartin
 [Spacelab stylesheet]: http://bootswatch.com/2/spacelab/
 [Ubuntu]: http://www.ubuntu.com/
-[Yeoman]: http://yeoman.io/
+[Sqlite3]: https://github.com/mapbox/node-sqlite3
+[PassportJS]: http://passportjs.org
