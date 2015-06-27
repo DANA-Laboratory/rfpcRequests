@@ -2,6 +2,7 @@
 
 var dashboardApp = angular.module('dashboardApp', ['ngRoute']);
 var selectedRequestId= -1;
+var requestStatus = ['ثبت شده','در دست اقدام','خاتمه يافته','متوقف شده'];
 
 dashboardApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -86,8 +87,9 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
               method: 'GET',
               url: '/data/'+selectedRequestId
           }).success(function(data, status, headers, config) {
-              $scope.requestLevel = data.requestLevel;
+              $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
               $scope.userLevel = data.userLevel;
+              $scope.data = data;
               console.log(data);
           }).error(function(data, status, headers, config) {
               console.log("error get");
@@ -134,9 +136,8 @@ dashboardApp.controller('panelPrimary', function ($scope) {
 });
 
 function rowStyle(row, index) {
-  var requestStatus = ['ثبت شده', 'در حال بررسی', 'در حال اجرا' ,'خاتمه یافته', 'متوقف'];
   var rowRequestStatus = requestStatus.indexOf(row.status);
-  var classes = ['active', 'info', 'warning', 'success', 'danger'];
+  var classes = ['active', 'info', 'success', 'danger'];
   if (rowRequestStatus>-1) {
     return {
       classes: classes[rowRequestStatus]

@@ -17,8 +17,8 @@
         "srcPort": "3001"
     },
     "users": [
-        { "id": 1, "username": "rfpc", "password": "rfpc", "email": "rafzalan@rfpc.ir" },
-        { "id": 2, "username": "afzalan", "password": "vafa", "email": "rafzalan@rfpc.ir" }
+        { "id": 1, "username": "rfpc", "password": "rfpc", "email": "rafzalan@rfpc.ir", "name":"شرکت", "family":"ره آوران" },
+        { "id": 2, "username": "afzalan", "password": "vafa", "email": "rafzalan@rfpc.ir", "name":"رضا", "family":"افضلان" }
     ],
     "tasks": [
         {"name" : "تعريف در دامنه شرکت", "id" : 1}
@@ -83,5 +83,5 @@
         "نصب نرم افزار",
         "روشن خاموش کامپیوتر"
     ],
-    "status": ["ثبت شده" , "در حال بررسی" , "در حال اجرا" , "خاتمه یافته" , "متوقف"]
+    "status": ["ثبت شده","در دست اقدام","خاتمه يافته","متوقف شده"] 
 }
