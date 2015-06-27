@@ -13,15 +13,33 @@ dashboardApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'itRequest/10'
     })
   }]);
+
+var updatetasks = function(tasks,$http) {
+  var selectedtasks = [];
+  for (var task in tasks) {
+    if (tasks[task].selected) {
+      selectedtasks.push(tasks[task].name);
+    }
+  }
+  $http({
+      method: 'post',
+      url: '/data/updatetasks/'+selectedRequestId,
+      data: {tasks: JSON.stringify(selectedtasks)}
+  }).success(function(data, status, headers, config) {
+      console.log("tasks updated");
+  }).error(function(data, status, headers, config) {
+      console.log("error update tasks");
+  });
+}
   
-dashboardApp.directive('myOnKeyDownCall', function () {
+dashboardApp.directive('myOnKeyDownCall', function ($http) {
     return function (scope, element, attrs) {
         element.bind('keyup', function (event) {
             console.log(event);
             if (event.keyCode === 27 || scope.filtertext.length > 2) {
                 for (var item in scope.tasks) {
                     if (event.keyCode === 13 && scope.tasks[item].hide === false) {
-                         scope.tasks[item].selected = true;
+                        scope.tasks[item].selected = true;
                     } else {
                         if (event.keyCode === 27 || scope.tasks[item].name.search(scope.filtertext) !== -1) {
                             scope.tasks[item].hide = false;
@@ -33,6 +51,9 @@ dashboardApp.directive('myOnKeyDownCall', function () {
                 }
                 if (event.keyCode === 27 || event.keyCode === 13) {
                     scope.filtertext = '';
+                    if (event.keyCode === 13) {
+                        updatetasks(scope.tasks, $http);
+                    }
                 }
             }
             scope.$apply();
@@ -40,9 +61,10 @@ dashboardApp.directive('myOnKeyDownCall', function () {
     };
 });
 
-dashboardApp.controller('TaskController', function ($scope) {
+dashboardApp.controller('TaskController', function ($scope, $http) {
     $scope.taskitemclick = function (id) {
         $scope.tasks[id].selected = true;
+        updatetasks($scope.tasks, $http);
     };
     $scope.selectedtaskitemclick = function (id) {
         $scope.tasks[id].selected = false;

@@ -42,6 +42,14 @@ module.exports = function (app) {
         db.all('SELECT * from requests where user=' + req.user.id  + ' OR owner=' + req.user.id, callback);
     });
     
+    app.post('/data/updatetasks/:requestID', mypassport.ensureAuthenticated, function (req, res) {
+        var callback = function (err) {
+            console.log(err);
+        };
+        db.run('UPDATE requests SET requesttasks=? WHERE (owner=? AND id=?)', [JSON.stringify(req.body.tasks), req.user.id, req.params.requestID], callback);
+        res.json();
+    });
+    
     app.get('/data/:requestID', function (req, res) {
         var callback = function (err, rows) {
             //find right request & user Level
