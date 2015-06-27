@@ -47,17 +47,21 @@ module.exports = function (app) {
             //find right request & user Level
             //TODO
             rows.userLevel = 3;
-            if (req.user.id === rows.owner) rows.userLevel = 1;
-            if (req.user.id === rows.user) rows.userLevel = 0;
+            if (req.user.id === rows.owner) {
+                rows.userLevel = 1;
+            }
+            if (req.user.id === rows.user) {
+                rows.userLevel = 0;
+            }
             for (var user in appConfig.users) {
                 if (appConfig.users[user].id === rows.owner) {
-                    rows.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family
+                    rows.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family;
                 } else {
                     if (appConfig.users[user].id === rows.user) {
-                        rows.user = appConfig.users[user].name + ' ' + appConfig.users[user].family
+                        rows.user = appConfig.users[user].name + ' ' + appConfig.users[user].family;
                     }
                 }
-             }
+            }
             res.json(rows);
         };
         db.get('SELECT * from requests where id=' + req.params.requestID + '  AND (user=' + req.user.id  + ' OR owner=' + req.user.id + ')', callback);

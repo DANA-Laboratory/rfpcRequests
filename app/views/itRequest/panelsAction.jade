@@ -1,7 +1,7 @@
 .panel.panel-warning(ng-hide='hideaction', ng-if='requestLevel>0 && requestLevel<3')
   .panel-heading
     h3.panel-title دستورات
-      span.label.label-default.pull-left {{data.id + '-' + data.initdate + '-' + data.user}}
+      span.label.label-default.pull-left {{data.id + ' --- ' + data.initdate + ' --- ' + data.user}}
   .panel-body
     .well
       .form-group.col-md-12(ng-if='userLevel===1')

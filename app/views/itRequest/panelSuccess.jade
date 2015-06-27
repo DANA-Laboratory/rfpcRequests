@@ -1,6 +1,7 @@
 .panel.panel-success(ng-hide='hidesuccess', ng-if='(requestLevel===2 && userLevel===1) || requestLevel===3')
   .panel-heading
     h3.panel-title شرح فعالیت ها
+      span.label.label-default.pull-left {{data.id + ' --- ' + data.initdate + ' --- ' + data.user}}
   .panel-body(ng-controller = 'TaskController')
     .form-group.input-group
       input.form-control(my-on-key-down-call="itemsfilter()", ng-model='filtertext', type='text', placeholder='با ورود عبارت مناسب، فعالیت مورد نظر خود را بیابید...Esc=لغو فیلتر و Enter=انتخاب.')
