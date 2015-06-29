@@ -15,7 +15,17 @@ if (!exists) {
     sqlite3 = require('sqlite3').verbose();
     db = new sqlite3.Database(file);
 }
-
+var replaceIDwithNameFamily = function(rows) {
+    for (var user in appConfig.users) {
+        if (appConfig.users[user].id === rows.owner) {
+            rows.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family;
+        } else {
+            if (appConfig.users[user].id === rows.user) {
+                rows.user = appConfig.users[user].name + ' ' + appConfig.users[user].family;
+            }
+        }
+    }
+}
 module.exports = function (app) {
 
     app.get('/data/rightnav', mypassport.ensureAuthenticated, function (req, res) {
@@ -37,6 +47,9 @@ module.exports = function (app) {
 
     app.get('/data/table', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err, rows) {
+            for (var row in rows) {
+                replaceIDwithNameFamily(rows[row]);
+            }
             res.json(rows);
         };
         db.all('SELECT * from requests where user=' + req.user.id  + ' OR owner=' + req.user.id, callback);
@@ -61,15 +74,7 @@ module.exports = function (app) {
             if (req.user.id === rows.user) {
                 rows.userLevel = 0;
             }
-            for (var user in appConfig.users) {
-                if (appConfig.users[user].id === rows.owner) {
-                    rows.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family;
-                } else {
-                    if (appConfig.users[user].id === rows.user) {
-                        rows.user = appConfig.users[user].name + ' ' + appConfig.users[user].family;
-                    }
-                }
-            }
+            replaceIDwithNameFamily(rows);
             res.json(rows);
         };
         db.get('SELECT * from requests where id=' + req.params.requestID + '  AND (user=' + req.user.id  + ' OR owner=' + req.user.id + ')', callback);

@@ -5,6 +5,7 @@
   .panel-body
     .well
       .form-group.col-md-12(ng-if='userLevel===1')
+        - var captions = ['actionUserName', 'actionDate', 'actionTime']
         include parts/datetime.jade
         .btn.btn-primary.pull-left(type='button', ng-if='requestLevel===1') آغاز کار
           .span.glyphicon.glyphicon-play(aria-hidden='true')

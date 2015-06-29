@@ -35,7 +35,6 @@ var updatetasks = function(tasks,$http) {
 dashboardApp.directive('myOnKeyDownCall', function ($http) {
     return function (scope, element, attrs) {
         element.bind('keyup', function (event) {
-            console.log(event);
             if (event.keyCode === 27 || scope.filtertext.length > 2) {
                 for (var item in scope.tasks) {
                     if (event.keyCode === 13 && scope.tasks[item].hide === false) {
@@ -85,22 +84,24 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     $scope.hidesuccess = true;
     $scope.hideaction = true;
     
-    $scope.viewrequestclick = function (id) {
-        //TODO data reader user
-        $scope.userLevel = 3; //data reader
-        $scope.getdata();
-        $scope.hidetableclick();
-    };
-    
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
         $scope.userLevel = 0;
+        var date = new Date();
+        $scope.currentDate = gregorianToJalali(date , '/');
+        $scope.currentTime = date.getHours() + ':' + date.getMinutes();
+        $scope.userName = $scope.currentUserFullName;
         $scope.hidetableclick();
+    };
+
+    $scope.viewrequestclick = function (id) {
+        //TODO data reader user
+        $scope.readonly = true; 
+        $scope.openrequestclick(id);
     };
     
     $scope.openrequestclick = function (id) {
         $scope.getdata();
-        $scope.hidetableclick();
     };
     
     $scope.getdata = function () {
@@ -112,7 +113,8 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
               $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
               $scope.userLevel = data.userLevel;
               $scope.data = data;
-              console.log(data);
+              $scope.userName = $scope.data.user;
+              $scope.hidetableclick();
           }).error(function(data, status, headers, config) {
               console.log("error get");
           });
@@ -153,8 +155,18 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
 
 dashboardApp.controller('panelPrimary', function ($scope) {
     var date = new Date();
-    $scope.currentDate = gregorianToJalali(date , '/');
-    $scope.currentTime = date.getHours() + ':' + date.getMinutes();
+    $scope.selection = [];
+    $scope.toggleselection = function (item) {
+        var idx = $scope.selection.indexOf(item);
+        // is currently selected
+        if (idx > -1) {
+          $scope.selection.splice(idx, 1);
+        }
+        // is newly selected
+        else {
+          $scope.selection.push(item);
+        }
+    };
 });
 
 function rowStyle(row, index) {
@@ -171,7 +183,7 @@ function rowStyle(row, index) {
 
 $(function () {
     $('#requestsTable').on('all.bs.table', function (e, name, args) {
-        console.log('Event:', name, ', data:', args);
+        //console.log('Event:', name, ', data:', args);
     })
     .on('click-row.bs.table', function (e, row, $element) {
     })

@@ -11,8 +11,8 @@ include head.jade
             form.navbar-form.navbar-left(role='form', action='/login', method='post')
               .form-group
                 span.label.label-warning(style='margin-left:5px') #{message}
-                input.form-control(type='text', name="username", placeholder='نام کاربری')
-                input.form-control(type='password', name="password", placeholder='کلمه عبور')
+                input.form-control(type='text', name='username', placeholder='نام کاربری')
+                input.form-control(type='password', name='password', placeholder='کلمه عبور')
                 button.btn.btn-success(type='submit') ورود 
           else
             form.navbar-form.navbar-left(role='form', action='/logout')
@@ -26,5 +26,6 @@ include head.jade
           p
             | این پایگاه اینترنتی به منظور ثبت درخواست انجام کار، پیگیری درخواستهای ثبت شده و تهیه گزارشات مورد نیاز طراحی شده است، جهت ورود به پایگاه ابتدا نام کاربری و کلمه عبور خود را در قسمت بالا وارد نمایید.
     else
+      div(ng-init='currentUserFullName=\'#{user.name} #{user.family}\'')
       include dashboard.jade
     include foot.jade
