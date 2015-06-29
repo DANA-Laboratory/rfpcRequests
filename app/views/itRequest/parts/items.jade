@@ -1,4 +1,4 @@
 each val,index in requestItems
   label.checkbox-inline(for='checkboxes-'+index)
-    input(type='checkbox', id='checkboxes-'+index, value=val, ng-checked='selection.indexOf("'+val+'") > -1', ng-click='toggleselection("'+val+'")')
+    input(type='checkbox', id='checkboxes-'+index, value=val, ng-checked='data.requestitems.indexOf("'+val+'") > -1', ng-click='toggleselection("'+val+'")')
     | #{val}

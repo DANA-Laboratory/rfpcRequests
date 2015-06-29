@@ -20,11 +20,11 @@ var updatetasks = function(tasks,$http) {
     if (tasks[task].selected) {
       selectedtasks.push(tasks[task].name);
     }
-  }
+  }  
   $http({
       method: 'post',
       url: '/data/updatetasks/'+selectedRequestId,
-      data: {tasks: JSON.stringify(selectedtasks)}
+      data: {tasks: selectedtasks}
   }).success(function(data, status, headers, config) {
       console.log("tasks updated");
   }).error(function(data, status, headers, config) {
@@ -88,9 +88,10 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
         $scope.requestLevel = 0;
         $scope.userLevel = 0;
         var date = new Date();
-        $scope.currentDate = gregorianToJalali(date , '/');
-        $scope.currentTime = date.getHours() + ':' + date.getMinutes();
-        $scope.userName = $scope.currentUserFullName;
+        $scope.data ={description : "" , requestitems : [], owner: 1}
+        $scope.data.initdate = gregorianToJalali(date , '/');
+        $scope.data.inittime = date.getHours() + ':' + date.getMinutes();
+        $scope.data.user = $scope.currentUserFullName;
         $scope.hidetableclick();
     };
 
@@ -106,18 +107,25 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     
     $scope.getdata = function () {
         if (selectedRequestId!==-1) {
-          $http({
-              method: 'GET',
-              url: '/data/'+selectedRequestId
-          }).success(function(data, status, headers, config) {
-              $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
-              $scope.userLevel = data.userLevel;
-              $scope.data = data;
-              $scope.userName = $scope.data.user;
-              $scope.hidetableclick();
-          }).error(function(data, status, headers, config) {
-              console.log("error get");
-          });
+            $http({
+                method: 'GET',
+                url: '/data/'+selectedRequestId
+            }).success(function(data, status, headers, config) {
+                $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
+                $scope.userLevel = data.userLevel;
+                //data binding
+                $scope.data = data;
+                for (var task in $scope.tasks) {
+                    if ($scope.data.requesttasks.indexOf($scope.tasks[task].name) > -1) {
+                        $scope.tasks[task].selected = true;
+                    } else {
+                        $scope.tasks[task].selected = false;
+                    }
+                }
+                $scope.hidetableclick();
+            }).error(function(data, status, headers, config) {
+                console.log("error get");
+            });
         }
     };
     
@@ -151,22 +159,33 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
         $scope.hidetable =  false;
         $scope.hiderequest = true;
     };
-});
-
-dashboardApp.controller('panelPrimary', function ($scope) {
-    var date = new Date();
-    $scope.selection = [];
+    
     $scope.toggleselection = function (item) {
-        var idx = $scope.selection.indexOf(item);
+        var idx = $scope.data.requestitems.indexOf(item);
         // is currently selected
         if (idx > -1) {
-          $scope.selection.splice(idx, 1);
+          $scope.data.requestitems.splice(idx, 1);
         }
         // is newly selected
         else {
-          $scope.selection.push(item);
+          $scope.data.requestitems.push(item);
+          //console.log($scope.data);
         }
     };
+    
+    $scope.insertbtnclick = function (id) {
+        //console.log($scope.data);
+        $http({
+          method: 'post',
+          url: '/data/insertrequest/',
+          data: $scope.data
+        }).success(function(data, status, headers, config) {
+          console.log("insert request OK");
+          $scope.backclick(id);
+        }).error(function(data, status, headers, config) {
+          console.log("error insert request");
+        });
+    }
 });
 
 function rowStyle(row, index) {

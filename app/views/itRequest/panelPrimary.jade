@@ -1,9 +1,9 @@
 .panel.panel-primary(ng-hide='hideprimary')
   .panel-heading
     h3.panel-title فرم درخواست انجام کار واحد خدمات کامپیوتری
-  .panel-body(ng-controller='panelPrimary')
+  .panel-body
     .row.form-group
-      - var captions = ['userName', 'currentDate', 'currentTime']
+      - var captions = ['data.user', 'data.initdate', 'data.inittime']
       include parts/datetime.jade
     .row
       label.col-md-3.control-label(for='checkboxes') موضوع درخواست
@@ -12,12 +12,12 @@
     .row.form-group
       label.col-md-2.control-label(for='textarea') توضیحات
       .col-md-8
-        textarea#textarea.form-control(name='textarea') 
+        textarea#textarea.form-control(name='description', ng-model='data.description') 
   .panel-footer  
     .btn-group.btn-group-justified(role='group', ng-if='requestLevel===0')
-      .btn.btn-default(name='buttoncancel') انصراف
+      .btn.btn-default(name='buttoncancel', ng-click='backclick()') انصراف
         .span.glyphicon.glyphicon-remove(aria-hidden='true') 
-      .btn.btn-success(name='buttonok') ثبت درخواست
+      .btn.btn-success(name='buttoninsert', ng-click='insertbtnclick()') ثبت درخواست
         .span.glyphicon.glyphicon-ok
     .alert.alert-info(role='alert', ng-if='requestLevel===1')
       span.glyphicon.glyphicon-hourglass(aria-hidden='true')

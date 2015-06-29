@@ -9,13 +9,15 @@ var appConfig = require('../config/appConfig.json');
 var exists = fs.existsSync(file);
 var sqlite3 = null;
 var db = null;
+
 if (!exists) {
     console.log('database not exists!');
 } else {
     sqlite3 = require('sqlite3').verbose();
     db = new sqlite3.Database(file);
 }
-var replaceIDwithNameFamily = function(rows) {
+
+var replaceIDwithNameFamily = function (rows) {
     for (var user in appConfig.users) {
         if (appConfig.users[user].id === rows.owner) {
             rows.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family;
@@ -25,11 +27,11 @@ var replaceIDwithNameFamily = function(rows) {
             }
         }
     }
-}
+};
+
 module.exports = function (app) {
 
     app.get('/data/rightnav', mypassport.ensureAuthenticated, function (req, res) {
-
         var ret = [];
         var callback = function (err, rows) {
             ret.push(rows.count);
@@ -60,6 +62,15 @@ module.exports = function (app) {
             console.log(err);
         };
         db.run('UPDATE requests SET requesttasks=? WHERE (owner=? AND id=?)', [JSON.stringify(req.body.tasks), req.user.id, req.params.requestID], callback);
+        res.json();
+    });
+    
+    app.post('/data/insertrequest', mypassport.ensureAuthenticated, function (req, res) {
+        var callback = function (err) {
+            console.log(err);
+        };
+        db.run('INSERT INTO requests (requestitems,owner,user,status,initdate,inittime,description) VALUES (?,?,?,?,?,?,?)', [JSON.stringify(req.body.requestitems), req.body.owner, req.user.id, appConfig.status[0], req.body.initdate, req.body.inittime, req.body.description], callback);
+        console.log(req.body);
         res.json();
     });
     
