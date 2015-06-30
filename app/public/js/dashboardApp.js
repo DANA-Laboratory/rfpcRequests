@@ -3,6 +3,13 @@
 var dashboardApp = angular.module('dashboardApp', ['ngRoute']);
 var selectedRequestId= -1;
 var requestStatus = ['ثبت شده','در دست اقدام','خاتمه يافته','متوقف شده'];
+var refreshTable = function (id) {
+    if (null==id) {
+        $('#requestsTable').bootstrapTable('refresh', {url: '/data/table'});
+    } else {
+        $('#requestsTable').bootstrapTable('refresh', {url: '/data/table/' + id});
+    }
+}
 
 dashboardApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -76,6 +83,33 @@ dashboardApp.controller('TaskController', function ($scope, $http) {
     };
 });
 
+dashboardApp.controller('navsidebar', function ($scope, $http) {
+    $scope.requestStatus = requestStatus;
+    console.log($scope.currentUserID);
+    var active= function (id) {
+        var ac = ['','','','','','','',''];
+        if (id != null) {
+            ac[id] = 'active';
+        }
+        return ac
+    }
+    $scope.active=active(0);
+    $scope.liclick = function (id) {
+        $scope.active=active(id);
+        refreshTable(id);
+    };
+    
+    $http({
+        method: 'GET',
+        url: '/data/nsidebar'
+    }).success(function(data, status, headers, config) {
+        //data binding
+        $scope.ndata = data;
+    }).error(function(data, status, headers, config) {
+        console.log("error get side bar data");
+    });
+});
+
 dashboardApp.controller('dashboard', function ($scope, $http) {
     
     $scope.hidetable =  false;
@@ -88,7 +122,7 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
         $scope.requestLevel = 0;
         $scope.userLevel = 0;
         var date = new Date();
-        $scope.data ={description : "" , requestitems : [], owner: 1}
+        $scope.data ={description : "" , requestitems : [], owner: 1} //owner for IT Requeststs
         $scope.data.initdate = gregorianToJalali(date , '/');
         $scope.data.inittime = date.getHours() + ':' + date.getMinutes();
         $scope.data.user = $scope.currentUserFullName;
@@ -115,11 +149,13 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
                 $scope.userLevel = data.userLevel;
                 //data binding
                 $scope.data = data;
-                for (var task in $scope.tasks) {
-                    if ($scope.data.requesttasks.indexOf($scope.tasks[task].name) > -1) {
-                        $scope.tasks[task].selected = true;
-                    } else {
-                        $scope.tasks[task].selected = false;
+                if (null!=$scope.data.requesttasks) {
+                    for (var task in $scope.tasks) {
+                        if ($scope.data.requesttasks.indexOf($scope.tasks[task].name) > -1) {
+                            $scope.tasks[task].selected = true;
+                        } else {
+                            $scope.tasks[task].selected = false;
+                        }
                     }
                 }
                 $scope.hidetableclick();
@@ -181,9 +217,28 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           data: $scope.data
         }).success(function(data, status, headers, config) {
           console.log("insert request OK");
+          refreshTable(null);
           $scope.backclick(id);
         }).error(function(data, status, headers, config) {
           console.log("error insert request");
+        });
+    }
+    
+    $scope.updatestatus = function (id) {
+        $scope.data.status = requestStatus[id];
+        var date = new Date();
+        $scope.data.actiondate = gregorianToJalali(date , '/');
+        $scope.data.actiontime = date.getHours() + ':' + date.getMinutes();
+        $http({
+          method: 'post',
+          url: '/data/updatestatus/' + selectedRequestId,
+          data: $scope.data
+        }).success(function(data, status, headers, config) {
+          console.log("update status OK");
+          refreshTable(null);
+          $scope.backclick(id);
+        }).error(function(data, status, headers, config) {
+          console.log("error update status");
         });
     }
 });

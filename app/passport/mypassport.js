@@ -69,7 +69,7 @@ passport.use(new LocalStrategy(
 // the request will proceed.  Otherwise, the user will be redirected to the
 // login page.
 exports.ensureAuthenticated =  function (req, res, next) {
-  if (global.DEVELOPMENT || req.isAuthenticated()) { return next(); }
+  if (req.isAuthenticated()) { return next(); }
   req.flash('error', 'Login first');
   res.redirect('/');
 }

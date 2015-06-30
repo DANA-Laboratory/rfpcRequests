@@ -5,14 +5,14 @@
   .panel-body
     .well
       .form-group.col-md-12(ng-if='userLevel===1')
-        - var captions = ['actionUserName', 'actionDate', 'actionTime']
+        - var captions = ['data.user', 'data.actiondate', 'data.actiontime']
         include parts/datetime.jade
-        .btn.btn-primary.pull-left(type='button', ng-if='requestLevel===1') آغاز کار
+        .btn.btn-primary.pull-left(type='button', ng-if='requestLevel===1', ng-click='updatestatus(1)') آغاز کار
           .span.glyphicon.glyphicon-play(aria-hidden='true')
-        .btn.btn-success.pull-left(type='button', ng-if='requestLevel===2') خاتمه
+        .btn.btn-success.pull-left(type='button', ng-if='requestLevel===2', ng-click='updatestatus(2)') خاتمه
           .span.glyphicon.glyphicon-ok(aria-hidden='true')
       .input-group
-        input.form-control(type='text', placeholder='علت لغو...')
+        input.form-control(type='text', placeholder='علت لغو...', ng-model='data.cancelwhy')
         .span.input-group-btn
-          .btn.btn-warning(type='button') لغو درخواست
+          .btn.btn-warning(type='button', ng-click='updatestatus(3)') لغو درخواست
             .span.glyphicon.glyphicon-remove(aria-hidden='true')

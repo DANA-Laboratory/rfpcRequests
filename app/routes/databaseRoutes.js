@@ -31,7 +31,7 @@ var replaceIDwithNameFamily = function (rows) {
 
 module.exports = function (app) {
 
-    app.get('/data/rightnav', mypassport.ensureAuthenticated, function (req, res) {
+    app.get('/data/nsidebar', mypassport.ensureAuthenticated, function (req, res) {
         var ret = [];
         var callback = function (err, rows) {
             ret.push(rows.count);
@@ -57,12 +57,43 @@ module.exports = function (app) {
         db.all('SELECT * from requests where user=' + req.user.id  + ' OR owner=' + req.user.id, callback);
     });
     
+     app.get('/data/table/:status', mypassport.ensureAuthenticated, function (req, res) {
+        var callback = function (err, rows) {
+            for (var row in rows) {
+                replaceIDwithNameFamily(rows[row]);
+            }
+            res.json(rows);
+        };
+        if (req.params.status>3) {
+            req.params.status -= 4;
+        }
+        db.all('SELECT * from requests where (user=? OR owner=?) AND status=?', [req.user.id, req.user.id, appConfig.status[req.params.status]], callback);
+    });
+    
     app.post('/data/updatetasks/:requestID', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
             console.log(err);
         };
         db.run('UPDATE requests SET requesttasks=? WHERE (owner=? AND id=?)', [JSON.stringify(req.body.tasks), req.user.id, req.params.requestID], callback);
         res.json();
+    });
+    
+    app.post('/data/updatestatus/:requestID', mypassport.ensureAuthenticated, function (req, res) {
+        var callback = function (err) {
+            console.log('update status error=', err);
+        };
+        if (req.body.status === appConfig.status[1]) {
+            db.run('UPDATE requests SET status=?, startdate=?, starttime=?, startuser=? WHERE id=?', [req.body.status, req.body.actiondate, req.body.actiontime, req.user.id, req.params.requestID], callback);
+            res.json();
+        }
+        if (req.body.status === appConfig.status[2]) {
+            db.run('UPDATE requests SET status=?, enddate=?, endtime=?, enduser=? WHERE id=?', [req.body.status, req.body.actiondate, req.body.actiontime, req.user.id, req.params.requestID], callback);
+            res.json();
+        }
+        if (req.body.status === appConfig.status[3]) {
+            db.run('UPDATE requests SET status=?, canceldate=?, canceltime=?, cancelwhy=?, canceluser=? WHERE id=?', [req.body.status, req.body.actiondate, req.body.actiontime, req.body.cancelwhy, req.user.id, req.params.requestID], callback);
+            res.json();
+        }
     });
     
     app.post('/data/insertrequest', mypassport.ensureAuthenticated, function (req, res) {
