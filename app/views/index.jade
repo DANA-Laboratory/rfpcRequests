@@ -26,6 +26,6 @@ include head.jade
           p
             | این پایگاه اینترنتی به منظور ثبت درخواست انجام کار، پیگیری درخواستهای ثبت شده و تهیه گزارشات مورد نیاز طراحی شده است، جهت ورود به پایگاه ابتدا نام کاربری و کلمه عبور خود را در قسمت بالا وارد نمایید.
     else
-      div(ng-init='currentUserFullName=\'#{user.name} #{user.family}\'; currentUserID=#{user.id}')
+      div(ng-init='currentUserFullName=\'#{user.name} #{user.family}\'; currentUserID=#{user.id}; userLevel=#{user.userLevel}')
       include dashboard.jade
     include foot.jade

@@ -85,7 +85,6 @@ dashboardApp.controller('TaskController', function ($scope, $http) {
 
 dashboardApp.controller('navsidebar', function ($scope, $http) {
     $scope.requestStatus = requestStatus;
-    console.log($scope.currentUserID);
     var active= function (id) {
         var ac = ['','','','','','','',''];
         if (id != null) {
@@ -120,7 +119,6 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
-        $scope.userLevel = 0;
         var date = new Date();
         $scope.data ={description : "" , requestitems : [], owner: 1} //owner for IT Requeststs
         $scope.data.initdate = gregorianToJalali(date , '/');
@@ -146,7 +144,6 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
                 url: '/data/'+selectedRequestId
             }).success(function(data, status, headers, config) {
                 $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
-                $scope.userLevel = data.userLevel;
                 //data binding
                 $scope.data = data;
                 if (null!=$scope.data.requesttasks) {

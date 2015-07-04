@@ -57,14 +57,14 @@ module.exports = function (app) {
         db.all('SELECT * from requests where user=' + req.user.id  + ' OR owner=' + req.user.id, callback);
     });
     
-     app.get('/data/table/:status', mypassport.ensureAuthenticated, function (req, res) {
+    app.get('/data/table/:status', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err, rows) {
             for (var row in rows) {
                 replaceIDwithNameFamily(rows[row]);
             }
             res.json(rows);
         };
-        if (req.params.status>3) {
+        if (req.params.status > 3) {
             req.params.status -= 4;
         }
         db.all('SELECT * from requests where (user=? OR owner=?) AND status=?', [req.user.id, req.user.id, appConfig.status[req.params.status]], callback);
@@ -107,15 +107,6 @@ module.exports = function (app) {
     
     app.get('/data/:requestID', function (req, res) {
         var callback = function (err, rows) {
-            //find right request & user Level
-            //TODO
-            rows.userLevel = 3;
-            if (req.user.id === rows.owner) {
-                rows.userLevel = 1;
-            }
-            if (req.user.id === rows.user) {
-                rows.userLevel = 0;
-            }
             replaceIDwithNameFamily(rows);
             res.json(rows);
         };
