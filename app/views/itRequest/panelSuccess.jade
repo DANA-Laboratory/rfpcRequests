@@ -1,4 +1,4 @@
-.panel.panel-success(ng-hide='hidesuccess', ng-if='(requestLevel===2 && userLevel===1) || requestLevel===3')
+.panel.panel-success(ng-hide='hidesuccess', ng-if='(requestLevel>2)')
   .panel-heading
     h3.panel-title شرح فعالیت ها
       span.label.label-default.pull-left {{data.id + ' --- ' + data.initdate + ' --- ' + data.user}}

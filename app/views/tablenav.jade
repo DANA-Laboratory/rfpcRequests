@@ -1,7 +1,7 @@
 .btn-group.btn-group-justified(role='group')
   .btn-group(role='group')
-    a.btn.btn-info.btn-xs(ng-if='userLevel===0', type='button', href='#it', ng-click='viewrequestclick()') نمایش 
+    a.btn.btn-info.btn-xs(ng-if='isCreator', type='button', href='#it', ng-click='viewrequestclick()') نمایش 
   .btn-group(role='group')
     a.btn.btn-primary.btn-xs(type='button', href='#it', ng-click='newrequestclick()') درخواست جدید
   .btn-group(role='group')
-    a.btn.btn-success.btn-xs(ng-if='userLevel===1', type='button', href='#it', ng-click='openrequestclick()') بررسی 
+    a.btn.btn-success.btn-xs(ng-if='isOwner', type='button', href='#it', ng-click='openrequestclick()') بررسی 

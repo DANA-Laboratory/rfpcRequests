@@ -17,9 +17,9 @@
         "srcPort": "3001"
     },
     "users": [
-        { "id": 1, "username": "hazizi", "password": "rfpc", "email": "hazizi@rfpc.ir", "userLevel":1, "name":"حسین", "family":"عزیزی" },
-        { "id": 2, "username": "rfpc", "password": "rfpc", "email": "rafzalan@rfpc.ir", "userLevel":0, "name":"شرکت", "family":"ره آوران" },
-        { "id": 3, "username": "afzalan", "password": "rfpc", "email": "rafzalan@rfpc.ir", "userLevel":0, "name":"رضا", "family":"افضلان" }
+        { "id": 1, "username": "hazizi", "password": "rfpc", "email": "hazizi@rfpc.ir", "isOwner":1, "name":"حسین", "family":"عزیزی" },
+        { "id": 2, "username": "rfpc", "password": "rfpc", "email": "rafzalan@rfpc.ir", "name":"شرکت", "family":"ره آوران" },
+        { "id": 3, "username": "afzalan", "password": "rfpc", "email": "rafzalan@rfpc.ir", "name":"رضا", "family":"افضلان" }
     ],
     "tasks": [
         {"name" : "تعريف در دامنه شرکت", "id" : 1}

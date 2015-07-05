@@ -107,6 +107,12 @@ module.exports = function (app) {
     
     app.get('/data/:requestID', function (req, res) {
         var callback = function (err, rows) {
+            //console.log(rows.user,req.user.id);
+            if (rows.user === req.user.id) {
+                rows.isCreator = true;
+            } else {
+                rows.isCreator = false;
+            }
             replaceIDwithNameFamily(rows);
             res.json(rows);
         };

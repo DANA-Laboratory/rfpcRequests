@@ -134,7 +134,8 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     };
     
     $scope.openrequestclick = function (id) {
-        $scope.getdata();
+        //$scope.getdata();
+        $scope.hidetableclick();
     };
     
     $scope.getdata = function () {
@@ -145,6 +146,8 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
             }).success(function(data, status, headers, config) {
                 $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
                 //data binding
+                $scope.isCreator = data.isCreator;
+                //console.log($scope.isCreator);
                 $scope.data = data;
                 if (null!=$scope.data.requesttasks) {
                     for (var task in $scope.tasks) {
@@ -155,7 +158,6 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
                         }
                     }
                 }
-                $scope.hidetableclick();
             }).error(function(data, status, headers, config) {
                 console.log("error get");
             });
@@ -238,6 +240,38 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           console.log("error update status");
         });
     }
+    $(function () {
+        $('#requestsTable').on('all.bs.table', function (e, name, args) {
+            //console.log('Event:', name, ', data:', args);
+        })
+        .on('click-row.bs.table', function (e, row, $element) {
+        })
+        .on('dbl-click-row.bs.table', function (e, row, $element) {
+        })
+        .on('sort.bs.table', function (e, name, order) {
+        })
+        .on('check.bs.table', function (e, row) {
+            selectedRequestId = row.id;
+            //console.log(selectedRequestId);
+            $scope.getdata();
+        })
+        .on('uncheck.bs.table', function (e, row) {
+        })
+        .on('check-all.bs.table', function (e) {
+        })
+        .on('uncheck-all.bs.table', function (e) {
+        })
+        .on('load-success.bs.table', function (e, data) {
+        })
+        .on('load-error.bs.table', function (e, status) {
+        })
+        .on('column-switch.bs.table', function (e, field, checked) {
+        })
+        .on('page-change.bs.table', function (e, number, size) {
+        })
+        .on('search.bs.table', function (e, text) {
+        });
+    });
 });
 
 function rowStyle(row, index) {
@@ -250,35 +284,3 @@ function rowStyle(row, index) {
   };
   return {};
 }
-
-
-$(function () {
-    $('#requestsTable').on('all.bs.table', function (e, name, args) {
-        //console.log('Event:', name, ', data:', args);
-    })
-    .on('click-row.bs.table', function (e, row, $element) {
-    })
-    .on('dbl-click-row.bs.table', function (e, row, $element) {
-    })
-    .on('sort.bs.table', function (e, name, order) {
-    })
-    .on('check.bs.table', function (e, row) {
-        selectedRequestId = row.id;
-    })
-    .on('uncheck.bs.table', function (e, row) {
-    })
-    .on('check-all.bs.table', function (e) {
-    })
-    .on('uncheck-all.bs.table', function (e) {
-    })
-    .on('load-success.bs.table', function (e, data) {
-    })
-    .on('load-error.bs.table', function (e, status) {
-    })
-    .on('column-switch.bs.table', function (e, field, checked) {
-    })
-    .on('page-change.bs.table', function (e, number, size) {
-    })
-    .on('search.bs.table', function (e, text) {
-    });
-});
