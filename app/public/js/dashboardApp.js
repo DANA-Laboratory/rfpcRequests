@@ -3,6 +3,7 @@
 var dashboardApp = angular.module('dashboardApp', ['ngRoute']);
 var selectedRequestId= -1;
 var requestStatus = ['ثبت شده','در دست اقدام','خاتمه يافته','متوقف شده'];
+
 var refreshTable = function (id) {
     if (null==id) {
         $('#requestsTable').bootstrapTable('refresh', {url: '/data/table'});
@@ -146,8 +147,6 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
             }).success(function(data, status, headers, config) {
                 $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
                 //data binding
-                $scope.isCreator = data.isCreator;
-                //console.log($scope.isCreator);
                 data.requestitems = JSON.parse(data.requestitems);
                 $scope.data = data;
                 if (null!=$scope.data.requesttasks) {
@@ -192,6 +191,9 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     };
     
     $scope.backclick = function (id) {
+        $scope.data = {};
+        selectedRequestId= -1;
+        refreshTable(null);
         $scope.hidetable =  false;
         $scope.hiderequest = true;
     };
@@ -199,7 +201,6 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     $scope.toggleselection = function (item) {
         var idx = $scope.data.requestitems.indexOf(item);
         // is currently selected
-        console.log($scope.data.requestitems,idx);
         if (idx > -1) {
           $scope.data.requestitems.splice(idx, 1);
         }
@@ -208,13 +209,18 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           $scope.data.requestitems.push(item);
           //console.log($scope.data);
         }
-        $http({
+        $scope.updateRequest();
+    };
+    
+    $scope.updateRequest = function() {
+       $scope.message = 'به روز رسانی....';
+       $http({
           method: 'post',
-          url: '/data/updaterequestitems/',
+          url: '/data/updaterequest/',
           data: $scope.data
         }).success(function(data, status, headers, config) {
           console.log("update request  items OK");
-          refreshTable(null);
+          $scope.message = '';
         }).error(function(data, status, headers, config) {
           console.log("error update request items");
         });

@@ -104,11 +104,11 @@ module.exports = function (app) {
         res.json();
     });
     
-   app.post('/data/updaterequestitems', mypassport.ensureAuthenticated, function (req, res) {
+   app.post('/data/updaterequest', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
             console.log(err);
         };
-        db.run('UPDATE requests SET requestitems=? WHERE (id=? AND user=?)', [JSON.stringify(req.body.requestitems), req.body.id, req.user.id], callback);
+        db.run('UPDATE requests SET requestitems=?, description=? WHERE (id=? AND user=?)', [JSON.stringify(req.body.requestitems), req.body.description, req.body.id, req.user.id], callback);
         res.json();
     });
     
