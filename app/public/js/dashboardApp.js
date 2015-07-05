@@ -258,6 +258,11 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           console.log("error update status");
         });
     }
+    
+    $scope.setUserIdName = function(index, val) {
+        $scope.data.user = val;
+    }
+    
     $(function () {
         $('#requestsTable').on('all.bs.table', function (e, name, args) {
             //console.log('Event:', name, ', data:', args);
