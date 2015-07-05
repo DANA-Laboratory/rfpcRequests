@@ -1,7 +1,25 @@
+form.form-horizontal(role='form')
+    .form-group
+        label.col-lg-2.control-label(for='basic') &quot;Basic&quot; (liveSearch enabled)
+        |       
+        .col-lg-10
+          select#basic.selectpicker.show-tick.form-control(data-live-search='true')
+            option cow
+            |           
+            option(data-subtext='option subtext') bull
+            |           
+            option.get-class(disabled='') ox
+            |           
+            optgroup(label='test', data-subtext='optgroup subtext')
+              option ASD
+              |             
+              option(selected='') Bla
+              |             
+              option Ble
 - var values = ['کاربر' ,'تاریخ' , 'ساعت']
 .col-md-3
-    label.col-sm-1.control-label(for='#{captions[0]}')=values[0]    
-    input.form-control(id='#{captions[0]}', ng-model='#{captions[0]}', type='text', placeholder=values[0], style='text-align : center', readonly) 
+    label.col-sm-1.control-label(for='#{captions[0]}')=values[0] 
+    input.form-control(id='#{captions[0]}', ng-model='#{captions[0]}', type='text', placeholder=values[0], style='text-align : center', ng-readonly='true')
 .col-md-3
     label.col-sm-1.control-label(for='#{captions[1]}')=values[1]    
     input.form-control(id='#{captions[1]}', ng-model='#{captions[1]}', type='text', placeholder=values[1], style='text-align : center', readonly) 
