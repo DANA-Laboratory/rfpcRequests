@@ -148,6 +148,7 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
                 //data binding
                 $scope.isCreator = data.isCreator;
                 //console.log($scope.isCreator);
+                data.requestitems = JSON.parse(data.requestitems);
                 $scope.data = data;
                 if (null!=$scope.data.requesttasks) {
                     for (var task in $scope.tasks) {
@@ -198,6 +199,7 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     $scope.toggleselection = function (item) {
         var idx = $scope.data.requestitems.indexOf(item);
         // is currently selected
+        console.log($scope.data.requestitems,idx);
         if (idx > -1) {
           $scope.data.requestitems.splice(idx, 1);
         }
@@ -206,6 +208,16 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           $scope.data.requestitems.push(item);
           //console.log($scope.data);
         }
+        $http({
+          method: 'post',
+          url: '/data/updaterequestitems/',
+          data: $scope.data
+        }).success(function(data, status, headers, config) {
+          console.log("update request  items OK");
+          refreshTable(null);
+        }).error(function(data, status, headers, config) {
+          console.log("error update request items");
+        });
     };
     
     $scope.insertbtnclick = function (id) {

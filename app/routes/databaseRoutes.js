@@ -101,7 +101,14 @@ module.exports = function (app) {
             console.log(err);
         };
         db.run('INSERT INTO requests (requestitems,owner,user,status,initdate,inittime,description) VALUES (?,?,?,?,?,?,?)', [JSON.stringify(req.body.requestitems), req.body.owner, req.user.id, appConfig.status[0], req.body.initdate, req.body.inittime, req.body.description], callback);
-        console.log(req.body);
+        res.json();
+    });
+    
+   app.post('/data/updaterequestitems', mypassport.ensureAuthenticated, function (req, res) {
+        var callback = function (err) {
+            console.log(err);
+        };
+        db.run('UPDATE requests SET requestitems=? WHERE (id=? AND user=?)', [JSON.stringify(req.body.requestitems), req.body.id, req.user.id], callback);
         res.json();
     });
     
