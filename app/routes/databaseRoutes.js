@@ -104,7 +104,7 @@ module.exports = function (app) {
         res.json();
     });
     
-   app.post('/data/updaterequest', mypassport.ensureAuthenticated, function (req, res) {
+    app.post('/data/updaterequest', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
             console.log(err);
         };
