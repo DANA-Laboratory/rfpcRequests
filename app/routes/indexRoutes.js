@@ -8,10 +8,8 @@ var appConfig = require('../config/appConfig.json');
 var userNameIDs = [];
 
 for (var user in appConfig.users) {
-  userNameIDs.push([appConfig.users[user].id, appConfig.users[user].name + ' ' + appConfig.users[user].family]);
+    userNameIDs.push([appConfig.users[user].id, appConfig.users[user].name + ' ' + appConfig.users[user].family]);
 }
-
-console.log(userNameIDs);
 
 module.exports = function (app) {
     app.get('/', function (req, res) {

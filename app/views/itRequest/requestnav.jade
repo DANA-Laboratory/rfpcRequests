@@ -6,5 +6,5 @@
     button.btn.btn-primary.btn-xs(ng-click = 'showprimaryclick()') درخواست
   .btn-group(role='group', ng-hide='requestLevel<2')
     button.btn.btn-success.btn-xs(ng-click = 'showsuccess()') فعالیت های انجام شده 
-  .btn-group(role='group', ng-hide='requestLevel>2')
+  .btn-group(role='group', ng-hide='requestLevel>2 || requestLevel===0')
     button.btn.btn-warning.btn-xs(ng-click = 'showactionclick()') دستورات

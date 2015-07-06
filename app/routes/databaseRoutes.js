@@ -100,7 +100,7 @@ module.exports = function (app) {
         var callback = function (err) {
             console.log(err);
         };
-        db.run('INSERT INTO requests (requestitems,owner,user,status,initdate,inittime,description) VALUES (?,?,?,?,?,?,?)', [JSON.stringify(req.body.requestitems), req.body.owner, req.user.id, appConfig.status[0], req.body.initdate, req.body.inittime, req.body.description], callback);
+        db.run('INSERT INTO requests (requestitems,owner,user,status,initdate,inittime,description,applicant) VALUES (?,?,?,?,?,?,?,?)', [JSON.stringify(req.body.requestitems), req.body.owner, req.user.id, appConfig.status[0], req.body.initdate, req.body.inittime, req.body.description, req.body.applicant], callback);
         res.json();
     });
     

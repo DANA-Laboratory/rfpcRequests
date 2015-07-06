@@ -93,7 +93,6 @@ dashboardApp.controller('navsidebar', function ($scope, $http) {
         }
         return ac
     }
-    $scope.active=active(0);
     $scope.liclick = function (id) {
         $scope.active=active(id);
         refreshTable(id);
@@ -124,7 +123,7 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
         $scope.data ={description : "" , requestitems : [], owner: 1} //owner for IT Requeststs
         $scope.data.initdate = gregorianToJalali(date , '/');
         $scope.data.inittime = date.getHours() + ':' + date.getMinutes();
-        $scope.data.user = $scope.currentUserFullName;
+        $scope.data.applicant = $scope.currentUserFullName;
         $scope.hidetableclick();
     };
 
@@ -209,7 +208,9 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           $scope.data.requestitems.push(item);
           //console.log($scope.data);
         }
-        $scope.updateRequest();
+        if ($scope.requestLevel>0) {
+          $scope.updateRequest();
+        }
     };
     
     $scope.updateRequest = function() {
@@ -260,7 +261,7 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     }
     
     $scope.setUserIdName = function(index, val) {
-        $scope.data.user = val;
+        $scope.data.applicant = val;
     }
     
     $(function () {
