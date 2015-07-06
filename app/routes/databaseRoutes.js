@@ -112,7 +112,7 @@ module.exports = function (app) {
         res.json();
     });
     
-    app.get('/data/:requestID', function (req, res) {
+    app.get('/data/:requestID', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err, rows) {
             //console.log(rows.user,req.user.id);
             if (rows.user === req.user.id) {

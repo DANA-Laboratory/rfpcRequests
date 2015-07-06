@@ -214,17 +214,19 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     };
     
     $scope.updateRequest = function() {
-       $scope.message = 'به روز رسانی....';
-       $http({
-          method: 'post',
-          url: '/data/updaterequest/',
-          data: $scope.data
-        }).success(function(data, status, headers, config) {
-          console.log("update request  items OK");
-          $scope.message = '';
-        }).error(function(data, status, headers, config) {
-          console.log("error update request items");
-        });
+        if ($scope.requestLevel>0) {
+          $scope.message = 'به روز رسانی....';
+          $http({
+            method: 'post',
+            url: '/data/updaterequest/',
+            data: $scope.data
+          }).success(function(data, status, headers, config) {
+            console.log("update request  items OK");
+            $scope.message = '';
+          }).error(function(data, status, headers, config) {
+            console.log("error update request items");
+          });
+        }
     };
     
     $scope.insertbtnclick = function (id) {

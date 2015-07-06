@@ -7,14 +7,14 @@
       include parts/datetime.jade
     .row
       label.col-md-3.control-label(for='checkboxes') موضوع درخواست
-    .well(ng-if='requestLevel<2')
+    .well(ng-if='requestLevel<2 && isCreator')
       include parts/items.jade
-    .well(ng-if='requestLevel>1')
+    .well(ng-if='requestLevel>1 || !isCreator')
       include parts/itemsreadonly.jade
     .row.form-group
       label.col-md-2.control-label(for='textarea') توضیحات
       .col-md-8
-        textarea#textarea.form-control(name='description', ng-model='data.description', ng-change='updateRequest()', ng-readonly='requestLevel>1') 
+        textarea#textarea.form-control(name='description', ng-model='data.description', ng-change='updateRequest()', ng-readonly='requestLevel>1 || !isCreator') 
   .panel-footer  
     .btn-group.btn-group-justified(role='group', ng-if='requestLevel===0')
       .btn.btn-default(name='buttoncancel', ng-click='backclick()') انصراف
