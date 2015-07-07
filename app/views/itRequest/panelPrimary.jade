@@ -14,7 +14,7 @@
     .row.form-group
       label.col-md-2.control-label(for='textarea') توضیحات
       .col-md-8
-        textarea#textarea.form-control(name='description', ng-model='data.description', ng-change='updateRequest()', ng-readonly='requestLevel>1 || !isCreator') 
+        textarea#textarea.form-control(name='description', ng-model='data.description', ng-change='updaterequest()', ng-readonly='requestLevel>1 || !isCreator') 
   .panel-footer  
     .btn-group.btn-group-justified(role='group', ng-if='requestLevel===0')
       .btn.btn-default(name='buttoncancel', ng-click='backclick()') انصراف

@@ -1,3 +1,5 @@
+'use strict';
+
 dashboardApp.controller('requestnav', function ($scope, $http) {
 
   $scope.hideprimary = false;
