@@ -97,28 +97,28 @@ dashboardApp.controller('navsidebar', function ($scope, $http) {
         $scope.active=active(id);
         refreshTable(id);
     };
-    
-    $http({
-        method: 'GET',
-        url: '/data/nsidebar'
-    }).success(function(data, status, headers, config) {
-        //data binding
-        $scope.ndata = data;
-    }).error(function(data, status, headers, config) {
-        console.log("error get side bar data");
-    });
+    $scope.refereshsidebar = function() {
+        $http({
+            method: 'GET',
+            url: '/data/nsidebar'
+        }).success(function(data, status, headers, config) {
+            //data binding
+            $scope.ndata = data;
+        }).error(function(data, status, headers, config) {
+            console.log("error get side bar data");
+        });
+    };
+    $scope.refereshsidebar();
 });
 
 dashboardApp.controller('dashboard', function ($scope, $http) {
     
     $scope.hidetable =  false;
     $scope.hiderequest = false;
-    $scope.hideprimary = false;
-    $scope.hidesuccess = true;
-    $scope.hideaction = true;
     
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
+        $scope.isCreator = true;
         var date = new Date();
         $scope.data ={description : "" , requestitems : [], owner: 1} //owner for IT Requeststs
         $scope.data.initdate = gregorianToJalali(date , '/');
@@ -148,6 +148,7 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
                 //data binding
                 data.requestitems = JSON.parse(data.requestitems);
                 $scope.data = data;
+                $scope.isCreator = data.isCreator;
                 if (null!=$scope.data.requesttasks) {
                     for (var task in $scope.tasks) {
                         if ($scope.data.requesttasks.indexOf($scope.tasks[task].name) > -1) {
@@ -165,30 +166,10 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
     
     $scope.hidetableclick = function () {
         $scope.hidetable =  true;
-        $scope.hideprimary = false;
-        $scope.hidesuccess = true;
-        $scope.hideaction = true;
         $scope.hiderequest = false;
+        $scope.$broadcast('showrequest');
     };
-    
-    $scope.showprimaryclick = function (id) {
-        $scope.hideprimary = false;
-        $scope.hidesuccess = true;
-        $scope.hideaction = true;
-    };
-    
-    $scope.showsuccess = function (id) {
-        $scope.hidesuccess = false;
-        $scope.hideprimary = true;
-        $scope.hideaction = true;
-    };
-    
-    $scope.showactionclick = function (id) {
-        $scope.hideaction = false;
-        $scope.hideprimary = true;
-        $scope.hidesuccess = true;
-    };
-    
+     
     $scope.backclick = function (id) {
         $scope.data = {};
         selectedRequestId= -1;
@@ -237,7 +218,6 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           data: $scope.data
         }).success(function(data, status, headers, config) {
           console.log("insert request OK");
-          refreshTable(null);
           $scope.backclick(id);
         }).error(function(data, status, headers, config) {
           console.log("error insert request");
@@ -255,7 +235,6 @@ dashboardApp.controller('dashboard', function ($scope, $http) {
           data: $scope.data
         }).success(function(data, status, headers, config) {
           console.log("update status OK");
-          refreshTable(null);
           $scope.backclick(id);
         }).error(function(data, status, headers, config) {
           console.log("error update status");
