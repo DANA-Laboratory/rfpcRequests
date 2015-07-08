@@ -17,15 +17,28 @@ if (!exists) {
     db = new sqlite3.Database(file);
 }
 
-var replaceIDwithNameFamily = function (rows) {
+var replaceIDwithNameFamily = function (row) {
     for (var user in appConfig.users) {
-        if (appConfig.users[user].id === rows.owner) {
-            rows.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family;
+        if (appConfig.users[user].id === row.owner) {
+            row.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family;
         } else {
-            if (appConfig.users[user].id === rows.user) {
-                rows.user = appConfig.users[user].name + ' ' + appConfig.users[user].family;
+            if (appConfig.users[user].id === row.user) {
+                row.user = appConfig.users[user].name + ' ' + appConfig.users[user].family;
             }
         }
+    }
+}
+    
+var formatdata = function (row) {
+    //replaceIDwithNameFamily
+    replaceIDwithNameFamily(row);
+    
+    //remove formats from string
+    if (row.requesttasks !== null) {
+        row.requesttasks = row.requesttasks.replace(/[\"\[\]]/g, ' ');
+    }
+    if (row.requestitems !== null) {
+        row.requestitems = row.requestitems.replace(/[\"\[\]]/g, ' ');
     }
 };
 
@@ -50,7 +63,7 @@ module.exports = function (app) {
     app.get('/data/table', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err, rows) {
             for (var row in rows) {
-                replaceIDwithNameFamily(rows[row]);
+                formatdata(rows[row]);
             }
             res.json(rows);
         };
@@ -60,7 +73,7 @@ module.exports = function (app) {
     app.get('/data/table/:status', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err, rows) {
             for (var row in rows) {
-                replaceIDwithNameFamily(rows[row]);
+                formatdata(rows[row]);
             }
             res.json(rows);
         };

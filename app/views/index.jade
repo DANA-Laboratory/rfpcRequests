@@ -5,19 +5,24 @@ include head.jade
     .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
       .container-fluid
         .navbar-header
+          .button.navbar-toggle(type="button", data-toggle="collapse", data-target="#myNavbar")
+            .span.icon-bar
+            .span.icon-bar
+            .span.icon-bar
           a.navbar-brand(href='#') سیستم مدیریت درخواست انجام کار 
-        .navbar-collapse.collapse
+        .navbar-collapse.collapse(id="myNavbar")
           if !(user)
             form.navbar-form.navbar-left(role='form', action='/login', method='post')
-              .form-group
-                span.label.label-warning(style='margin-left:5px') #{message}
+              .form-group-sm
+                .label.label-warning(style='margin-left:5px') #{message}
                 input.form-control(type='text', name='username', placeholder='نام کاربری')
                 input.form-control(type='password', name='password', placeholder='کلمه عبور')
                 button.btn.btn-success(type='submit') ورود 
           else
-            form.navbar-form.navbar-left(role='form', action='/logout')
-              span.label.label-info(style='margin-left:5px')نام کاربر: #{user.username}
-              button.btn.btn-success(type='submit') خروج 
+            include topnav.jade
+            form.navbar-form.navbar-left
+              .label.label-info(style='margin-left:5px')نام کاربر: #{user.username}
+              a.btn.btn-warning(href='/logout') خروج 
         // /.navbar-collapse
     if !(user)
       .jumbotron
