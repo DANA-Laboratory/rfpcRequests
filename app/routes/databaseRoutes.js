@@ -27,7 +27,7 @@ var replaceIDwithNameFamily = function (row) {
             }
         }
     }
-}
+};
     
 var formatdata = function (row) {
     //replaceIDwithNameFamily

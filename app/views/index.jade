@@ -1,7 +1,7 @@
 doctype html
 include head.jade
   title  سیستم مدیریت درخواست انجام کار
-  body(ng-app='dashboardApp')
+  body(ng-app='dashboardApp', ng-cloak)
     .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
       .container-fluid
         .navbar-header
@@ -23,7 +23,6 @@ include head.jade
             form.navbar-form.navbar-left
               .label.label-info(style='margin-left:5px')نام کاربر: #{user.username}
               a.btn.btn-warning(href='/logout') خروج 
-        // /.navbar-collapse
     if !(user)
       .jumbotron
         .container
