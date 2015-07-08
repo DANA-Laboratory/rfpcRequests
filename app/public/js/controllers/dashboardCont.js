@@ -144,3 +144,11 @@ function rowStyle(row, index) {
   };
   return {};
 }
+var socket = io();
+
+socket.on('update', function(data) {
+    console.log("must update");
+});
+socket.on('error', console.error.bind(console));
+socket.on('message', console.log.bind(console));
+

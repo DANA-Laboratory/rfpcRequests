@@ -42,7 +42,7 @@ var formatdata = function (row) {
     }
 };
 
-module.exports = function (app) {
+module.exports = function (app, io) {
 
     app.get('/data/nsidebar', mypassport.ensureAuthenticated, function (req, res) {
         var ret = [];
@@ -85,44 +85,46 @@ module.exports = function (app) {
     
     app.post('/data/updatetasks/:requestID', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
-            console.log(err);
+            console.log('update tasks error=', err);
+            io.emit('update');
+            res.sendStatus(200);
         };
         db.run('UPDATE requests SET requesttasks=? WHERE (owner=? AND id=?)', [JSON.stringify(req.body.tasks), req.user.id, req.params.requestID], callback);
-        res.json();
     });
     
     app.post('/data/updatestatus/:requestID', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
             console.log('update status error=', err);
+            io.emit('update');
+            res.sendStatus(200);
         };
         if (req.body.status === appConfig.status[1]) {
             db.run('UPDATE requests SET status=?, startdate=?, starttime=?, startuser=? WHERE id=?', [req.body.status, req.body.actiondate, req.body.actiontime, req.user.id, req.params.requestID], callback);
-            res.json();
         }
         if (req.body.status === appConfig.status[2]) {
             db.run('UPDATE requests SET status=?, enddate=?, endtime=?, enduser=? WHERE id=?', [req.body.status, req.body.actiondate, req.body.actiontime, req.user.id, req.params.requestID], callback);
-            res.json();
         }
         if (req.body.status === appConfig.status[3]) {
             db.run('UPDATE requests SET status=?, canceldate=?, canceltime=?, cancelwhy=?, canceluser=? WHERE id=?', [req.body.status, req.body.actiondate, req.body.actiontime, req.body.cancelwhy, req.user.id, req.params.requestID], callback);
-            res.json();
         }
     });
     
     app.post('/data/insertrequest', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
-            console.log(err);
+            console.log('insert request error=', err);
+            io.emit('update');
+            res.sendStatus(200);
         };
         db.run('INSERT INTO requests (requestitems,owner,user,status,initdate,inittime,description,applicant) VALUES (?,?,?,?,?,?,?,?)', [JSON.stringify(req.body.requestitems), req.body.owner, req.user.id, appConfig.status[0], req.body.initdate, req.body.inittime, req.body.description, req.body.applicant], callback);
-        res.json();
     });
     
     app.post('/data/updaterequest', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
-            console.log(err);
+            console.log('update request error=', err);
+            io.emit('update');
+            res.sendStatus(200);
         };
         db.run('UPDATE requests SET requestitems=?, description=? WHERE (id=? AND user=?)', [JSON.stringify(req.body.requestitems), req.body.description, req.body.id, req.user.id], callback);
-        res.json();
     });
     
     app.get('/data/:requestID', mypassport.ensureAuthenticated, function (req, res) {

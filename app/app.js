@@ -9,33 +9,35 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     passport = require('passport'),
-    flash = require('connect-flash');
-
+    flash = require('connect-flash'),
+    favicon = require('serve-favicon'),
+    logger = require('express-logger'),
+    bodyParser = require('body-parser'),
+    session = require('express-session'),
+    methodOverride = require('method-override'),
+    errorHandler = require('errorhandler');
+    
 var app = express();
 // all environments
 app.set('port', process.env.PORT || PORT_LISTENER);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser({ keepExtensions: true, uploadDir: path.join(__dirname, appConfig.directories.publicDir) }));
-app.use(express.methodOverride());
-app.use(express.cookieParser('my v3ry s3cr3t C00k1e k3y d0nt y0u th1nk?'));
-app.use(express.session({
-    secret: 'my l1ttl3 s3cret s3ss10n k3y isnt it?',
-    maxAge: 3600000
-}));
+app.use(logger({path: '/log/logger.txt'}));
+app.use(favicon(__dirname + '/public/favicon.ico'));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(session({ resave: true,
+                  saveUninitialized: true,
+                  secret: 'lswe43fkjglksdfLKJl' }));
 app.use(flash());
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
 
-//routes
-require('./routes/index')(app, passport);
-
-app.use(app.router);
 app.use(express.static(path.join(__dirname, appConfig.directories.publicDir)));
 
 app.use(function (req, res, next) {
@@ -43,12 +45,18 @@ app.use(function (req, res, next) {
     next();
 });
 
-// development only
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+//routes
+require('./routes/index')(app, passport, io);
+
+// error handling middleware should be loaded after the loading the routes
 if ('development' === app.get('env')) {
-    app.use(express.errorHandler());
+    app.use(errorHandler());
 }
 
-http.createServer(app).listen(app.get('port'), function () {
+server.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 

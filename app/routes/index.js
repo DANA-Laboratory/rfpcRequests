@@ -2,8 +2,8 @@
  * Created by Reza Afzalan.
  */
 'use strict';
-module.exports = function (app, passport) {
+module.exports = function (app, passport, io) {
     require('./indexRoutes')(app);
     require('./passportRoutes')(app, passport);
-    require('./databaseRoutes')(app);
+    require('./databaseRoutes')(app, io);
 };
