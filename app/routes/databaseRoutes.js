@@ -86,7 +86,6 @@ module.exports = function (app, io) {
     app.post('/data/updatetasks/:requestID', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
             console.log('update tasks error=', err);
-            io.emit('update');
             res.sendStatus(200);
         };
         db.run('UPDATE requests SET requesttasks=? WHERE (owner=? AND id=?)', [JSON.stringify(req.body.tasks), req.user.id, req.params.requestID], callback);
@@ -121,7 +120,6 @@ module.exports = function (app, io) {
     app.post('/data/updaterequest', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err) {
             console.log('update request error=', err);
-            io.emit('update');
             res.sendStatus(200);
         };
         db.run('UPDATE requests SET requestitems=?, description=? WHERE (id=? AND user=?)', [JSON.stringify(req.body.requestitems), req.body.description, req.body.id, req.user.id], callback);

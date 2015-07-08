@@ -11,10 +11,10 @@ var express = require('express'),
     passport = require('passport'),
     flash = require('connect-flash'),
     favicon = require('serve-favicon'),
-    logger = require('express-logger'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     methodOverride = require('method-override'),
+    logger = require('morgan'),
     errorHandler = require('errorhandler');
     
 var app = express();
@@ -22,8 +22,8 @@ var app = express();
 app.set('port', process.env.PORT || PORT_LISTENER);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(logger({path: '/log/logger.txt'}));
 app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json

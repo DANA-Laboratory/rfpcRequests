@@ -1,7 +1,10 @@
 .btn-group.btn-group-justified(role='group')
   .btn-group(role='group')
-    a.btn.btn-info.btn-xs(ng-if='isCreator', type='button', href='#it', ng-click='viewrequestclick()') نمایش 
+    a.btn.btn-info(ng-if='isCreator', type='button', href='#it', ng-click='viewrequestclick()') نمایش 
+      span.glyphicon.glyphicon-play-circle.pull-left
   .btn-group(role='group')
-    a.btn.btn-primary.btn-xs(type='button', href='#it', ng-click='newrequestclick()') درخواست جدید
+    a.btn.btn-primary(type='button', href='#it', ng-click='newrequestclick()') درخواست جدید
+      span.glyphicon.glyphicon-plus-sign.pull-left
   .btn-group(role='group')
-    a.btn.btn-success.btn-xs(ng-if='isOwner', type='button', href='#it', ng-click='openrequestclick()') بررسی 
+    a.btn.btn-success(ng-if='isOwner', type='button', href='#it', ng-click='openrequestclick()') بررسی 
+      span.glyphicon.glyphicon-zoom-in.pull-left

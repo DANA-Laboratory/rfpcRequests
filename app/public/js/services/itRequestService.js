@@ -1,6 +1,13 @@
 'use strict';
 
 var dashboardApp = angular.module('dashboardApp', ['ngRoute']);
+var socket = io();
+
+socket.on('update', function(data) {
+    console.log("need referesh...");
+});
+socket.on('error', console.error.bind(console));
+socket.on('message', console.log.bind(console));
 
 dashboardApp.service('itRequestService', function($http){
     this.updatetasks = function(tasks) {
