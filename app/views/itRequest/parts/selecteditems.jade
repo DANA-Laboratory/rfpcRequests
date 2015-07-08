@@ -1,3 +1,4 @@
-button.btn.btn-xs.btn-success(ng-repeat='task in tasks', ng-if='task.selected',type='button',style='margin-left:4px;margin-bottom:2px',ng-click='selectedtaskitemclick($index)'){{task.name}}
-  .span.glyphicon.glyphicon-remove(ng-hide='!isOwner')
+label.btn-xs.btn-success(ng-hide='isOwner && requestLevel===2', ng-repeat='task in tasks', ng-if='task.selected', style='margin-left:4px;margin-bottom:2px'){{task.name}}
+button.btn.btn-xs.btn-success(ng-hide='!isOwner || requestLevel!==2', ng-repeat='task in tasks', ng-if='task.selected',type='button',style='margin-left:4px;margin-bottom:2px',ng-click='selectedtaskitemclick($index)'){{task.name}}
+  .span.glyphicon.glyphicon-remove
 
