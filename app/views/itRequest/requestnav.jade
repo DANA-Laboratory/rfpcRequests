@@ -8,6 +8,6 @@
   .btn-group(role='group', ng-hide='requestLevel<2')
     button.btn.btn-success(ng-click = 'showsuccess()') فعالیت های انجام شده 
       span.glyphicon.glyphicon-wrench.pull-left
-  .btn-group(role='group', ng-hide='requestLevel>2 || requestLevel===0')
+  .btn-group(role='group', ng-show='requestLevel===1 || (requestLevel===2 && isOwner)')
     button.btn.btn-warning(ng-click = 'showactionclick()') دستورات
       span.glyphicon.glyphicon-exclamation-sign.pull-left

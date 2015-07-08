@@ -67,7 +67,7 @@ module.exports = function (app, io) {
             }
             res.json(rows);
         };
-        db.all('SELECT * from requests where user=' + req.user.id  + ' OR owner=' + req.user.id, callback);
+        db.all('SELECT * from requests where ((user=' + req.user.id  + ' OR owner=' + req.user.id + ') AND (status=? OR status=?))', ["ثبت شده","در دست اقدام"], callback);
     });
     
     app.get('/data/table/:status', mypassport.ensureAuthenticated, function (req, res) {

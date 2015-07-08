@@ -14,7 +14,7 @@ dashboardApp.config(['$routeProvider', function($routeProvider) {
   }]);
   
 dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
-    
+    $scope.isCreator = null;
     $scope.hidetable =  false;
     $scope.hiderequest = false;
     
@@ -47,7 +47,8 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
      
     $scope.backclick = function (id) {
         $scope.data = {};
-        selectedRequestId= -1;
+        selectedRequestId = -1;
+        $scope.isCreator = null;
         itRequestService.refreshTable(null);
         $scope.$broadcast('refereshsidebar');
         $scope.hidetable =  false;

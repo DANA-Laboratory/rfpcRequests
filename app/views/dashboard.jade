@@ -1,6 +1,5 @@
 .container-fluid(ng-controller='dashboardCont', ng-init='tasks=#{tasks}')
-  .row
-    div(ng-hide='hidetable', style='margin : 10px')
-      include tableplusnav.jade
-    div(style='margin : 10px')
-      .ng-view
+  div(ng-hide='hidetable', style='margin : 10px')
+    include tableplusnav.jade
+  div(style='margin : 10px')
+    .ng-view
