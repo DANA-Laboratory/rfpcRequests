@@ -50,7 +50,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         selectedRequestId = -1;
         $scope.isCreator = null;
         itRequestService.refreshTable(null);
-        $scope.$broadcast('refereshsidebar');
+        $scope.$emit('refereshnavbar');
         $scope.hidetable =  false;
         $scope.hiderequest = true;
     };

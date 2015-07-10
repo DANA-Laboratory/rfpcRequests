@@ -15,6 +15,20 @@ if (!exists) {
 } else {
     sqlite3 = require('sqlite3').verbose();
     db = new sqlite3.Database(file);
+    var setTasks = function (error, data) {
+        appConfig.Tasks = [];
+        for (var item in data) {
+            appConfig.Tasks.push(data[item].itemName);
+        }
+    };
+    var setRequestItems = function (error, data) {
+        appConfig.requestItems = [];
+        for (var item in data) {
+            appConfig.requestItems.push(data[item].itemName);
+        }
+    };
+    db.all('SELECT itemName FROM config WHERE itemType=0', setTasks);
+    db.all('SELECT itemName FROM config WHERE itemType=1', setRequestItems);
 }
 
 var replaceIDwithNameFamily = function (row) {
@@ -67,7 +81,7 @@ module.exports = function (app, io) {
             }
             res.json(rows);
         };
-        db.all('SELECT * from requests where ((user=' + req.user.id  + ' OR owner=' + req.user.id + ') AND (status=? OR status=?))', ["ثبت شده","در دست اقدام"], callback);
+        db.all('SELECT * from requests where ((user=' + req.user.id  + ' OR owner=' + req.user.id + ') AND (status=? OR status=?))', ['ثبت شده', 'در دست اقدام'], callback);
     });
     
     app.get('/data/table/:status', mypassport.ensureAuthenticated, function (req, res) {

@@ -28,7 +28,7 @@ dashboardApp.service('itRequestService', function($http){
       });
     };
 
-    this.refereshsidebar = function(callback) {
+    this.refereshnavbar = function(callback) {
       $http({
           method: 'GET',
           url: '/data/nsidebar'

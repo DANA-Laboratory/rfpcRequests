@@ -1,6 +1,6 @@
 'use strict';
 
-dashboardApp.controller('navsidebarCont', function ($scope, itRequestService) {
+dashboardApp.controller('navbarCont', function ($scope, itRequestService) {
     $scope.requestStatus = requestStatus;
     var active= function (id) {
         var ac = ['btn-default','btn-default','btn-default','btn-default','btn-default','btn-default','btn-default','btn-default','btn-default','btn-default'];
@@ -15,9 +15,9 @@ dashboardApp.controller('navsidebarCont', function ($scope, itRequestService) {
         itRequestService.refreshTable(id);
     };
     $scope.active=active(null);
-    itRequestService.refereshsidebar(function(data) {$scope.ndata = data;});
+    itRequestService.refereshnavbar(function(data) {$scope.ndata = data;});
     
-    $scope.$on('refereshsidebar', function(event){
-      itRequestService.refereshsidebar(function(data) {$scope.ndata = data;});
+    $scope.$on('refereshnavbar', function(event){
+        itRequestService.refereshnavbar(function(data) {$scope.ndata = data;});
     });
 });
