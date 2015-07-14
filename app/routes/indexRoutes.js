@@ -3,15 +3,14 @@
  */
 'use strict';
 
-var appConfig = require('../config/appConfig.json');
+module.exports = function (app, appConfig) {
 
-var userNameIDs = [];
+    var userNameIDs = [];
 
-for (var user in appConfig.users) {
-    userNameIDs.push([appConfig.users[user].id, appConfig.users[user].name + ' ' + appConfig.users[user].family]);
-}
+    for (var user in appConfig.users) {
+        userNameIDs.push([appConfig.users[user].id, appConfig.users[user].name + ' ' + appConfig.users[user].family]);
+    }
 
-module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index', { user: req.user, tasks: JSON.stringify(appConfig.tasks),  'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
