@@ -3,11 +3,11 @@
     button.btn.btn-default(ng-click = 'backclick()')  
       span.glyphicon.glyphicon-chevron-right برگشت
   .btn-group(role='group')
-    button.btn.btn-primary(ng-click = 'showprimaryclick()') درخواست
+    button.btn.btn-primary(ng-click = 'showprimaryclick()')درخواست  
       span.glyphicon.glyphicon-tasks
   .btn-group(role='group', ng-hide='requestLevel<2')
-    button.btn.btn-success(ng-click = 'showsuccess()') فعالیت های انجام شده 
+    button.btn.btn-success(ng-click = 'showsuccess()')  فعالیت های انجام شده 
       span.glyphicon.glyphicon-wrench
   .btn-group(role='group', ng-show='requestLevel===1 || (requestLevel===2 && isOwner)')
-    button.btn.btn-warning(ng-click = 'showactionclick()') دستورات
+    button.btn.btn-warning(ng-click = 'showactionclick()')دستورات  
       span.glyphicon.glyphicon-exclamation-sign
