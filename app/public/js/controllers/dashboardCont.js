@@ -55,6 +55,17 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         $scope.hiderequest = true;
     };
     
+    $scope.$on('topnavClick', function(event){
+        if ($scope.hidetable) {
+            $scope.data = {};
+            selectedRequestId = -1;
+            $scope.isCreator = null;
+            $scope.$emit('refereshnavbar');
+            $scope.hidetable =  false;
+            $scope.hiderequest = true;
+        }
+    });
+    
     $scope.toggleselection = function (item) {
         var idx = $scope.data.requestitems.indexOf(item);
         // is currently selected

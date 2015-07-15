@@ -13,7 +13,9 @@ dashboardApp.controller('navbarCont', function ($scope, itRequestService) {
     $scope.liclick = function (id) {
         $scope.active=active(id);
         itRequestService.refreshTable(id);
+        $scope.$broadcast('topnavClick');
     };
+    
     $scope.active=active(null);
     itRequestService.refereshnavbar(function(data) {$scope.ndata = data;});
     
