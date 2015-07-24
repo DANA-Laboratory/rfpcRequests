@@ -16,10 +16,5 @@
         "src": "app",
         "srcPort": "3001"
     },
-    "users": [
-        { "id": 1, "username": "hazizi", "password": "rfpc", "email": "hazizi@rfpc.ir", "isOwner":1, "name":"حسین", "family":"عزیزی" },
-        { "id": 2, "username": "rfpc", "password": "rfpc", "email": "rafzalan@rfpc.ir", "name":"شرکت", "family":"ره آوران" },
-        { "id": 3, "username": "afzalan", "password": "rfpc", "email": "rafzalan@rfpc.ir", "name":"رضا", "family":"افضلان" }
-    ],
     "status": ["ثبت شده","در دست اقدام","خاتمه يافته","متوقف شده"] 
 }

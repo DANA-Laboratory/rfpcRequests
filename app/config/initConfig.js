@@ -65,6 +65,11 @@ var appConfig=
                   'رفع عيب نرم افزار',
                   'نصب نرم افزار',
                   'روشن خاموش کامپيوتر'
+              ],
+              'users': [
+                  { 'id': 1, 'username': 'hazizi', 'password': 'rfpc', 'email': 'hazizi@rfpc.ir', 'isOwner':1, 'name':'حسین', 'family':'عزیزی' },
+                  { 'id': 2, 'username': 'rfpc', 'password': 'rfpc', 'email': 'rafzalan@rfpc.ir', 'name':'شرکت', 'family':'ره آوران' },
+                  { 'id': 3, 'username': 'afzalan', 'password': 'rfpc', 'email': 'rafzalan@rfpc.ir', 'name':'رضا', 'family':'افضلان' }
               ]
           };
 var file = '../database/Requests.sqlite';
@@ -85,4 +90,7 @@ for (var item in appConfig.tasks) {
 }
 for (var item in appConfig.requestItems) {
     db.run('INSERT INTO config(itemName,itemType) VALUES(?,1)', appConfig.requestItems[item]);
+}
+for (var item in appConfig.users) {
+    db.run('INSERT INTO config(itemName,itemType) VALUES(?,2)', JSON.stringify(appConfig.users[item]));
 }

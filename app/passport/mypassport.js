@@ -1,22 +1,40 @@
 'use strict';
 
-var appConfig = require('../config/appConfig.json');
+var appConfig = {};
 var LocalStrategy = require('passport-local').Strategy;
 var passport = require('passport');
-var users = appConfig.users;
+var fs = require('fs');
+var file = 'app/database/Requests.sqlite';
+var exists = fs.existsSync(file);
+var sqlite3 = null;
+var db = null;
+
+if (!exists) {
+    console.log('database not exists!');
+} else {
+    sqlite3 = require('sqlite3').verbose();
+    db = new sqlite3.Database(file);
+    var setUsers = function (error, data) {
+        appConfig.users = [];
+        for (var item in data) {
+            appConfig.users.push(JSON.parse(data[item].itemName));
+        }
+    };
+    db.all('SELECT itemName FROM config WHERE itemType=2', setUsers);
+}
 
 function findById(id, fn) {
   var idx = id - 1;
-  if (users[idx]) {
-    fn(null, users[idx]);
+  if (appConfig.users[idx]) {
+    fn(null, appConfig.users[idx]);
   } else {
     fn(new Error('User ' + id + ' does not exist'));
   }
 }
 
 function findByUsername(username, fn) {
-  for (var i = 0, len = users.length; i < len; i++) {
-    var user = users[i];
+  for (var i = 0, len = appConfig.users.length; i < len; i++) {
+    var user = appConfig.users[i];
     if (user.username === username) {
       return fn(null, user);
     }
@@ -68,8 +86,9 @@ passport.use(new LocalStrategy(
 // the request is authenticated (typically via a persistent login session),
 // the request will proceed.  Otherwise, the user will be redirected to the
 // login page.
+
 exports.ensureAuthenticated =  function (req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   req.flash('error', 'Login first');
   res.redirect('/');
-}
+};

@@ -9,6 +9,7 @@ var exists = fs.existsSync(file);
 var sqlite3 = null;
 var db = null;
 var appConfig = require('../config/appConfig.json');
+
 if (!exists) {
     console.log('database not exists!');
 } else {

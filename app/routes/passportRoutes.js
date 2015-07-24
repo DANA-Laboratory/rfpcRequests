@@ -2,9 +2,11 @@
  * Created by Reza Afzalan.
  */
 'use strict';
-var mypassport = require('../passport/mypassport');
-module.exports = function (app, passport) {
 
+module.exports = function (app, passport) {
+    
+    var mypassport = require('../passport/mypassport');
+    
     app.get('/account', mypassport.ensureAuthenticated, function (req, res) {
         console.log(req.user);
         res.send(req.user);
