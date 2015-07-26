@@ -43,7 +43,9 @@ function gregorianToJalali(date, mod/*''*/) {
         jd = doyJ - 186 - (jm * 30);
         jm += 7;
     }
-    var result = (mod === '') ? {0 : jy, 1 : jm, 2 : jd} : (jy + '' + mod + '' + jm + '' + mod + '' + jd);
+    var jms = (jm<10) ? ('0'+jm) : (jm);
+    var jds = (jd<10) ? ('0'+jd) : (jd);
+    var result = (mod === '') ? {0 : jy, 1 : jm, 2 : jd} : (jy + '' + mod + '' + jms + '' + mod + '' + jds);
     return result;
 }
 

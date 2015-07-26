@@ -23,14 +23,13 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         $scope.isCreator = true;
         var date = new Date();
         $scope.data ={description : "" , requestitems : [], owner: 1} //owner for IT Requeststs
-        $scope.data.initdate = gregorianToJalali(date , '/');
+        $scope.data.initdate = gregorianToJalali(date, '/');
         $scope.data.inittime = date.getHours() + ':' + date.getMinutes();
         $scope.data.applicant = $scope.currentUserFullName;
         $scope.hidetableclick();
     };
 
     $scope.viewrequestclick = function (id) {
-        //TODO data reader user
         $scope.readonly = true; 
         $scope.openrequestclick(id);
     };
