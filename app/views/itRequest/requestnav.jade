@@ -11,3 +11,7 @@
   .btn-group(role='group', ng-show='requestLevel===1 || (requestLevel===2 && isOwner)')
     button.btn.btn-warning(ng-click = 'showactionclick()')دستورات  
       span.glyphicon.glyphicon-exclamation-sign
+script.
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
