@@ -22,7 +22,7 @@ var app = express();
 app.set('port', process.env.PORT || PORT_LISTENER);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(favicon(__dirname + '/public/favicon.ico'));
+
 app.use(logger('dev'));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,7 +44,7 @@ app.use(function (req, res, next) {
     console.log('req.body: ' + JSON.stringify(req.body));
     next();
 });
-
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
