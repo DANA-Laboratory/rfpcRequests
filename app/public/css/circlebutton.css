@@ -6,6 +6,8 @@
   font-size: 12px;
   line-height: 1.428571429;
   border-radius: 15px;
+  position:relative;
+  z-index:100;
 }
 .btn-circle.btn-lg {
   width: 50px;
@@ -14,6 +16,8 @@
   font-size: 18px;
   line-height: 1.33;
   border-radius: 25px;
+  position:relative;
+  z-index:100;
 }
 .btn-circle.btn-xl {
   width: 70px;
@@ -22,4 +26,6 @@
   font-size: 24px;
   line-height: 1.33;
   border-radius: 35px;
+  position:relative;
+  z-index:100;
 }

@@ -3,20 +3,22 @@
     h3.panel-title فرم درخواست انجام کار واحد خدمات کامپیوتری
   .panel-body
     .row
-      - var captions = ['data.applicant', 'data.initdate', 'data.inittime']
-      include parts/datetime.jade
-      .col-sm-3
       include parts/pagination.jade
-    .row
-      label.col-md-3.control-label(for='checkboxes') موضوع درخواست
-    .well(ng-if='requestLevel<1 && isCreator')
-      include parts/items.jade
-    .well(ng-if='requestLevel>0 || !isCreator')
-      include parts/itemsreadonly.jade
-    .row.form-group
-      label.col-md-2.control-label(for='textarea') توضیحات
-      .col-md-8
-        textarea#textarea.form-control(name='description', ng-model='data.description', ng-change='updaterequest()', ng-readonly='requestLevel>1 || !isCreator') 
+      .col-md-12
+        .row
+          - var captions = ['data.applicant', 'data.initdate', 'data.inittime']
+          include parts/datetime.jade
+          .col-md-4
+        .row
+          label.col-md-3.control-label(for='checkboxes') موضوع درخواست
+        .well(ng-if='requestLevel<1 && isCreator')
+          include parts/items.jade
+        .well(ng-if='requestLevel>0 || !isCreator')
+          include parts/itemsreadonly.jade
+        .row.form-group
+          label.col-md-2.control-label(for='textarea') توضیحات
+          .col-md-8
+            textarea#textarea.form-control(name='description', ng-model='data.description', ng-change='updaterequest()', ng-readonly='requestLevel>1 || !isCreator')       
   .panel-footer  
     .btn-group.btn-group-justified(role='group', ng-if='requestLevel===0')
       .btn.btn-default(name='buttoncancel', ng-click='backclick()') انصراف

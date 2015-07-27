@@ -1,11 +1,17 @@
-.col-sm-1
-    div.pull-left
-        .row 
-            button.btn.btn-primary.btn-circle(type='button', data-toggle='tooltip', title='درخواست')
-              span.glyphicon.glyphicon-tasks
-        .row
-            button.btn.btn-success.btn-circle(type='button', data-toggle='tooltip', title='فعالیت های انجام شده')
-              span.glyphicon.glyphicon-wrench
-        .row 
-            button.btn.btn-warning.btn-circle(type='button', data-toggle='tooltip', title='دستورات')
-              span.glyphicon.glyphicon-exclamation-sign
+div.pull-right
+  .row
+    button.btn.btn-default.btn-circle(type='button', data-toggle='tooltip', title='برگشت', ng-click = 'backclick()')
+      span.glyphicon.glyphicon-share-alt
+  .row 
+    button.btn.btn-primary.btn-circle(type='button', data-toggle='tooltip', title='درخواست', ng-click='showprimaryclick()')
+      span.glyphicon.glyphicon-tasks
+  .row(ng-hide='requestLevel<2')
+    button.btn.btn-success.btn-circle(type='button', data-toggle='tooltip', title='فعالیت های انجام شده', ng-click='showsuccess()')
+      span.glyphicon.glyphicon-wrench
+  .row(ng-show='requestLevel===1 || (requestLevel===2 && isOwner)')
+    button.btn.btn-warning.btn-circle(type='button', data-toggle='tooltip', title='دستورات', ng-click='showactionclick()')
+      span.glyphicon.glyphicon-exclamation-sign
+script.
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
