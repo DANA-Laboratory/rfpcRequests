@@ -14,10 +14,10 @@ button.btn.btn-xs.btn-info(type='button', style='margin-left:4px;margin-bottom:2
           span ×
         h4.modal-title تعریف فعالیت جدید
       .modal-body
-        | ...
+        input.form-control(type='text', ng-model='newtask', placeholder='عنوان فعالیت را وارد نمایید')
       .modal-footer
         button.btn.btn-default(type='button', data-dismiss='modal') انصراف
-        button.btn.btn-primary(type='button') ذخیره
+        button.btn.btn-primary(type='button', ng-click='addnewtask()') تایید
 #editTaskModal.modal.fade(tabindex='-1')
   .modal-dialog.modal-sm
     .modal-content
@@ -26,7 +26,7 @@ button.btn.btn-xs.btn-info(type='button', style='margin-left:4px;margin-bottom:2
           span ×
         h4.modal-title ویرایش فعالیت
       .modal-body
-        | ...
+        input.form-control(type='text', ng-model='selectedtask')
       .modal-footer
         button.btn.btn-default(type='button', data-dismiss='modal') انصراف
-        button.btn.btn-primary(type='button') ذخیره
+        button.btn.btn-primary(type='button', ng-click='updatetaskname()') تایید
