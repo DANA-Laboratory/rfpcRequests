@@ -33,7 +33,6 @@ if (!exists) {
     db.all('SELECT itemName FROM config WHERE itemType=1', setRequestItems);
 }
 module.exports = function (app, passport, io) {
-    require('./passportRoutes')(app, passport);
+    require('./passportRoutes')(app, passport, appConfig);
     require('./databaseRoutes')(app, io, appConfig, db);
-    require('./indexRoutes')(app, appConfig);
 };

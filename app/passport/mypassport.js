@@ -92,3 +92,11 @@ exports.ensureAuthenticated =  function (req, res, next) {
   req.flash('error', 'Login first');
   res.redirect('/');
 };
+
+exports.users =  function () {
+  var userNameIDs = [];
+  for (var user in appConfig.users) {
+      userNameIDs.push([appConfig.users[user].id, appConfig.users[user].name + ' ' + appConfig.users[user].family]);
+  }
+  return userNameIDs;
+};

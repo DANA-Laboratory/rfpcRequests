@@ -1,7 +1,7 @@
 .panel.panel-success(ng-hide='hidesuccess')
   .panel-heading
     h3.panel-title شرح فعالیت ها
-      span.label.label-default.pull-left {{data.id + ' --- ' + data.initdate + ' --- ' + data.user}}
+      include parts/info.jade
   .panel-body(ng-controller = 'taskCont')
     .row
       include parts/pagination.jade
@@ -12,7 +12,8 @@
             .btn.btn-info(type='button', ng-click='clearfilter()') نمایش همه 
               .span.glyphicon.glyphicon-remove-circle(aria-hidden='true')
         .well(style='height:190px;overflow:auto', ng-hide='requestLevel!==2 || !isOwner')
-          include parts/allitems.jade
+          include parts/taskutils.jade
+          include parts/alltasks.jade
         | با اشاره به فعالیت های انتخاب شده جزئییات را ویرایش یا حذف نمایید:
         .well(style='height:100px;overflow:auto')
           include parts/selecteditems.jade

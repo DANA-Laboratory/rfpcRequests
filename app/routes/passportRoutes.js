@@ -3,7 +3,7 @@
  */
 'use strict';
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, appConfig) {
     
     var mypassport = require('../passport/mypassport');
     
@@ -23,4 +23,11 @@ module.exports = function (app, passport) {
         res.redirect('/');
     });
 
+    app.get('/itRequest', function (req, res) {
+        res.render('itRequest/itRequest', { userNameIDs: mypassport.users(), user: req.user, requestItems: appConfig.requestItems,  'pathToAssets' : '/bower_components', message: req.flash('error') });
+    });
+
+    app.get('/', function (req, res) {
+        res.render('index', { user: req.user, tasks: JSON.stringify(appConfig.tasks),  'pathToAssets' : '/bower_components', message: req.flash('error') });
+    });
 };

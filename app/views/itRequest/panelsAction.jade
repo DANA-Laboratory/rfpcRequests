@@ -1,7 +1,7 @@
 .panel.panel-warning(ng-hide='hideaction', ng-if='requestLevel>0 && requestLevel<3')
   .panel-heading
     h3.panel-title دستورات
-      span.label.label-default.pull-left {{data.id + ' --- ' + data.initdate + ' --- ' + data.user}}
+      include parts/info.jade
   .panel-body
     .row
       include parts/pagination.jade
@@ -13,7 +13,7 @@
                 include parts/datetime.jade
               .btn.btn-primary(type='button', ng-if='requestLevel===1', ng-click='updatestatus(1)') آغاز کار
                 .span.glyphicon.glyphicon-arrow-left(aria-hidden='true')
-              .btn.btn-success.pull-left(type='button', ng-if='requestLevel===2', ng-click='updatestatus(2)') خاتمه
+              .btn.btn-success(type='button', ng-if='requestLevel===2', ng-click='updatestatus(2)') خاتمه
                 .span.glyphicon.glyphicon-ok(aria-hidden='true')
           .input-group
             input.form-control(type='text', placeholder='علت لغو...', ng-model='data.cancelwhy')

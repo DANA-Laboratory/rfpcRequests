@@ -1,9 +1,20 @@
 'use strict';
 
 dashboardApp.controller('taskCont', function ($scope, itRequestService) {
+    $scope.tasksclass = "glyphicon-ok";
     $scope.taskitemclick = function (id) {
-        $scope.tasks[id].selected = true;
-        itRequestService.updatetasks($scope.tasks);
+        if ($scope.tasksclass === "glyphicon-ok") {
+          $scope.tasks[id].selected = true;
+          itRequestService.updatetasks($scope.tasks);
+        } else {
+          if ($scope.tasksclass === "glyphicon-minus") {
+            $scope.tasks.splice(id,1);
+          } else {
+            if ($scope.tasksclass === "glyphicon-pencil") {
+              $('#editTaskModal').modal('show');
+            }
+          }
+        }
     };
     $scope.selectedtaskitemclick = function (id) {
         $scope.tasks[id].selected = false;
