@@ -55,10 +55,10 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     };
     
     $scope.$on('topnavClick', function(event){
+        $scope.data = {};
+        selectedRequestId = -1;
+        $scope.isCreator = null;
         if ($scope.hidetable) {
-            $scope.data = {};
-            selectedRequestId = -1;
-            $scope.isCreator = null;
             $scope.$emit('refereshnavbar');
             $scope.hidetable =  false;
             $scope.hiderequest = true;
