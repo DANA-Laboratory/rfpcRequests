@@ -18,11 +18,31 @@ include head.jade
                 input.form-control(type='text', name='username', placeholder='نام کاربری')
                 input.form-control(type='password', name='password', placeholder='کلمه عبور')
                 button.btn.btn-success(type='submit') ورود 
+                    span.glyphicon.glyphicon-log-in
           else
             include topnav.jade
             form.navbar-form.navbar-left
-              .label.label-info(style='margin-left:5px')نام کاربر: #{user.username}
-              a.btn.btn-warning(href='/logout') خروج 
+              .btn-group(style='margin-left:5px')
+                button.btn.btn-success.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                  span.glyphicon.glyphicon-cog
+                  |  تنظیمات 
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href="#")
+                      span.glyphicon.glyphicon-import
+                      |  ورود پشتیبان 
+                  li
+                    a(href="#")
+                      span.glyphicon.glyphicon-export
+                      |  صدور پشتیبان 
+                  li
+                    a(href="#")
+                      span.glyphicon.glyphicon-cog
+                      |  کاربران 
+              a.btn.btn-warning(href='/logout', data-toggle='tooltip', data-placement='bottom', title='خروج') 
+                | #{user.username} 
+                span.glyphicon.glyphicon-log-out
     if !(user)
       .jumbotron
         .container
