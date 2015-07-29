@@ -35,7 +35,7 @@ module.exports = function (app, passport, appConfig) {
         if (req.user.isOwner) {
             res.download('app/database/Requests.sqlite');
         } else {
-          res.redirect('/');
+            res.redirect('/');
         }
     });
 };

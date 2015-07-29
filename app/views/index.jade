@@ -62,5 +62,6 @@ include head.jade
         h4.modal-title ارسال بانک پشتیبان
       .modal-body
         form#uploadForm(enctype="multipart/form-data", action="/import", method="post")
-          input(type="file", name="Requests.sqlite")
-          input(type="submit", value="Upload DataBase", name="submit")
+          .form-group
+            input.form-control.btn.btn-info(type="file", name="Requests.sqlite")
+          input.btn.btn-primary(type="submit", value="ارسال", name="submit")

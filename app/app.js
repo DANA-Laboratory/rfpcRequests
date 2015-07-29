@@ -53,7 +53,7 @@ var upload = multer({ dest : 'uploads/' });
 //routes
 require('./routes/index')(app, passport, io);
 app.post('/import', upload.single('Requests.sqlite'), function (req, res) {
-    console.log("file uploaded", req.file);
+    console.log('file uploaded', req.file);
     res.redirect('/');
 });
 // error handling middleware should be loaded after the loading the routes
