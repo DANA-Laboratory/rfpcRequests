@@ -23,11 +23,19 @@ module.exports = function (app, passport, appConfig) {
         res.redirect('/');
     });
 
-    app.get('/itRequest', function (req, res) {
+    app.get('/itRequest', mypassport.ensureAuthenticated, function (req, res) {
         res.render('itRequest/itRequest', { userNameIDs: mypassport.users(), user: req.user, requestItems: appConfig.requestItems,  'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
 
     app.get('/', function (req, res) {
         res.render('index', { user: req.user, tasks: JSON.stringify(appConfig.tasks),  'pathToAssets' : '/bower_components', message: req.flash('error') });
+    });
+    
+    app.get('/backup', mypassport.ensureAuthenticated, function (req, res) {
+        if (req.user.isOwner) {
+            res.download('app/database/Requests.sqlite');
+        } else {
+            res.end();
+        }
     });
 };

@@ -11,9 +11,9 @@
           .col-md-4
         .row
           label.col-md-3.control-label(for='checkboxes') موضوع درخواست
-        .well(ng-if='requestLevel<1 && isCreator')
+        .well(ng-if='requestLevel<2 && isCreator')
           include parts/items.jade
-        .well(ng-if='requestLevel>0 || !isCreator')
+        .well(ng-if='requestLevel>1 || !isCreator')
           include parts/itemsreadonly.jade
         .row.form-group
           label.col-md-2.control-label(for='textarea') توضیحات

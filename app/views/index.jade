@@ -29,11 +29,11 @@ include head.jade
                   span.caret
                 ul.dropdown-menu
                   li
-                    a(href="#")
+                    a(href='/backup')
                       span.glyphicon.glyphicon-import
                       |  ورود پشتیبان 
                   li
-                    a(href="#")
+                    a(href='#', data-toggle='modal', data-target='#uploadDataBase')
                       span.glyphicon.glyphicon-export
                       |  صدور پشتیبان 
                   li
@@ -53,3 +53,14 @@ include head.jade
       div(ng-init='currentUserFullName=\'#{user.name} #{user.family}\'; currentUserID=#{user.id}; isOwner=#{user.isOwner}')
       include dashboard.jade
     include foot.jade
+#uploadDataBase.modal.fade(tabindex='-1')
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal')
+          span ×
+        h4.modal-title ارسال بانک پشتیبان
+      .modal-body
+        form#uploadForm(enctype="multipart/form-data", action="/import", method="post")
+          input(type="file", name="Requests.sqlite")
+          input(type="submit", value="Upload DataBase", name="submit")

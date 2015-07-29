@@ -6,7 +6,7 @@
         "privateDir": "/private"
     },
     "app": {
-        "name": "Bootstrap 3 rendered by Jade, Node, Express and Grunt",
+        "name": "RFPC Requests rendered by SQLite3, Angular, Jade, Node, Express and Grunt",
         "rootPage": "app.js",
         "dev": "_gen_dev",
         "devPort": 3001,

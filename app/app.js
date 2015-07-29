@@ -1,6 +1,7 @@
 'use strict';
 
 var appConfig = require('./config/appConfig.json');
+
 var PORT_LISTENER = appConfig.app.devPort;
 
 console.log('I am listening to this port: http://localhost:%s', PORT_LISTENER);
@@ -15,7 +16,8 @@ var express = require('express'),
     session = require('express-session'),
     methodOverride = require('method-override'),
     logger = require('morgan'),
-    errorHandler = require('errorhandler');
+    errorHandler = require('errorhandler'),
+    multer = require('multer');
     
 var app = express();
 // all environments
@@ -47,10 +49,12 @@ app.use(function (req, res, next) {
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
-
+var upload = multer({ dist : 'uploads/' });
 //routes
 require('./routes/index')(app, passport, io);
-
+app.post('/import', upload.single('Requests.sqlite'), function (req, res, next) {
+    res.end();
+})
 // error handling middleware should be loaded after the loading the routes
 if ('development' === app.get('env')) {
     app.use(errorHandler());
