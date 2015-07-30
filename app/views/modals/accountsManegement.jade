@@ -1,0 +1,34 @@
+#accountsManegement.modal.fade(tabindex='-1')
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal')
+          span ×
+        h4.modal-title مدیریت کاربران
+      .modal-body
+        .control-group
+          label.control-label(for='textinput') نام
+          .controls
+            input#textinput.input-xlarge(name='textinput', type='text', placeholder='نام', required='')
+        .control-group
+          label.control-label(for='textinput') نام خانوادگی
+          .controls
+            input#textinput.input-xlarge(name='textinput', type='text', placeholder='نام خانوادگی', required='')
+        .control-group
+          label.control-label(for='textinput') نام کاربری
+          .controls
+            input#textinput.input-xlarge(name='textinput', type='text', placeholder='نام کاربری خود را تعیین نمایید', required='')
+            p.help-block نام کاربری جهت ورود به سایت
+        .control-group
+          label.control-label(for='passwordinput') کلمه عبور
+          .controls
+            input#passwordinput.input-xlarge(name='passwordinput', type='password', placeholder='کلمه عبور', required='')
+            p.help-block کلمه عبور خود را تعیین نمایید
+        .control-group
+          label.control-label(for='textinput') آدرس پست الکترونیک
+          .controls
+            input#textinput.input-xlarge(name='textinput', type='text', placeholder='myaccount@main.com')
+            p.help-block آدرس پست الکترونیک جهت ارتباط با کاربر
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') انصراف
+        button.btn.btn-primary(type='button', ng-click='addnewaccount()') تایید

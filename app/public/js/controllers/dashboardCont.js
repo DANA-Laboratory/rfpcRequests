@@ -103,7 +103,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.setUserIdName = function(index, val) {
         $scope.data.applicant = val;
     }
-
+    
     var getdataCallback = function(data) {
         $scope.requestLevel = 1 + requestStatus.indexOf(data.status);
         //data binding

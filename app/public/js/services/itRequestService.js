@@ -100,4 +100,16 @@ dashboardApp.service('itRequestService', function($http){
           console.log("error update request items");
         });
     };
+    
+    this.getusers = function (callback) {
+        $http({
+          method: 'get',
+          url: '/data/users/'
+        }).success(function(data, status, headers, config) {
+          console.log("get users OK");
+          callback(data);
+        }).error(function(data, status, headers, config) {
+          console.log("error update request items");
+        });
+    };
 });

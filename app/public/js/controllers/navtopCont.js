@@ -22,4 +22,9 @@ dashboardApp.controller('navbarCont', function ($scope, itRequestService) {
     $scope.$on('refereshnavbar', function(event){
         itRequestService.refereshnavbar(function(data) {$scope.ndata = data;});
     });
+    
+    $scope.accountsclick = function() {
+        itRequestService.getusers(function(data) {console.log(JSON.stringify(data));});
+        $('#accountsManegement').modal('show');
+    };
 });
