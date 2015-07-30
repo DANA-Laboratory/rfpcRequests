@@ -16,8 +16,7 @@ var express = require('express'),
     session = require('express-session'),
     methodOverride = require('method-override'),
     logger = require('morgan'),
-    errorHandler = require('errorhandler'),
-    multer = require('multer');
+    errorHandler = require('errorhandler');
     
 var app = express();
 // all environments
@@ -49,13 +48,10 @@ app.use(function (req, res, next) {
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
-var upload = multer({ dest : 'uploads/' });
+
 //routes
 require('./routes/index')(app, passport, io);
-app.post('/import', upload.single('Requests.sqlite'), function (req, res) {
-    console.log('file uploaded', req.file);
-    res.redirect('/');
-});
+
 // error handling middleware should be loaded after the loading the routes
 if ('development' === app.get('env')) {
     app.use(errorHandler());
