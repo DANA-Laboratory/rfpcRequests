@@ -5,28 +5,5 @@ button.btn.btn-xs.btn-danger(type='button', style='margin-left:4px;margin-bottom
 button.btn.btn-xs.btn-danger(type='button', style='margin-left:4px;margin-bottom:2px', ng-click='tasksclass="glyphicon-pencil"') 
   .span.glyphicon.glyphicon-pencil
 button.btn.btn-xs.btn-info(type='button', style='margin-left:4px;margin-bottom:2px', ng-click='tasksclass="glyphicon-ok"')
-  .span.glyphicon.glyphicon-ok  
-#addTaskModal.modal.fade(tabindex='-1')
-  .modal-dialog.modal-sm
-    .modal-content
-      .modal-header
-        button.close(type='button', data-dismiss='modal')
-          span ×
-        h4.modal-title تعریف فعالیت جدید
-      .modal-body
-        input.form-control(type='text', ng-model='newtask', placeholder='عنوان فعالیت را وارد نمایید')
-      .modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') انصراف
-        button.btn.btn-primary(type='button', ng-click='addnewtask()') تایید
-#editTaskModal.modal.fade(tabindex='-1')
-  .modal-dialog.modal-sm
-    .modal-content
-      .modal-header
-        button.close(type='button', data-dismiss='modal')
-          span ×
-        h4.modal-title ویرایش فعالیت
-      .modal-body
-        input.form-control(type='text', ng-model='selectedtask')
-      .modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') انصراف
-        button.btn.btn-primary(type='button', ng-click='updatetaskname()') تایید
+  .span.glyphicon.glyphicon-ok
+include ../../modals/tasksEditAdd.jade

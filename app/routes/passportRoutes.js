@@ -31,11 +31,4 @@ module.exports = function (app, passport, appConfig) {
         res.render('index', { user: req.user, tasks: JSON.stringify(appConfig.tasks),  'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
     
-    app.get('/backup', mypassport.ensureAuthenticated, function (req, res) {
-        if (req.user.isOwner) {
-            res.download('app/database/Requests.sqlite');
-        } else {
-            res.redirect('/');
-        }
-    });
 };

@@ -145,4 +145,12 @@ module.exports = function (app, io, appConfig, db) {
         }
         res.redirect('/');
     });
+    
+    app.get('/backup', mypassport.ensureAuthenticated, function (req, res) {
+        if (req.user.isOwner) {
+            res.download('app/database/Requests.sqlite');
+        } else {
+            res.redirect('/');
+        }
+    });
 };
