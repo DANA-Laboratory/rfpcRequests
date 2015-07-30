@@ -7,14 +7,15 @@ var multer = require('multer');
 var upload = multer({ dest : 'uploads/' });
 
 module.exports = function (app, io, appConfig, db) {
-
+    
     var replaceIDwithNameFamily = function (row) {
-        for (var user in appConfig.users) {
-            if (appConfig.users[user].id === row.owner) {
-                row.owner = appConfig.users[user].name + ' ' + appConfig.users[user].family;
+        var userAccounts = mypassport.userAccounts();
+        for (var user in userAccounts) {
+            if ([user].id === row.owner) {
+                row.owner = userAccounts[user].name + ' ' + userAccounts[user].family;
             } else {
-                if (appConfig.users[user].id === row.user) {
-                    row.user = appConfig.users[user].name + ' ' + appConfig.users[user].family;
+                if (userAccounts[user].id === row.user) {
+                    row.user = userAccounts[user].name + ' ' + userAccounts[user].family;
                 }
             }
         }
@@ -114,6 +115,14 @@ module.exports = function (app, io, appConfig, db) {
         db.run('UPDATE requests SET requestitems=?, description=? WHERE (id=? AND user=?)', [JSON.stringify(req.body.requestitems), req.body.description, req.body.id, req.user.id], callback);
     });
     
+    app.get('/data/users', mypassport.ensureAuthenticated, function (req, res) {
+        if (req.user.isOwner) {
+            res.json(mypassport.userAccounts());
+        } else {
+            res.redirect('/');
+        }
+    });
+    
     app.get('/data/:requestID', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err, rows) {
             //console.log(rows.user,req.user.id);
@@ -153,4 +162,5 @@ module.exports = function (app, io, appConfig, db) {
             res.redirect('/');
         }
     });
+
 };

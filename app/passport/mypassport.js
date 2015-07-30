@@ -1,6 +1,6 @@
 'use strict';
 
-var appConfig = {};
+var userAccounts = [];
 var LocalStrategy = require('passport-local').Strategy;
 var passport = require('passport');
 var fs = require('fs');
@@ -15,9 +15,9 @@ if (!exists) {
     sqlite3 = require('sqlite3').verbose();
     db = new sqlite3.Database(file);
     var setUsers = function (error, data) {
-        appConfig.users = [];
+        userAccounts = [];
         for (var item in data) {
-            appConfig.users.push(JSON.parse(data[item].itemName));
+            userAccounts.push(JSON.parse(data[item].itemName));
         }
     };
     db.all('SELECT itemName FROM config WHERE itemType=2', setUsers);
@@ -25,16 +25,16 @@ if (!exists) {
 
 function findById(id, fn) {
   var idx = id - 1;
-  if (appConfig.users[idx]) {
-    fn(null, appConfig.users[idx]);
+  if (userAccounts[idx]) {
+    fn(null, userAccounts[idx]);
   } else {
     fn(new Error('User ' + id + ' does not exist'));
   }
 }
 
 function findByUsername(username, fn) {
-  for (var i = 0, len = appConfig.users.length; i < len; i++) {
-    var user = appConfig.users[i];
+  for (var i = 0, len = userAccounts.length; i < len; i++) {
+    var user = userAccounts[i];
     if (user.username === username) {
       return fn(null, user);
     }
@@ -95,8 +95,12 @@ exports.ensureAuthenticated =  function (req, res, next) {
 
 exports.users =  function () {
   var userNameIDs = [];
-  for (var user in appConfig.users) {
-      userNameIDs.push([appConfig.users[user].id, appConfig.users[user].name + ' ' + appConfig.users[user].family]);
+  for (var user in userAccounts) {
+      userNameIDs.push([userAccounts[user].id, userAccounts[user].name + ' ' + userAccounts[user].family]);
   }
   return userNameIDs;
+};
+
+exports.userAccounts = function () { 
+  return userAccounts;
 };
