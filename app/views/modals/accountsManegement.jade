@@ -1,34 +1,36 @@
 #accountsManegement.modal.fade(tabindex='-1')
-  .modal-dialog.modal-sm
+  .modal-dialog
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal')
           span ×
         h4.modal-title مدیریت کاربران
       .modal-body
-        .control-group
-          label.control-label(for='textinput') نام
-          .controls
-            input#textinput.input-xlarge(name='textinput', type='text', placeholder='نام', required='')
-        .control-group
-          label.control-label(for='textinput') نام خانوادگی
-          .controls
-            input#textinput.input-xlarge(name='textinput', type='text', placeholder='نام خانوادگی', required='')
-        .control-group
-          label.control-label(for='textinput') نام کاربری
-          .controls
-            input#textinput.input-xlarge(name='textinput', type='text', placeholder='نام کاربری خود را تعیین نمایید', required='')
-            p.help-block نام کاربری جهت ورود به سایت
-        .control-group
-          label.control-label(for='passwordinput') کلمه عبور
-          .controls
-            input#passwordinput.input-xlarge(name='passwordinput', type='password', placeholder='کلمه عبور', required='')
-            p.help-block کلمه عبور خود را تعیین نمایید
-        .control-group
-          label.control-label(for='textinput') آدرس پست الکترونیک
-          .controls
-            input#textinput.input-xlarge(name='textinput', type='text', placeholder='myaccount@main.com')
-            p.help-block آدرس پست الکترونیک جهت ارتباط با کاربر
+        .form-group
+          .input-group
+            span.input-group-addon(id='sizing-addon1')
+              span.glyphicon.glyphicon-search
+            input.form-control(type='text', ng-model='selected', typeahead-on-select='setUser($item)', typeahead=' user.name + " " + user.family for user in users | filter:$viewValue | limitTo:8', placeholder='جهت انتخاب از لیست کاربران، ابتدا بخشی از اطلاعات کاربری را وارد نمایید...')
+        hr
+        .row.form-group
+          .col-md-3
+            label.control-label(for='in1') نام
+            input.form-control(name='textinput', type='text', id='in1', ng-model = 'selectedUser.name')
+          .col-md-3
+            label.control-label(for='in2') نام خانوادگی
+            input.form-control(name='textinput', type='text', id='in2', ng-model = 'selectedUser.family')
+          .col-md-3
+            label.control-label(for='in3') نام کاربری
+            input.form-control(name='textinput', type='text', id='in3', ng-model = 'selectedUser.username')
+          .col-md-3
+            label.control-label(for='in4') کلمه عبور
+            input.form-control(name='textinput', type='text', id='in4', ng-model = 'selectedUser.password')
+        .form-group
+          label.control-label(for='in5') آدرس الکترونیک
+          input.form-control(name='textinput', type='text', id='in5', style='text-align: left', ng-model = 'selectedUser.email')
       .modal-footer
+        button.btn.btn-primary.pull-right(type='button') تعریف کاربر جدید 
+          span.glyphicon.glyphicon-plus
         button.btn.btn-default(type='button', data-dismiss='modal') انصراف
-        button.btn.btn-primary(type='button', ng-click='addnewaccount()') تایید
+        button.btn.btn-warning(type='button', ng-click='addnewaccount()') ثبت تغییرات 
+          span.glyphicon.glyphicon-pencil

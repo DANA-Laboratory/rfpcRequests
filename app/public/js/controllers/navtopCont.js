@@ -24,7 +24,16 @@ dashboardApp.controller('navbarCont', function ($scope, itRequestService) {
     });
     
     $scope.accountsclick = function() {
-        itRequestService.getusers(function(data) {console.log(JSON.stringify(data));});
+        itRequestService.getusers(function(data) {$scope.users = data;});
         $('#accountsManegement').modal('show');
     };
-});
+    
+    $scope.setUser = function(item) {
+        $scope.selectedUser = item;
+        console.log($scope.selectedUser);
+    }
+    
+    $scope.selectedUser = {};
+    $scope.selected = undefined;
+    $scope.users = [];
+ });
