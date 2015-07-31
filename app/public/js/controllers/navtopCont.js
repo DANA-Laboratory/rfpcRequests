@@ -24,16 +24,16 @@ dashboardApp.controller('navbarCont', function ($scope, itRequestService) {
     });
     
     $scope.accountsclick = function() {
-        itRequestService.getusers(function(data) {$scope.users = data;});
+        itRequestService.getusers(function(data) {$scope.users = data; $scope.updateclass = 'disabled';});
         $('#accountsManegement').modal('show');
     };
     
-    $scope.setUser = function(item) {
-        $scope.selectedUser = item;
-        console.log($scope.selectedUser);
+    $scope.setUser = function(item, i, j) {
+        $scope.selectedUser = $scope.users.indexOf(item);
+        console.log(item);
     }
-    
-    $scope.selectedUser = {};
+    $scope.updateclass = 'disabled';
+    $scope.selectedUser = 0;
     $scope.selected = undefined;
     $scope.users = [];
  });
