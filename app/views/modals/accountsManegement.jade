@@ -6,11 +6,17 @@
           span ×
         h4.modal-title مدیریت کاربران
       .modal-body
-        .form-group
-          .input-group
-            span.input-group-addon(id='sizing-addon1')
-              span.glyphicon.glyphicon-search
-            input.form-control(type='text', ng-model='selected', typeahead-on-select='setUser($item)', typeahead=' user.name + " " + user.family for user in users | filter:$viewValue | limitTo:8', placeholder='جهت انتخاب از لیست کاربران، ابتدا بخشی از اطلاعات کاربری را وارد نمایید...')
+        .row
+          .form-group
+            a.btn.col-md-1(type='button')
+              span.glyphicon.glyphicon-arrow-right
+            .col-md-10
+              .input-group
+                span.input-group-addon(id='sizing-addon1')
+                  span.glyphicon.glyphicon-search
+                input.form-control(type='text', ng-model='selected', typeahead-on-select='setUser($item)', typeahead=' user.name + " " + user.family for user in users | filter:$viewValue | limitTo:8', placeholder='جهت انتخاب از لیست کاربران، ابتدا بخشی از اطلاعات کاربری را وارد نمایید...')
+            a.btn.col-md-1(type='button')
+              span.glyphicon.glyphicon-arrow-left
         hr
         .row.form-group
           .col-md-3
