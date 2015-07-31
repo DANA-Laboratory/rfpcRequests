@@ -38,6 +38,11 @@ dashboardApp.controller('navbarCont', function ($scope, itRequestService) {
         $scope.updateclass = 'disabled';
     }
     
+    $scope.addnewuser = function() {
+        $scope.selectedUser = {'name':'', 'family':'', 'username':'', 'email':''};
+        $scope.selectedUserIndex = $scope.users.length;
+    }
+    
     $scope.updateclass = 'disabled';
     $scope.selectedUser = {};
     $scope.selected = undefined;
