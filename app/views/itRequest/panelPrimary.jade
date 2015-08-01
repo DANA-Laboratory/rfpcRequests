@@ -5,12 +5,15 @@
     .row
       include parts/pagination.jade
       .col-md-12
-        .row
+        .row.form-group
           - var captions = ['data.applicant', 'data.initdate', 'data.inittime']
           include parts/datetime.jade
           .col-md-4
         .row
-          label.col-md-3.control-label(for='checkboxes') موضوع درخواست
+          .col-md-3
+            label.control-label(for='checkboxes') موضوع درخواست
+            a.btn
+              span.glyphicon.glyphicon-cog
         .well(ng-if='requestLevel<2 && isCreator')
           include parts/items.jade
         .well(ng-if='requestLevel>1 || !isCreator')
