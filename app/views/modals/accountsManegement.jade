@@ -35,6 +35,8 @@
           label.control-label(for='in5') آدرس الکترونیک
           input.form-control(name='textinput', type='text', id='in5', style='text-align: left', ng-model='users[selectedUser].email', ng-change='updateclass = "";')
       .modal-footer
+        button.btn.btn-danger.pull-right(type='button') حذف کاربر 
+          span.glyphicon.glyphicon-remove
         button.btn.btn-primary.pull-right(type='button') تعریف کاربر جدید 
           span.glyphicon.glyphicon-plus
         button.btn.btn-default(type='button', data-dismiss='modal') انصراف
