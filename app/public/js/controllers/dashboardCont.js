@@ -64,8 +64,14 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
             $scope.hiderequest = true;
         }
     });
-    
-    $scope.toggleselection = function (item) {
+     
+    $scope.toggleselection = function (item, itemsclass) {
+        if (itemsclass==='glyphicon-minus') {
+        } else {
+          if (itemsclass==='glyphicon-pencil') {
+          } else {
+          }
+        };
         var idx = $scope.data.requestitems.indexOf(item);
         // is currently selected
         if (idx > -1) {
