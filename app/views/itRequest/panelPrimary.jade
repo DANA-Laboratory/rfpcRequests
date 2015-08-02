@@ -12,8 +12,6 @@
         .row
           .col-md-3
             label.control-label(for='checkboxes') موضوع درخواست
-            a.btn
-              span.glyphicon.glyphicon-cog
         .well(ng-if='requestLevel<2 && isCreator')
           include parts/items.jade
         .well(ng-if='requestLevel>1 || !isCreator')
