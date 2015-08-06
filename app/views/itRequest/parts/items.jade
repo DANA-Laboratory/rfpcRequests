@@ -1,6 +1,5 @@
 include itemutils.jade
-each val,index in requestItems
-  button.btn.btn-sm.btn-warning.well-item(ng-click='toggleselection("'+val+'",itemsclass)')
-    span.glyphicon(ng-init='itemsclass=""', ng-class='itemsclass')
-    span.glyphicon(ng-show='itemsclass===""', ng-class='(data.requestitems.indexOf("'+val+'") > -1) ? ("glyphicon-check") : ("glyphicon-unchecked")')
-    |  #{val}
+button.btn.btn-sm.btn-warning.well-item(ng-repeat='requestItem in requestItems', ng-click='toggleselection(requestItem,itemsclass)')
+  span.glyphicon(ng-init='itemsclass=""', ng-class='itemsclass')
+  span.glyphicon(ng-show='itemsclass===""', ng-class='(data.requestitems.indexOf(requestItem) > -1) ? ("glyphicon-check") : ("glyphicon-unchecked")')
+  |  {{requestItem}}

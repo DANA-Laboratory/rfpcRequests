@@ -24,11 +24,11 @@ module.exports = function (app, passport, appConfig) {
     });
 
     app.get('/itRequest', mypassport.ensureAuthenticated, function (req, res) {
-        res.render('itRequest/itRequest', { userNameIDs: mypassport.users(), user: req.user, requestItems: appConfig.requestItems,  'pathToAssets' : '/bower_components', message: req.flash('error') });
+        res.render('itRequest/itRequest', { userNameIDs: mypassport.users(), user: req.user, 'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
 
     app.get('/', function (req, res) {
-        res.render('index', { user: req.user, tasks: JSON.stringify(appConfig.tasks),  'pathToAssets' : '/bower_components', message: req.flash('error') });
+        res.render('index', { user: req.user, tasks: JSON.stringify(appConfig.tasks), requestItems: JSON.stringify(appConfig.requestItems), 'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
     
 };
