@@ -17,6 +17,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.isCreator = null;
     $scope.hidetable =  false;
     $scope.hiderequest = false;
+    $scope.itemsclass = "";
     
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
@@ -65,12 +66,17 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
             $scope.hiderequest = true;
         }
     });
-     
+    var selecteditemid = -1;
     $scope.toggleselection = function (item, itemsclass) {
+        selecteditemid = $scope.requestItems.indexOf(item);
         if (itemsclass==='glyphicon-minus') {
+          $scope.requestItems.splice(selecteditemid, 1);
+          return;
         } else {
           if (itemsclass==='glyphicon-pencil') {
-          } else {
+            $scope.selecteditem = $scope.requestItems[selecteditemid];
+            $('#editItemModal').modal('show');
+            return;
           }
         };
         var idx = $scope.data.requestitems.indexOf(item);
@@ -85,6 +91,11 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         if ($scope.requestLevel>0) {
           $scope.updaterequest();
         }
+    };
+    $scope.updateselecteditem = function() {
+        $scope.requestItems[selecteditemid] = $scope.selecteditem;
+        selecteditemid = -1;
+        $('#editItemModal').modal('hide');
     };
     
     $scope.updaterequest = function() {

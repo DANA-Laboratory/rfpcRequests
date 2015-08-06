@@ -3,7 +3,7 @@
 dashboardApp.controller('taskCont', function ($scope, itRequestService) {
     $scope.tasksclass = "glyphicon-ok";
     $scope.newtask = '';
-    var selectedtaskid = -1;
+    var selecteditemid = -1;
     $scope.taskitemclick = function (id) {
         if ($scope.tasksclass === "glyphicon-ok") {
           $scope.tasks[id].selected = true;
@@ -14,21 +14,21 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
             $scope.tasks.splice(id,1);
           } else {
             if ($scope.tasksclass === "glyphicon-pencil") {
-              $scope.selectedtask = $scope.tasks[id].name;
-              selectedtaskid = id;
-              $('#editTaskModal').modal('show');
+              $scope.selecteditem = $scope.tasks[id].name;
+              selecteditemid = id;
+              $('#editItemModal').modal('show');
             }
           }
         }
     };
-    $scope.updatetaskname = function() {
-        $scope.tasks[selectedtaskid].name = $scope.selectedtask;
-        selectedtaskid = -1;
-        $('#editTaskModal').modal('hide');
+    $scope.updateselecteditem = function() {
+        $scope.tasks[selecteditemid].name = $scope.selecteditem;
+        selecteditemid = -1;
+        $('#editItemModal').modal('hide');
     };
     $scope.addnewtask = function() {
         $scope.tasks.push({ name : $scope.newtask });
-        selectedtaskid = -1;
+        selecteditemid = -1;
         $('#addTaskModal').modal('hide');
     };
     $scope.selectedtaskitemclick = function (id) {
