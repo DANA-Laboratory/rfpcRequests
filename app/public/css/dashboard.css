@@ -49,3 +49,6 @@ body {
 .panel {
   border-width:thick;
 }
+.panel-body {
+  min-height:450px;
+}
