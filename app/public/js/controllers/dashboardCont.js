@@ -24,7 +24,8 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         var date = new Date();
         $scope.data ={description : "" , requestitems : [], owner: 1} //owner for IT Requeststs
         $scope.data.initdate = gregorianToJalali(date, '/');
-        $scope.data.inittime = date.getHours() + ':' + date.getMinutes();
+        var minutes = (date.getMinutes()===0) ? ('00') : (date.getMinutes()<10 ? ('0' + date.getMinutes()) : date.getMinutes());
+        $scope.data.inittime = date.getHours() + ':' + minutes;
         $scope.data.applicant = $scope.currentUserFullName;
         $scope.hidetableclick();
     };
