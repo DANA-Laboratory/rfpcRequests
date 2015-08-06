@@ -3,8 +3,8 @@
     a.btn.btn-primary(href='#it', ng-click='newrequestclick()')درخواست جدید 
       span.glyphicon.glyphicon-plus-sign
   .btn-group(role='group', ng-if='isOwner')
-    a.btn.btn-success(href='#it', ng-click='openrequestclick()', ng-show='isCreator!==null') بررسی 
+    a.btn.btn-success(href='#it', ng-click='openrequestclick()', ng-disabled='isCreator===null') بررسی 
       span.glyphicon.glyphicon-zoom-in
   .btn-group(role='group', ng-if='!isOwner')
-    a.btn.btn-info(href='#it', ng-click='viewrequestclick()', ng-show='isCreator') نمایش 
+    a.btn.btn-info(href='#it', ng-click='viewrequestclick()', ng-disabled='!isCreator') نمایش 
       span.glyphicon.glyphicon-play-circle
