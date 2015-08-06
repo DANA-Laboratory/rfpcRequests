@@ -10,7 +10,7 @@ socket.on('error', console.error.bind(console));
 socket.on('message', console.log.bind(console));
 
 dashboardApp.service('itRequestService', function($http){
-    this.updatetasks = function(tasks) {
+    this.updatetasks = function(callback, tasks) {
       var selectedtasks = [];
       for (var task in tasks) {
         if (tasks[task].selected) {
@@ -23,6 +23,7 @@ dashboardApp.service('itRequestService', function($http){
           data: {tasks: selectedtasks}
       }).success(function(data, status, headers, config) {
           console.log("tasks updated");
+          callback();
       }).error(function(data, status, headers, config) {
           console.log("error update tasks");
       });

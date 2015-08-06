@@ -1,7 +1,7 @@
 .panel.panel-primary(ng-hide='hideprimary')
-  img.pull-left(src="images/back.png", height="40", width="100")
   .panel-heading
-    h3.panel-title فرم درخواست انجام کار واحد خدمات کامپیوتری
+    h3.panel-title
+      b فرم درخواست انجام کار واحد خدمات کامپیوتری
   .panel-body
     .row
       include parts/pagination.jade
@@ -27,16 +27,4 @@
         .span.glyphicon.glyphicon-remove(aria-hidden='true') 
       .btn.btn-success(name='buttoninsert', ng-click='insertbtnclick()') ثبت درخواست
         .span.glyphicon.glyphicon-ok
-    .alert.alert-info(role='alert', ng-if='requestLevel===1')
-      span.glyphicon.glyphicon-hourglass
-      |  ثبت شده
-      span.pull-left {{message}}
-    .alert.alert-info(role='alert', ng-if='requestLevel===2')
-      span.glyphicon.glyphicon-hourglass
-      |  در دست اقدام     
-    .alert.alert-success(role='alert', ng-if='requestLevel===3')
-      span.glyphicon.glyphicon-ok
-      |  خاتمه یافته
-    .alert.alert-warning(role='alert', ng-if='requestLevel===4')
-      span.glyphicon.glyphicon-exclamation-sign
-      |  متوقف شده
+    include parts/alertinfo.jade

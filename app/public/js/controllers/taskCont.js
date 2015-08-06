@@ -7,7 +7,8 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
     $scope.taskitemclick = function (id) {
         if ($scope.tasksclass === "glyphicon-ok") {
           $scope.tasks[id].selected = true;
-          itRequestService.updatetasks($scope.tasks);
+          $scope.message = 'به روز رسانی....';
+          itRequestService.updatetasks(function () {setTimeout(function(){$scope.message = ''; $scope.$apply();}, 300);}, $scope.tasks);
         } else {
           if ($scope.tasksclass === "glyphicon-minus") {
             $scope.tasks.splice(id,1);
@@ -32,7 +33,8 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
     };
     $scope.selectedtaskitemclick = function (id) {
         $scope.tasks[id].selected = false;
-        itRequestService.updatetasks($scope.tasks);
+        $scope.message = 'به روز رسانی....';
+        itRequestService.updatetasks(function () {setTimeout(function(){$scope.message = ''; $scope.$apply();}, 300);}, $scope.tasks);
     };
     $scope.clearfilter = function (phrase) {
         $scope.filtertext = '';

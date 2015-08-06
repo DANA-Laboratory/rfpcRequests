@@ -1,7 +1,7 @@
 .panel.panel-warning(ng-hide='hideaction', ng-if='requestLevel>0 && requestLevel<3')
-  img.pull-left(src="images/back.png", height="40", width="100")
   .panel-heading
-    h3.panel-title دستورات
+    h3.panel-title 
+      b فرم درخواست انجام کار واحد خدمات کامپیوتری - دستورات
       include parts/info.jade
   .panel-body
     .row
@@ -21,5 +21,6 @@
             .span.input-group-btn
               .btn.btn-warning(type='button', ng-click='updatestatus(3)') لغو درخواست
                 .span.glyphicon.glyphicon-remove(aria-hidden='true')
-      
+  .panel-footer  
+    include parts/alertinfo.jade
 

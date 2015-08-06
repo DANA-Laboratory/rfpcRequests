@@ -1,9 +1,9 @@
-.panel.panel-success(ng-hide='hidesuccess')
-  img.pull-left(src="images/back.png", height="40", width="100")
+.panel.panel-success(ng-hide='hidesuccess', ng-controller = 'taskCont')
   .panel-heading
-    h3.panel-title شرح فعالیت ها
+    h3.panel-title
+      b فرم درخواست انجام کار واحد خدمات کامپیوتری - شرح فعالیت ها
       include parts/info.jade
-  .panel-body(ng-controller = 'taskCont')
+  .panel-body
     .row
       include parts/pagination.jade
       .col-md-12
@@ -18,3 +18,5 @@
         | با اشاره به فعالیت های انتخاب شده جزئییات را ویرایش یا حذف نمایید:
         .well(style='height:100px;overflow:auto')
           include parts/selectedtasks.jade
+  .panel-footer
+    include parts/alertinfo.jade
