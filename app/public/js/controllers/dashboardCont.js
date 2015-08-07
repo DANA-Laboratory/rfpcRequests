@@ -17,7 +17,8 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.isCreator = null;
     $scope.hidetable =  false;
     $scope.hiderequest = false;
-    $scope.itemsclass = "";
+    $scope.itemsclass = '';
+    $scope.selecteditem = '';
     
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
@@ -75,7 +76,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         } else {
           if (itemsclass==='glyphicon-pencil') {
             $scope.selecteditem = $scope.requestItems[selecteditemid];
-            $('#editItemModal').modal('show');
+            $('#editRequestModal').modal('show');
             return;
           }
         };
@@ -95,7 +96,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.updateselecteditem = function() {
         $scope.requestItems[selecteditemid] = $scope.selecteditem;
         selecteditemid = -1;
-        $('#editItemModal').modal('hide');
+        $('#editRequestModal').modal('hide');
     };
     
     $scope.updaterequest = function() {

@@ -16,7 +16,7 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
             if ($scope.tasksclass === "glyphicon-pencil") {
               $scope.selecteditem = $scope.tasks[id].name;
               selecteditemid = id;
-              $('#editItemModal').modal('show');
+              $('#editTaskModal').modal('show');
             }
           }
         }
@@ -24,7 +24,7 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
     $scope.updateselecteditem = function() {
         $scope.tasks[selecteditemid].name = $scope.selecteditem;
         selecteditemid = -1;
-        $('#editItemModal').modal('hide');
+        $('#editTaskModal').modal('hide');
     };
     $scope.addnewtask = function() {
         $scope.tasks.push({ name : $scope.newtask });

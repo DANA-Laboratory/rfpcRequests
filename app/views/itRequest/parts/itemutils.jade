@@ -1,7 +1,7 @@
 a.btn.btn-xs(type='button', style='margin-left:4px;margin-bottom:2px', ng-click='showConfig===true ? showConfig=false : showConfig=true')
   span.glyphicon.glyphicon-cog
 span(ng-show='showConfig')
-  button.btn.btn-xs.btn-warning.well-item()
+  button.btn.btn-xs.btn-warning.well-item(data-toggle='modal', data-target='#addRequestModal')
     span.glyphicon.glyphicon-plus
   button.btn.btn-xs.btn-danger.well-item(ng-click='itemsclass="glyphicon-minus"')
     span.glyphicon.glyphicon-minus
@@ -9,4 +9,4 @@ span(ng-show='showConfig')
     span.glyphicon.glyphicon-pencil
   button.btn.btn-xs.btn-info.well-item(ng-click='itemsclass=""')
     span.glyphicon.glyphicon-ok
-include ../../modals/itemEditAdd.jade
+include ../../modals/requestEditAdd.jade
