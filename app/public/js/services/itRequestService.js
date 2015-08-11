@@ -15,16 +15,37 @@ dashboardApp.service('itRequestService', function($http){
           Snap(el.target).animate({opacity:1.0}, 200, mina.easeout)
       }); };
     Snap.load("images/iran.svg", function (f) {
-      var allPaths = f.selectAll('path');
+      var allPaths = f.selectAll('path').attr({opacity:0.0});
       for (var aPath in allPaths.items){
-        //allPaths[aPath].attr({visibility: 'hidden'});
-        allPaths[aPath].node.onmouseenter = function (el) { 
-          anim(el);
-        };//
-        allPaths[aPath].animate({opacity:1.0}, 1000, mina.backout);
+        allPaths[aPath].mouseover(anim);//  
       }
+      var index = 0;
+      var xScale = 71.1;
+      var yScale = 80;
+      var x0 = 44.5;
+      var y0 = 39.65;
+      var x1 = 35;
+      var y1 = 35;
+      var max = allPaths.items.length - 1;
+      var recursive = function () {
+        if (index<max) {
+          index++;
+          allPaths[index].animate({opacity:1.0}, 20, mina.easeout, recursive);
+        } else {
+          allPaths[index].animate({opacity:1.0}, 20, mina.easeout, getcities(function (cities) {
+            for(var i in cities) {
+              var x = (cities[i].x - x0);
+              var y = (y0 - cities[i].y);
+              iranmap.circle(x * xScale - (x^2)*2.1 + x1, y * yScale + y1, 5);
+              console.log((cities[i].x - x0) * xScale + x1,'-', (y0 - cities[i].y) * yScale + y1);
+            }
+          }));
+        }
+      }
+      allPaths[index].animate({opacity:1.0}, 20, mina.easeout, recursive);
       iranmap.append(f);
     });
+    
     this.updatetasks = function(callback, tasks) {
       var selectedtasks = [];
       for (var task in tasks) {
@@ -44,6 +65,17 @@ dashboardApp.service('itRequestService', function($http){
       });
     };
 
+    var getcities = function(callback) {
+      $http({
+          method: 'GET',
+          url: '/irancities'
+      }).success(function(data, status, headers, config) {
+          callback(data);
+      }).error(function(data, status, headers, config) {
+          console.log("error get side bar data");
+      });
+    };
+    
     this.refereshnavbar = function(callback) {
       $http({
           method: 'GET',

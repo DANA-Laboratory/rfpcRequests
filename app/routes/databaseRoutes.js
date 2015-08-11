@@ -137,6 +137,14 @@ module.exports = function (app, io, appConfig, db) {
         db.get('SELECT * from requests where id=' + req.params.requestID + '  AND (user=' + req.user.id  + ' OR owner=' + req.user.id + ')', callback);
     });
     
+    app.get('/irancities', function (req, res) {
+        console.log('/data/irancities');
+        var callback = function (err, rows) {
+            res.json(rows);
+        };
+        db.all('SELECT * from mapdetails where type=0', callback);
+    });
+    
     app.post('/import', mypassport.ensureAuthenticated, upload.single('Requests.sqlite'), function (req, res) {
         if (req.user.isOwner) {
             console.log('file uploaded', req.file);
