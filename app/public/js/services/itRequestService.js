@@ -2,7 +2,7 @@
 
 var dashboardApp = angular.module('dashboardApp', ['ngRoute', 'ngMask', 'ui.bootstrap']);
 var socket = io();
-
+ 
 socket.on('update', function(data) {
     console.log("need referesh...");
 });
@@ -10,6 +10,21 @@ socket.on('error', console.error.bind(console));
 socket.on('message', console.log.bind(console));
 
 dashboardApp.service('itRequestService', function($http){
+    var iranmap = Snap('#iranmap');
+    var anim = function (el) { Snap(el.target).animate({opacity:0.2}, 200, mina.easein, function() {
+          Snap(el.target).animate({opacity:1.0}, 200, mina.easeout)
+      }); };
+    Snap.load("images/iran.svg", function (f) {
+      var allPaths = f.selectAll('path');
+      for (var aPath in allPaths.items){
+        //allPaths[aPath].attr({visibility: 'hidden'});
+        allPaths[aPath].node.onmouseenter = function (el) { 
+          anim(el);
+        };//
+        allPaths[aPath].animate({opacity:1.0}, 1000, mina.backout);
+      }
+      iranmap.append(f);
+    });
     this.updatetasks = function(callback, tasks) {
       var selectedtasks = [];
       for (var task in tasks) {
