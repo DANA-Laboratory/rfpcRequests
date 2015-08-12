@@ -68,7 +68,7 @@ dashboardApp.service('itRequestService', function($http){
     var getcities = function(callback) {
       $http({
           method: 'GET',
-          url: '/irancities'
+          url: '/map/irancities'
       }).success(function(data, status, headers, config) {
           callback(data);
       }).error(function(data, status, headers, config) {

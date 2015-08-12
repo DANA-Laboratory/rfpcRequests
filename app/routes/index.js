@@ -35,4 +35,6 @@ if (!exists) {
 module.exports = function (app, passport, io) {
     require('./passportRoutes')(app, passport, appConfig);
     require('./databaseRoutes')(app, io, appConfig, db);
+    require('./mapRoutes')(app, db);
+    require('./adminRoutes')(app, db);
 };
