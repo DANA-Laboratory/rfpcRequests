@@ -142,7 +142,7 @@ module.exports = function (app, io, appConfig, db) {
         var callback = function (err, rows) {
             res.json(rows);
         };
-        db.all('SELECT * from mapdetails where type=0', callback);
+        db.all('SELECT * from mapdetails where type=1', callback);
     });
     
     app.post('/import', mypassport.ensureAuthenticated, upload.single('Requests.sqlite'), function (req, res) {
