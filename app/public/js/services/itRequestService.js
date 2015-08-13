@@ -10,41 +10,6 @@ socket.on('error', console.error.bind(console));
 socket.on('message', console.log.bind(console));
 
 dashboardApp.service('itRequestService', function($http){
-    var iranmap = Snap('#iranmap');
-    var anim = function (el) { Snap(el.target).animate({opacity:0.2}, 200, mina.easein, function() {
-          Snap(el.target).animate({opacity:1.0}, 200, mina.easeout)
-      }); };
-    Snap.load("images/iran.svg", function (f) {
-      var allPaths = f.selectAll('path').attr({opacity:0.0});
-      for (var aPath in allPaths.items){
-        allPaths[aPath].mouseover(anim);//  
-      }
-      var index = 0;
-      var xScale = 71.1;
-      var yScale = 80;
-      var x0 = 44.5;
-      var y0 = 39.65;
-      var x1 = 35;
-      var y1 = 35;
-      var max = allPaths.items.length - 1;
-      var recursive = function () {
-        if (index<max) {
-          index++;
-          allPaths[index].animate({opacity:1.0}, 20, mina.easeout, recursive);
-        } else {
-          allPaths[index].animate({opacity:1.0}, 20, mina.easeout, getcities(function (cities) {
-            for(var i in cities) {
-              var x = (cities[i].x - x0);
-              var y = (y0 - cities[i].y);
-              iranmap.circle(x * xScale - (x^2)*2.1 + x1, y * yScale + y1, 5);
-              console.log((cities[i].x - x0) * xScale + x1,'-', (y0 - cities[i].y) * yScale + y1);
-            }
-          }));
-        }
-      }
-      allPaths[index].animate({opacity:1.0}, 20, mina.easeout, recursive);
-      iranmap.append(f);
-    });
     
     this.updatetasks = function(callback, tasks) {
       var selectedtasks = [];
@@ -65,7 +30,7 @@ dashboardApp.service('itRequestService', function($http){
       });
     };
 
-    var getcities = function(callback) {
+    this.getcities = function(callback) {
       $http({
           method: 'GET',
           url: '/map/irancities'
