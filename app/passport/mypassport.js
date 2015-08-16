@@ -9,22 +9,11 @@ var exists = fs.existsSync(file);
 var sqlite3 = null;
 var db = null;
 
-if (!exists) {
-    console.log('database not exists!');
-} else {
-    sqlite3 = require('sqlite3').verbose();
-    db = new sqlite3.Database(file);
-    var setUsers = function (error, data) {
-        userAccounts = [];
-        for (var item in data) {
-            userAccounts.push(JSON.parse(data[item].itemName));
-        }
-    };
-    db.all('SELECT itemName FROM config WHERE itemType=2', setUsers);
-}
-
 function findById(id, fn) {
-  var idx = id - 1;
+  var idx = 0;
+  while (idx<userAccounts.length && userAccounts[idx].id!==id) {
+    idx++;
+  }
   if (userAccounts[idx]) {
     fn(null, userAccounts[idx]);
   } else {
@@ -104,3 +93,23 @@ exports.users =  function () {
 exports.userAccounts = function () { 
   return userAccounts;
 };
+
+exports.readAccounts = function () {
+  if (!exists) {
+      console.log('database not exists!');
+  } else {
+      sqlite3 = require('sqlite3').verbose();
+      db = new sqlite3.Database(file);
+      var setUsers = function (error, data) {
+          userAccounts = [];
+          for (var item in data) {
+              var tmpAccount = JSON.parse(data[item].itemName);
+              tmpAccount.id = data[item].id;
+              userAccounts.push(tmpAccount);
+          }
+      };
+      db.all('SELECT * FROM config WHERE itemType=2', setUsers);
+  }
+};
+
+this.readAccounts();

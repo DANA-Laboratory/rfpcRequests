@@ -113,14 +113,6 @@ module.exports = function (app, io, appConfig, db) {
         db.run('UPDATE requests SET requestitems=?, description=? WHERE (id=? AND user=?)', [JSON.stringify(req.body.requestitems), req.body.description, req.body.id, req.user.id], callback);
     });
     
-    app.get('/data/users', mypassport.ensureAuthenticated, function (req, res) {
-        if (req.user.isOwner) {
-            res.json(mypassport.userAccounts());
-        } else {
-            res.redirect('/');
-        }
-    });
-    
     app.get('/data/:requestID', mypassport.ensureAuthenticated, function (req, res) {
         var callback = function (err, rows) {
             //console.log(rows.user,req.user.id);

@@ -24,28 +24,6 @@ dashboardApp.controller('navbarCont', function ($scope, itRequestService) {
     });
     
     $scope.accountsclick = function() {
-        itRequestService.getusers(function(data) {$scope.users = data; $scope.gotouser(0);});
         $('#accountsManegement').modal('show');
-    };
-    
-    $scope.setUser = function(item) {
-        $scope.gotouser($scope.users.indexOf(item));
-    }
-    
-    $scope.gotouser = function(index) {
-        $scope.selectedUserIndex = index;
-        $scope.selectedUser = JSON.parse(JSON.stringify($scope.users[index]));
-        $scope.updateclass = 'disabled';
-    }
-    
-    $scope.addnewuser = function() {
-        $scope.selectedUser = {'name':'', 'family':'', 'username':'', 'email':''};
-        $scope.selectedUserIndex = $scope.users.length;
-    }
-    
-    $scope.updateclass = 'disabled';
-    $scope.selectedUser = {};
-    $scope.selected = undefined;
-    $scope.users = [];
-    $scope.selectedUserIndex = 0;
+    }; 
  });

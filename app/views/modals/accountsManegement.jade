@@ -1,4 +1,4 @@
-#accountsManegement.modal.fade(tabindex='-1')
+#accountsManegement.modal.fade(tabindex='-1', ng-controller='usermanCont', ng-init='onLoad()')
   .modal-dialog
     .modal-content
       .modal-header
@@ -35,10 +35,10 @@
           label.control-label(for='in5') آدرس الکترونیک
           input.form-control(name='textinput', type='text', id='in5', style='text-align: left', ng-model='selectedUser.email', ng-change='updateclass = "";')
       .modal-footer
-        button.btn.btn-danger.pull-right(type='button') حذف کاربر 
+        button.btn.btn-danger.pull-right(type='button', ng-click='deleteuser()') حذف کاربر 
           span.glyphicon.glyphicon-remove
-        button.btn.btn-primary.pull-right(type='button', ng-click='addnewuser()') تعریف کاربر جدید 
+        button.btn.btn-primary.pull-right(type='button', ng-click='insertuser()') تعریف کاربر جدید 
           span.glyphicon.glyphicon-plus
         button.btn.btn-default(type='button', data-dismiss='modal') انصراف
-        button.btn.btn-warning(type='button', ng-click='addnewaccount()', ng-class='updateclass') ثبت تغییرات 
+        button.btn.btn-warning(type='button', ng-click='updateuser()', ng-class='updateclass') ثبت تغییرات 
           span.glyphicon.glyphicon-pencil

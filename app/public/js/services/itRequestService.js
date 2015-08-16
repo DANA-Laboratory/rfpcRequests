@@ -117,12 +117,50 @@ dashboardApp.service('itRequestService', function($http){
     this.getusers = function (callback) {
         $http({
           method: 'get',
-          url: '/data/users/'
+          url: '/admin/select/users/'
         }).success(function(data, status, headers, config) {
-          console.log("get users OK");
           callback(data);
         }).error(function(data, status, headers, config) {
           console.log("error update request items");
+        });
+    };
+    
+    this.updateuser = function (data, callback) {
+        $http({
+          method: 'post',
+          url: '/admin/update/user',
+          data: data
+        }).success(function(data, status, headers, config) {
+          console.log("update user account OK");
+          callback();
+        }).error(function(data, status, headers, config) {
+          console.log("error update user account");
+        });
+    };
+
+    this.deleteuser = function (data, callback) {
+        $http({
+          method: 'post',
+          url: '/admin/delete/user',
+          data: data
+        }).success(function(data, status, headers, config) {
+          console.log("delete user account OK");
+          callback();
+        }).error(function(data, status, headers, config) {
+          console.log("error delete user account");
+        });
+    };
+    
+    this.insertuser = function (data, callback) {
+        $http({
+          method: 'post',
+          url: '/admin/insert/user',
+          data: data
+        }).success(function(data, status, headers, config) {
+          console.log("insert user account OK");
+          callback();
+        }).error(function(data, status, headers, config) {
+          console.log("error insert user account");
         });
     };
 });
