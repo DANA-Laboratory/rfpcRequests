@@ -3,9 +3,9 @@
 dashboardApp.controller('mapCont', function ($scope, itRequestService) {
     var iranmap = Snap('#iranmap');
     $scope.hidelabels = true;
-    iranmap.attr({ viewBox : "0 0 1400 1250", width : 700, height : 625 });
-    var hoverin = function (el) { Snap(el.target).animate({opacity:1.0, r:30}, 1000, mina.elastic)};
-    var hoverout = function (el) { Snap(el.target).stop(); Snap(el.target).animate({opacity:0.5, r:25}, 200, mina.easeout)};
+    //iranmap.attr({ viewBox : "0 0 1400 1250", width : 700, height : 625 });
+    var hoverin = function (el) { Snap(el.target).animate({opacity:1.0, r:15}, 800, mina.elastic)};
+    var hoverout = function (el) { Snap(el.target).stop(); Snap(el.target).animate({opacity:0.5, r:10}, 200, mina.easeout)};
     var animateIndex = 0;
     var branch = null;
     var branches = [];
@@ -13,8 +13,8 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
       if (animateIndex < branches.length) {
         branches[animateIndex].animate({
           opacity: '1',  
-            r: 30
-        }, 1000, mina.elastic, animOut);
+            r: 15
+        }, 800, mina.elastic, animOut);
       } else {
         $scope.hidelabels = false;
         $scope.$apply();
@@ -23,19 +23,13 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
     function animOut() {
       branches[animateIndex].animate({
           opacity: '0.5',  
-          r: 25
-       }, 500, mina.easeout, animOn);
+          r: 10
+       }, 400, mina.easeout, animOn);
        animateIndex++;
     };
     Snap.load("images/iran.svg", function (f) {
       var allPaths = f.selectAll('path').attr({opacity:0.0});
       var index = 0;
-      var xScale = 78;
-      var yScale = 82;
-      var x0 = 45;
-      var y0 = 39.65;
-      var x1 = 25;
-      var y1 = 35;
       var max = allPaths.items.length - 1;
       var recursive = function () {
         if (index<max) {
@@ -51,7 +45,7 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
                   fill: "#bada55",
                   stroke: "#000",
                   opacity: '0.0',
-                  strokeWidth: 10
+                  strokeWidth: 4
               });
               branches.push(branch);
             }

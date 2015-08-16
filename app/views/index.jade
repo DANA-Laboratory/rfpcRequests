@@ -28,11 +28,10 @@ include head.jade
           h1 خوش آمدید!
           p
             | این پایگاه اینترنتی به منظور ثبت درخواست انجام کار، پیگیری درخواستهای ثبت شده و تهیه گزارشات مورد نیاز طراحی شده است، جهت ورود به پایگاه ابتدا نام کاربری و کلمه عبور خود را در قسمت بالا وارد نمایید.
-      svg(id='iranmap', width='1400', height='1200', ng-controller='mapCont') 
+      svg(id='iranmap', width='750', height='670', ng-controller='mapCont') 
         | sorry your browser can't display svg graphics
-        foreignObject(id='labels', x=0, y=0, width=1400, height=1200, ng-hide='hidelabels')
-          h3
-            .label.label-primary(ng-repeat='c in cities', ng-style='{position: "absolute", left: c.x, top: c.y - 60}') {{c.name}}
+        foreignObject(id='labels', x=0, y=0, width=750, height=670, ng-hide='hidelabels')
+          .label.label-primary(ng-repeat='c in cities', ng-style='{position: "fixed", left: c.x, top: c.y-35}') {{c.name}}
     else
       div(ng-init='currentUserFullName=\'#{user.name} #{user.family}\'; currentUserID=#{user.id}; isOwner=#{user.isOwner}')
       include dashboard.jade
