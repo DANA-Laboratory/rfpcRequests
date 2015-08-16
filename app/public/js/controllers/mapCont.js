@@ -12,7 +12,7 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
     var hoverin = function () {
       if (toggle === '') {
         this.animate({opacity:1.0, r:15}, 800, mina.elastic);
-        connectionline = iranmap.line(17+parseInt(this.attr().cx), parseInt(this.attr().cy), 352, 252);
+        connectionline = iranmap.line(parseInt(this.attr().cx), parseInt(this.attr().cy) - 17, 402, 2);
         connectionline.attr({
             stroke: "#000",
             opacity: '0.3',

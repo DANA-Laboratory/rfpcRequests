@@ -32,7 +32,7 @@ include head.jade
         | sorry your browser can't display svg graphics
         foreignObject(id='labels', x=0, y=0, width=750, height=670, ng-hide='hidelabels')
           .label.label-primary(ng-repeat='c in cities', ng-style='{position: "fixed", left: c.x, top: c.y-30}') {{c.name}}
-          .panel.panel-default(ng-style='{borderColor: "black", borderWidth: "3px", position: "fixed", width: 400, top: 250, left: 350}', ng-hide='hidepanel')
+          .panel.panel-default(ng-style='{borderColor: "black", borderWidth: "3px", position: "fixed", width: 350, top: 0, left: 400}', ng-hide='hidepanel')
             .panel-body
               {{panelinfo.body}}
             .panel-footer

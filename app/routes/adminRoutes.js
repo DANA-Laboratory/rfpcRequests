@@ -42,12 +42,13 @@ module.exports = function (app, db) {
     });
     
     app.post('/admin/insert/user', mypassport.ensureAuthenticated, function (req, res) {
-       if (req.user.isOwner) {
+        if (req.user.isOwner) {
             var callback = function (err) {
-                if (err)
+                if (err) {
                     console.log('insert user error=', err);
-                else
+                } else {
                     mypassport.readAccounts();
+                }
                 res.sendStatus(200);
             };
             db.run('INSERT INTO config (itemName,itemType) VALUES (?,2)', [JSON.stringify(req.body.account), req.body.id], callback);
@@ -59,10 +60,11 @@ module.exports = function (app, db) {
     app.post('/admin/update/user', mypassport.ensureAuthenticated, function (req, res) {
         if (req.user.isOwner) {
             var callback = function (err) {
-                if (err)
+                if (err) {
                     console.log('update user error=', err);
-                else
+                } else {
                     mypassport.readAccounts();
+                }
                 res.sendStatus(200);
             };
             db.run('UPDATE config SET itemName=? WHERE (id=? AND itemType=2)', [JSON.stringify(req.body.account), req.body.id], callback);
@@ -73,11 +75,12 @@ module.exports = function (app, db) {
 
     app.post('/admin/delete/user', mypassport.ensureAuthenticated, function (req, res) {
         if (req.user.isOwner) {
-           var callback = function (err) {
-                if (err)
+            var callback = function (err) {
+                if (err) {
                     console.log('delete user error=', err);
-                else
+                } else {
                     mypassport.readAccounts();
+                }
                 res.sendStatus(200);
             };
             db.run('DELETE FROM config WHERE (id=? AND itemType=2)', [req.body.id], callback);
