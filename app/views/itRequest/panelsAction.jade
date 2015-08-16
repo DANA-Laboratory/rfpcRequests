@@ -1,9 +1,9 @@
-.panel.panel-warning(ng-hide='hideaction', ng-if='requestLevel>0 && requestLevel<3')
+.request.panel.panel-warning(ng-hide='hideaction', ng-if='requestLevel>0 && requestLevel<3')
   .panel-heading
     h3.panel-title 
       b فرم درخواست انجام کار واحد خدمات کامپیوتری - دستورات
       include parts/info.jade
-  .panel-body
+  .request.panel-body
     .row
       include parts/pagination.jade
       .col-sm-12

@@ -2,12 +2,45 @@
 
 dashboardApp.controller('mapCont', function ($scope, itRequestService) {
     var iranmap = Snap('#iranmap');
+    var toggle = '';
+    $scope.panelinfo = {title: 'tile', body: 'body', footer: 'footer'};
     $scope.hidelabels = true;
+    $scope.hidepanel = true;
+    var branchesinfo = {};
+    var connectionline = null;
     //iranmap.attr({ viewBox : "0 0 1400 1250", width : 700, height : 625 });
-    var hoverin = function (el) { Snap(el.target).animate({opacity:1.0, r:15}, 800, mina.elastic)};
-    var hoverout = function (el) { Snap(el.target).stop(); Snap(el.target).animate({opacity:0.5, r:10}, 200, mina.easeout)};
+    var hoverin = function () {
+      if (toggle === '') {
+        this.animate({opacity:1.0, r:15}, 800, mina.elastic);
+        connectionline = iranmap.line(17+parseInt(this.attr().cx), parseInt(this.attr().cy), 352, 252);
+        connectionline.attr({
+            stroke: "#000",
+            opacity: '0.3',
+            strokeWidth: 3
+        });
+        $scope.panelinfo = branchesinfo[this.id];
+        $scope.hidepanel = false;
+        $scope.$apply();
+      }
+    };
+    var hoverout = function () { 
+      if (toggle === '') {
+        this.stop(); 
+        this.animate({opacity:0.5, r:10}, 200, mina.easeout);
+        $scope.hidepanel = true;
+        $scope.$apply();
+        connectionline.remove();
+      }
+    };
+    var togglebranch= function () { 
+      //user must click on toggled item to untoggle
+      if (toggle === this.id)
+        toggle = '';
+      else
+        if (toggle === '')
+          toggle = this.id;
+    };
     var animateIndex = 0;
-    var branch = null;
     var branches = [];
     function animOn(){
       if (animateIndex < branches.length) {
@@ -18,6 +51,10 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
       } else {
         $scope.hidelabels = false;
         $scope.$apply();
+        for (var i in branches) {
+          branches[i].hover(hoverin, hoverout);//  
+          branches[i].click(togglebranch);
+        }
       }
     }
     function animOut() {
@@ -39,8 +76,8 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
           allPaths[index].animate({opacity:1.0}, 20, mina.easeout, itRequestService.getcities(function (cities) {
             $scope.cities = cities;
             for(var i in cities) {
-              branch = iranmap.circle(cities[i].x, cities[i].y, 0);
-              branch.hover(hoverin, hoverout);//  
+              var branch = iranmap.circle(cities[i].x, cities[i].y, 0);
+              branchesinfo[branch.id] = JSON.parse(cities[i].info);
               branch.attr({
                   fill: "#bada55",
                   stroke: "#000",

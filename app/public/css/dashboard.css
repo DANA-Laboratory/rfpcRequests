@@ -47,13 +47,12 @@ body {
   margin-left:3px;
   margin-bottom:3px;
 }
-.panel {
+.request.panel {
   border-width:thick;
 }
-.panel-body {
+.request.panel-body {
   min-height:450px;
 }
-
 #iranmap {
   margin-left:auto; 
   margin-right:auto; 
