@@ -13,6 +13,7 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
           itRequestService.updatetasks(function () {setTimeout(function(){$scope.message = ''; $scope.$apply();}, 300);}, $scope.tasks);
         } else {
           if ($scope.tasksclass === "glyphicon-minus") {
+            itRequestService.deleteitem($scope.tasks[id]);
             $scope.tasks.splice(id,1);
           } else {
             if ($scope.tasksclass === "glyphicon-pencil") {
@@ -25,14 +26,17 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
     };
     
     $scope.updateselecteditem = function() {
-        $scope.tasks[selecteditemid].name = $scope.selecteditem;
+        $scope.tasks[selecteditemid].name = $scope.selecteditem.name;
         selecteditemid = -1;
+        itRequestService.updateitem( $scope.tasks[selecteditemid] );
         $('#editTaskModal').modal('hide');
     };
     
     $scope.addnewitem = function() {
-        $scope.tasks.push({ name : $scope.newitem });
+        var item = { name : $scope.newitem, itemType : 0 }
+        $scope.tasks.push(item);
         selecteditemid = -1;
+        itRequestService.insertitem(item);
         $('#addTaskModal').modal('hide');
     };
     
