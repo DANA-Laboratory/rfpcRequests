@@ -6,7 +6,7 @@ var mypassport = require('../passport/mypassport');
 var multer = require('multer');
 var upload = multer({ dest : 'uploads/' });
 
-module.exports = function (app, db) {
+module.exports = function (app, db, readAppConfig) {
     app.post('/admin/import', mypassport.ensureAuthenticated, upload.single('Requests.sqlite'), function (req, res) {
         if (req.user.isOwner) {
             console.log('file uploaded', req.file);
@@ -51,7 +51,7 @@ module.exports = function (app, db) {
                 }
                 res.sendStatus(200);
             };
-            db.run('INSERT INTO config (itemName,itemType) VALUES (?,2)', [JSON.stringify(req.body.account), req.body.id], callback);
+            db.run('INSERT INTO config (itemName,itemType) VALUES (?,2)', [JSON.stringify(req.body.account)], callback);
         } else {
             res.redirect('/');
         }
@@ -84,6 +84,57 @@ module.exports = function (app, db) {
                 res.sendStatus(200);
             };
             db.run('DELETE FROM config WHERE (id=? AND itemType=2)', [req.body.id], callback);
+        } else {
+            res.redirect('/');
+        }
+    });
+    
+    app.post('/admin/insert/item', mypassport.ensureAuthenticated, function (req, res) {
+        //security check do not insert account
+        if (req.user.isOwner && req.body.itemType !== 2)  {
+            var callback = function (err) {
+                if (err) {
+                    console.log('insert item error=', err);
+                } else {
+                    readAppConfig();
+                }
+                res.sendStatus(200);
+            };
+            db.run('INSERT INTO config (itemName,itemType) VALUES (?,?)', [req.body.name, req.body.itemType], callback);
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.post('/admin/update/item', mypassport.ensureAuthenticated, function (req, res) {
+        if (req.user.isOwner) {
+            var callback = function (err) {
+                if (err) {
+                    console.log('update item error=', err);
+                } else {
+                    readAppConfig();
+                }
+                res.sendStatus(200);
+            };
+            //security check do not update account
+            db.run('UPDATE config SET itemName=? WHERE (id=? AND itemType!=2)', [req.body.name, req.body.id], callback);
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.post('/admin/delete/item', mypassport.ensureAuthenticated, function (req, res) {
+        if (req.user.isOwner) {
+            var callback = function (err) {
+                if (err) {
+                    console.log('delete item error=', err);
+                } else {
+                    readAppConfig();
+                }
+                res.sendStatus(200);
+            };
+            //security check do not delete account
+            db.run('DELETE FROM config WHERE (id=? AND itemType!=2)', [req.body.id], callback);
         } else {
             res.redirect('/');
         }

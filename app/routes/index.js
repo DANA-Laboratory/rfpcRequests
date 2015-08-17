@@ -15,26 +15,25 @@ if (!exists) {
 } else {
     sqlite3 = require('sqlite3').verbose();
     db = new sqlite3.Database(file);
+    
     var setTasks = function (error, data) {
-        appConfig.tasks = [];
-        for (var item in data) {
-            var taskitem = {};
-            taskitem.name = data[item].itemName;
-            appConfig.tasks.push(taskitem);
-        }
+        appConfig.tasks = data;
     };
+    
     var setRequestItems = function (error, data) {
-        appConfig.requestItems = [];
-        for (var item in data) {
-            appConfig.requestItems.push(data[item].itemName);
-        }
+        appConfig.requestItems = data;
     };
-    db.all('SELECT itemName FROM config WHERE itemType=0', setTasks);
-    db.all('SELECT itemName FROM config WHERE itemType=1', setRequestItems);
+    
+    var readAppConfig = function () {
+        db.all('SELECT itemName as name, id FROM config WHERE itemType=0', setTasks);
+        db.all('SELECT itemName as name, id FROM config WHERE itemType=1', setRequestItems);
+    };
+    
+    readAppConfig();
 }
 module.exports = function (app, passport, io) {
     require('./passportRoutes')(app, passport, appConfig);
     require('./databaseRoutes')(app, io, appConfig, db);
     require('./mapRoutes')(app, db);
-    require('./adminRoutes')(app, db);
+    require('./adminRoutes')(app, db, readAppConfig);
 };

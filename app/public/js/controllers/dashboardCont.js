@@ -16,7 +16,7 @@ dashboardApp.config(['$routeProvider', function($routeProvider) {
 dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.isCreator = null;
     $scope.hidetable =  false;
-    $scope.hiderequest = false;
+    $scope.hiderequest = true;
     $scope.itemsclass = '';
     $scope.selecteditem = '';
     
@@ -24,7 +24,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         $scope.requestLevel = 0;
         $scope.isCreator = true;
         var date = new Date();
-        $scope.data ={description : "" , requestitems : [], owner: 1} //owner for IT Requeststs
+        $scope.data ={ description : "" , requestitems : [] } //owner for IT Requeststs
         $scope.data.initdate = gregorianToJalali(date, '/');
         var minutes = (date.getMinutes()===0) ? ('00') : (date.getMinutes()<10 ? ('0' + date.getMinutes()) : date.getMinutes());
         $scope.data.inittime = date.getHours() + ':' + minutes;
@@ -51,7 +51,6 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         $scope.data = {};
         selectedRequestId = -1;
         $scope.isCreator = null;
-        itRequestService.refreshTable(null);
         $scope.$emit('refereshnavbar');
         $scope.hidetable =  false;
         $scope.hiderequest = true;
@@ -62,15 +61,18 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         selectedRequestId = -1;
         $scope.isCreator = null;
         if ($scope.hidetable) {
-            $scope.$emit('refereshnavbar');
             $scope.hidetable =  false;
             $scope.hiderequest = true;
         }
     });
+    
     var selecteditemid = -1;
-    $scope.toggleselection = function (item, itemsclass) {
-        selecteditemid = $scope.requestItems.indexOf(item);
+    
+    $scope.toggleselection = function (indx, itemsclass) {
+        selecteditemid = indx;
+        var item =  $scope.requestItems[selecteditemid].name;
         if (itemsclass==='glyphicon-minus') {
+          itRequestService.deleteitem($scope.requestItems[selecteditemid]);
           $scope.requestItems.splice(selecteditemid, 1);
           return;
         } else {
@@ -93,10 +95,22 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
           $scope.updaterequest();
         }
     };
+    
     $scope.updateselecteditem = function() {
-        $scope.requestItems[selecteditemid] = $scope.selecteditem;
+        $scope.requestItems[selecteditemid].name = $scope.selecteditem.name;
         selecteditemid = -1;
+        itRequestService.updateitem($scope.selecteditem);
         $('#editRequestModal').modal('hide');
+    };
+    
+    $scope.newitem = '';
+    
+    $scope.addnewitem = function() {
+        var item = { name : $scope.newitem, itemType : 1 }
+        $scope.requestItems.push(item);
+        selecteditemid = -1;
+        itRequestService.insertitem(item);
+        $('#addRequestModal').modal('hide');
     };
     
     $scope.updaterequest = function() {

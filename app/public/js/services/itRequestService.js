@@ -163,4 +163,43 @@ dashboardApp.service('itRequestService', function($http){
           console.log("error insert user account");
         });
     };
+
+    this.updateitem = function (data, callback) {
+        $http({
+          method: 'post',
+          url: '/admin/update/item',
+          data: data
+        }).success(function(data, status, headers, config) {
+          console.log("update item OK");
+          callback();
+        }).error(function(data, status, headers, config) {
+          console.log("error item account");
+        });
+    };
+
+    this.deleteitem = function (data, callback) {
+        $http({
+          method: 'post',
+          url: '/admin/delete/item',
+          data: data
+        }).success(function(data, status, headers, config) {
+          console.log("delete item OK");
+          callback();
+        }).error(function(data, status, headers, config) {
+          console.log("error item account");
+        });
+    };
+    
+    this.insertitem = function (data, callback) {
+        $http({
+          method: 'post',
+          url: '/admin/insert/item',
+          data: data
+        }).success(function(data, status, headers, config) {
+          console.log("insert item OK");
+          callback();
+        }).error(function(data, status, headers, config) {
+          console.log("error item account");
+        });
+    };
 });

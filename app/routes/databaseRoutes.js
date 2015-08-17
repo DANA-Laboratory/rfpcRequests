@@ -102,7 +102,8 @@ module.exports = function (app, io, appConfig, db) {
             io.emit('update');
             res.sendStatus(200);
         };
-        db.run('INSERT INTO requests (requestitems,owner,user,status,initdate,inittime,description,applicant) VALUES (?,?,?,?,?,?,?,?)', [JSON.stringify(req.body.requestitems), req.body.owner, req.user.id, appConfig.status[0], req.body.initdate, req.body.inittime, req.body.description, req.body.applicant], callback);
+        //it requests owner is 276
+        db.run('INSERT INTO requests (requestitems,owner,user,status,initdate,inittime,description,applicant) VALUES (?,?,?,?,?,?,?,?)', [JSON.stringify(req.body.requestitems), 276, req.user.id, appConfig.status[0], req.body.initdate, req.body.inittime, req.body.description, req.body.applicant], callback);
     });
     
     app.post('/data/updaterequest', mypassport.ensureAuthenticated, function (req, res) {
