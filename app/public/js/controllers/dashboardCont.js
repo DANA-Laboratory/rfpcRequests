@@ -19,6 +19,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.hiderequest = true;
     $scope.itemsclass = '';
     $scope.selecteditem = '';
+    $scope.showResuestConfig = false;
     
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
@@ -44,6 +45,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.hidetableclick = function () {
         $scope.hidetable =  true;
         $scope.hiderequest = false;
+        $scope.showResuestConfig = false;
         $scope.$broadcast('showrequest');
     };
      
