@@ -17,9 +17,9 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     $scope.isCreator = null;
     $scope.hidetable =  false;
     $scope.hiderequest = true;
-    $scope.itemsclass = '';
+    var itemsclass = '';
     $scope.selecteditem = '';
-    $scope.showResuestConfig = false;
+    $scope.showConfig = false;
     
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
@@ -42,10 +42,14 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         $scope.hidetableclick();
     };
     
+    $scope.toggleconfig = function () {
+        $scope.showConfig = !$scope.showConfig;
+    }
+    
     $scope.hidetableclick = function () {
         $scope.hidetable =  true;
         $scope.hiderequest = false;
-        $scope.showResuestConfig = false;
+        $scope.showConfig = false;
         $scope.$broadcast('showrequest');
     };
      
@@ -70,15 +74,26 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     
     var selecteditemid = -1;
     
-    $scope.toggleselection = function (indx, itemsclass) {
+    $scope.itemsclass = function(itmcls) {
+      if (itmcls!==null) {
+        itemsclass=itmcls;
+      }
+      if ($scope.showConfig) {
+        return itemsclass;
+      } else {
+        return "";
+      }
+    }
+    
+    $scope.toggleselection = function (indx) {
         selecteditemid = indx;
         var item =  $scope.requestItems[selecteditemid].name;
-        if (itemsclass==='glyphicon-minus') {
+        if ($scope.itemsclass(null)==='glyphicon-minus') {
           itRequestService.deleteitem($scope.requestItems[selecteditemid]);
           $scope.requestItems.splice(selecteditemid, 1);
           return;
         } else {
-          if (itemsclass==='glyphicon-pencil') {
+          if ($scope.itemsclass(null)==='glyphicon-pencil') {
             $scope.selecteditem = $scope.requestItems[selecteditemid];
             $('#editRequestModal').modal('show');
             return;

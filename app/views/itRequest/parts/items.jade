@@ -1,5 +1,5 @@
 include itemutils.jade
-button.btn.btn-sm.btn-warning.well-item(ng-repeat='requestItem in requestItems', ng-click='toggleselection($index, itemsclass)')
-  span.glyphicon(ng-class='itemsclass')
-  span.glyphicon(ng-show='itemsclass===""', ng-class='(data.requestitems.indexOf(requestItem.name) > -1) ? ("glyphicon-check") : ("glyphicon-unchecked")')
+button.btn.btn-sm.btn-warning.well-item(ng-repeat='requestItem in requestItems', ng-click='toggleselection($index)')
+  span.glyphicon(ng-class='itemsclass(null)')
+  span.glyphicon(ng-show='itemsclass(null)===""', ng-class='(data.requestitems.indexOf(requestItem.name) > -1) ? ("glyphicon-check") : ("glyphicon-unchecked")')
   |  {{requestItem.name}}
