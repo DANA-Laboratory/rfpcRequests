@@ -7,13 +7,20 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
     $scope.hidelabels = true;
     $scope.hidepanel = true;
     var branchesinfo = {};
-    var connectionline = null;
+    var connectionvline = null;
+    var connectionhline = null;
     //iranmap.attr({ viewBox : "0 0 1400 1250", width : 700, height : 625 });
     var hoverin = function () {
       if (toggle === '') {
         this.animate({opacity:1.0, r:15}, 800, mina.elastic);
-        connectionline = iranmap.line(parseInt(this.attr().cx), parseInt(this.attr().cy) - 17, 402, 2);
-        connectionline.attr({
+        connectionvline = iranmap.line(parseInt(this.attr().cx) + 17, parseInt(this.attr().cy), parseInt(this.attr().cx) + 17, 202);
+        connectionhline = iranmap.line(parseInt(this.attr().cx) + 17, 202, 402, 202);
+        connectionvline.attr({
+            stroke: "#000",
+            opacity: '0.3',
+            strokeWidth: 3
+        });        
+        connectionhline.attr({
             stroke: "#000",
             opacity: '0.3',
             strokeWidth: 3
@@ -29,7 +36,8 @@ dashboardApp.controller('mapCont', function ($scope, itRequestService) {
         this.animate({opacity:0.5, r:10}, 200, mina.easeout);
         $scope.hidepanel = true;
         $scope.$apply();
-        connectionline.remove();
+        connectionvline.remove();
+        connectionhline.remove();
       }
     };
     var togglebranch= function () { 
