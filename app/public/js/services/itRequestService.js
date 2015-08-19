@@ -164,40 +164,37 @@ dashboardApp.service('itRequestService', function($http){
         });
     };
 
-    this.updateitem = function (data, callback) {
+    this.updateitem = function (data) {
         $http({
           method: 'post',
           url: '/admin/update/item',
           data: data
         }).success(function(data, status, headers, config) {
           console.log("update item OK");
-          callback();
         }).error(function(data, status, headers, config) {
           console.log("error item account");
         });
     };
 
-    this.deleteitem = function (data, callback) {
+    this.deleteitem = function (data) {
         $http({
           method: 'post',
           url: '/admin/delete/item',
           data: data
         }).success(function(data, status, headers, config) {
           console.log("delete item OK");
-          callback();
         }).error(function(data, status, headers, config) {
           console.log("error item account");
         });
     };
     
-    this.insertitem = function (data, callback) {
+    this.insertitem = function (data) {
         $http({
           method: 'post',
           url: '/admin/insert/item',
           data: data
         }).success(function(data, status, headers, config) {
           console.log("insert item OK");
-          callback();
         }).error(function(data, status, headers, config) {
           console.log("error item account");
         });

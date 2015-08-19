@@ -2,21 +2,32 @@
 
 dashboardApp.controller('taskCont', function ($scope, itRequestService) {
 
-    $scope.tasksclass = "glyphicon-ok";
+    var itemsclass = "glyphicon-ok";
     $scope.newitem = '';
     var selecteditemid = -1;
     
+    $scope.itemsclass = function(itmcls) {
+      if (itmcls!==null) {
+        itemsclass=itmcls;
+      }
+      if ($scope.showConfig) {
+        return itemsclass;
+      } else {
+        return "glyphicon-ok";
+      }
+    }
+    
     $scope.taskitemclick = function (id) {
-        if ($scope.tasksclass === "glyphicon-ok") {
+        if ($scope.itemsclass(null) === "glyphicon-ok") {
           $scope.tasks[id].selected = true;
           $scope.message = 'به روز رسانی....';
           itRequestService.updatetasks(function () {setTimeout(function(){$scope.message = ''; $scope.$apply();}, 300);}, $scope.tasks);
         } else {
-          if ($scope.tasksclass === "glyphicon-minus") {
+          if ($scope.itemsclass(null) === "glyphicon-minus") {
             itRequestService.deleteitem($scope.tasks[id]);
             $scope.tasks.splice(id,1);
           } else {
-            if ($scope.tasksclass === "glyphicon-pencil") {
+            if ($scope.itemsclass(null) === "glyphicon-pencil") {
               $scope.selecteditem = $scope.tasks[id].name;
               selecteditemid = id;
               $('#editTaskModal').modal('show');
@@ -26,9 +37,10 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
     };
     
     $scope.updateselecteditem = function() {
-        $scope.tasks[selecteditemid].name = $scope.selecteditem.name;
+        console.log($scope.selecteditem);
+        $scope.tasks[selecteditemid].name = $scope.selecteditem;
+        itRequestService.updateitem($scope.tasks[selecteditemid]);
         selecteditemid = -1;
-        itRequestService.updateitem( $scope.tasks[selecteditemid] );
         $('#editTaskModal').modal('hide');
     };
     

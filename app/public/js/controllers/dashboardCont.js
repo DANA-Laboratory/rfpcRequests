@@ -94,7 +94,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
           return;
         } else {
           if ($scope.itemsclass(null)==='glyphicon-pencil') {
-            $scope.selecteditem = $scope.requestItems[selecteditemid];
+            $scope.selecteditem = $scope.requestItems[selecteditemid].name;
             $('#editRequestModal').modal('show');
             return;
           }
@@ -114,9 +114,9 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     };
     
     $scope.updateselecteditem = function() {
-        $scope.requestItems[selecteditemid].name = $scope.selecteditem.name;
+        $scope.requestItems[selecteditemid].name = $scope.selecteditem;
         selecteditemid = -1;
-        itRequestService.updateitem($scope.selecteditem);
+        itRequestService.updateitem($scope.requestItems[selecteditemid]);
         $('#editRequestModal').modal('hide');
     };
     
