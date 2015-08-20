@@ -41,100 +41,53 @@ module.exports = function (app, db, readAppConfig) {
         }
     });
     
-    app.post('/admin/insert/user', mypassport.ensureAuthenticated, function (req, res) {
+    app.post('/admin/user/:whattodo', mypassport.ensureAuthenticated, function (req, res) {
         if (req.user.isOwner) {
             var callback = function (err) {
                 if (err) {
-                    console.log('insert user error=', err);
+                    console.log(req.params.whattodo + ' user error=', err);
                 } else {
                     mypassport.readAccounts();
                 }
                 res.sendStatus(200);
             };
-            db.run('INSERT INTO config (itemName,itemType) VALUES (?,2)', [JSON.stringify(req.body.account)], callback);
-        } else {
-            res.redirect('/');
-        }
-    });
-
-    app.post('/admin/update/user', mypassport.ensureAuthenticated, function (req, res) {
-        if (req.user.isOwner) {
-            var callback = function (err) {
-                if (err) {
-                    console.log('update user error=', err);
+            if (req.params.whattodo === 'dalate') {
+                db.run('DELETE FROM config WHERE (id=? AND itemType=2)', [req.body.id], callback);
+            } else {
+                if (req.params.whattodo === 'update') {
+                    db.run('UPDATE config SET itemName=? WHERE (id=? AND itemType=2)', [JSON.stringify(req.body.account), req.body.id], callback);
                 } else {
-                    mypassport.readAccounts();
+                    if (req.params.whattodo === 'insert') {
+                        db.run('INSERT INTO config (itemName,itemType) VALUES (?,2)', [JSON.stringify(req.body.account)], callback);
+                    }
                 }
-                res.sendStatus(200);
-            };
-            db.run('UPDATE config SET itemName=? WHERE (id=? AND itemType=2)', [JSON.stringify(req.body.account), req.body.id], callback);
-        } else {
-            res.redirect('/');
-        }
-    });
-
-    app.post('/admin/delete/user', mypassport.ensureAuthenticated, function (req, res) {
-        if (req.user.isOwner) {
-            var callback = function (err) {
-                if (err) {
-                    console.log('delete user error=', err);
-                } else {
-                    mypassport.readAccounts();
-                }
-                res.sendStatus(200);
-            };
-            db.run('DELETE FROM config WHERE (id=? AND itemType=2)', [req.body.id], callback);
+            }
         } else {
             res.redirect('/');
         }
     });
     
-    app.post('/admin/insert/item', mypassport.ensureAuthenticated, function (req, res) {
-        //security check do not insert account
+    app.post('/admin/item/:whattodo', mypassport.ensureAuthenticated, function (req, res) {
         if (req.user.isOwner && req.body.itemType !== 2)  {
             var callback = function (err) {
                 if (err) {
-                    console.log('insert item error=', err);
+                    console.log(req.params.whattodo + ' item error=', err);
                 } else {
                     readAppConfig();
                 }
                 res.sendStatus(200);
             };
-            db.run('INSERT INTO config (itemName,itemType) VALUES (?,?)', [req.body.name, req.body.itemType], callback);
-        } else {
-            res.redirect('/');
-        }
-    });
-
-    app.post('/admin/update/item', mypassport.ensureAuthenticated, function (req, res) {
-        if (req.user.isOwner) {
-            var callback = function (err) {
-                if (err) {
-                    console.log('update item error=', err);
+            if (req.params.whattodo === 'insert') {
+                db.run('INSERT INTO config (itemName,itemType) VALUES (?,?)', [req.body.name, req.body.itemType], callback);
+            } else {
+                if (req.params.whattodo === 'delete') {
+                    db.run('DELETE FROM config WHERE (id=?)', [req.body.id], callback);
                 } else {
-                    readAppConfig();
+                    if (req.params.whattodo === 'update') {
+                        db.run('UPDATE config SET itemName=? WHERE (id=?)', [req.body.name, req.body.id], callback);
+                    }
                 }
-                res.sendStatus(200);
-            };
-            //security check do not update account
-            db.run('UPDATE config SET itemName=? WHERE (id=? AND itemType!=2)', [req.body.name, req.body.id], callback);
-        } else {
-            res.redirect('/');
-        }
-    });
-
-    app.post('/admin/delete/item', mypassport.ensureAuthenticated, function (req, res) {
-        if (req.user.isOwner) {
-            var callback = function (err) {
-                if (err) {
-                    console.log('delete item error=', err);
-                } else {
-                    readAppConfig();
-                }
-                res.sendStatus(200);
-            };
-            //security check do not delete account
-            db.run('DELETE FROM config WHERE (id=? AND itemType!=2)', [req.body.id], callback);
+            }
         } else {
             res.redirect('/');
         }

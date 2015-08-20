@@ -89,7 +89,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         selecteditemid = indx;
         var item =  $scope.requestItems[selecteditemid].name;
         if ($scope.itemsclass(null)==='glyphicon-minus') {
-          itRequestService.deleteitem($scope.requestItems[selecteditemid]);
+          itRequestService.doitem($scope.requestItems[selecteditemid], 'delete');
           $scope.requestItems.splice(selecteditemid, 1);
           return;
         } else {
@@ -115,8 +115,8 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
     
     $scope.updateselecteditem = function() {
         $scope.requestItems[selecteditemid].name = $scope.selecteditem;
+        itRequestService.doitem($scope.requestItems[selecteditemid], 'update');
         selecteditemid = -1;
-        itRequestService.updateitem($scope.requestItems[selecteditemid]);
         $('#editRequestModal').modal('hide');
     };
     
@@ -126,7 +126,7 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         var item = { name : $scope.newitem, itemType : 1 }
         $scope.requestItems.push(item);
         selecteditemid = -1;
-        itRequestService.insertitem(item);
+        itRequestService.doitem(item, 'insert');
         $('#addRequestModal').modal('hide');
     };
     

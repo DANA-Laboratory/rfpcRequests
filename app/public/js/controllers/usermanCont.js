@@ -30,7 +30,7 @@ dashboardApp.controller('usermanCont', function ($scope, itRequestService) {
         var data = {};
         if ($scope.selectedUser.id) {
             data.id = $scope.selectedUser.id;
-            itRequestService.deleteuser(data, $scope.onLoad);
+            itRequestService.douser(data, $scope.onLoad, 'delete');
         }
         $scope.updateclass = 'disabled';
     }
@@ -40,9 +40,9 @@ dashboardApp.controller('usermanCont', function ($scope, itRequestService) {
         data.account = $scope.selectedUser;
         if ($scope.selectedUser.id) {
           data.id = $scope.selectedUser.id;
-          itRequestService.updateuser(data, $scope.onLoad);
+          itRequestService.douser(data, $scope.onLoad, 'update');
         } else {
-          itRequestService.insertuser(data, $scope.onLoad);
+          itRequestService.doinsertuser(data, $scope.onLoad, 'update');
         }
         $scope.updateclass = 'disabled';
     }

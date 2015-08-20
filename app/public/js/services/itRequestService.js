@@ -125,78 +125,28 @@ dashboardApp.service('itRequestService', function($http){
         });
     };
     
-    this.updateuser = function (data, callback) {
+    this.douser = function (data, callback, whattodo) {
         $http({
           method: 'post',
-          url: '/admin/update/user',
+          url: '/admin/user/' + whattodo,
           data: data
         }).success(function(data, status, headers, config) {
-          console.log("update user account OK");
+          console.log(whattodo + ' user account OK');
           callback();
         }).error(function(data, status, headers, config) {
-          console.log("error update user account");
-        });
-    };
-
-    this.deleteuser = function (data, callback) {
-        $http({
-          method: 'post',
-          url: '/admin/delete/user',
-          data: data
-        }).success(function(data, status, headers, config) {
-          console.log("delete user account OK");
-          callback();
-        }).error(function(data, status, headers, config) {
-          console.log("error delete user account");
+          console.log('error ' + whattodo + ' user account');
         });
     };
     
-    this.insertuser = function (data, callback) {
+    this.doitem = function (data, whattodo) {
         $http({
           method: 'post',
-          url: '/admin/insert/user',
+          url: '/admin/item/' + whattodo,
           data: data
         }).success(function(data, status, headers, config) {
-          console.log("insert user account OK");
-          callback();
+          console.log(whattodo + ' item OK');
         }).error(function(data, status, headers, config) {
-          console.log("error insert user account");
-        });
-    };
-
-    this.updateitem = function (data) {
-        $http({
-          method: 'post',
-          url: '/admin/update/item',
-          data: data
-        }).success(function(data, status, headers, config) {
-          console.log("update item OK");
-        }).error(function(data, status, headers, config) {
-          console.log("error item account");
-        });
-    };
-
-    this.deleteitem = function (data) {
-        $http({
-          method: 'post',
-          url: '/admin/delete/item',
-          data: data
-        }).success(function(data, status, headers, config) {
-          console.log("delete item OK");
-        }).error(function(data, status, headers, config) {
-          console.log("error item account");
-        });
-    };
-    
-    this.insertitem = function (data) {
-        $http({
-          method: 'post',
-          url: '/admin/insert/item',
-          data: data
-        }).success(function(data, status, headers, config) {
-          console.log("insert item OK");
-        }).error(function(data, status, headers, config) {
-          console.log("error item account");
+          console.log('error ' + whattodo ' item');
         });
     };
 });
