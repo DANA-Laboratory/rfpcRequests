@@ -146,7 +146,7 @@ dashboardApp.service('itRequestService', function($http){
         }).success(function(data, status, headers, config) {
           console.log(whattodo + ' item OK');
         }).error(function(data, status, headers, config) {
-          console.log('error ' + whattodo ' item');
+          console.log('error ' + whattodo + ' item');
         });
     };
 });

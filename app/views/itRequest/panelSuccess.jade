@@ -13,7 +13,8 @@
             .btn.btn-info(type='button', ng-click='clearfilter()') نمایش همه 
               .span.glyphicon.glyphicon-remove-circle(aria-hidden='true')
         .well(style='height:190px;overflow:auto', ng-hide='requestLevel!==2 || !isOwner')
-          include parts/taskutils.jade
+          if (user.isOwner)
+            include parts/taskutils.jade
           include parts/alltasks.jade
         | با اشاره به فعالیت های انتخاب شده جزئییات را ویرایش یا حذف نمایید:
         .well(style='height:100px;overflow:auto')
