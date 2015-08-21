@@ -92,4 +92,18 @@ module.exports = function (app, db, readAppConfig) {
             res.redirect('/');
         }
     });
+    
+    app.post('/admin/deleterequest', mypassport.ensureAuthenticated, function (req, res) {
+        if (req.user.isOwner) {
+            var callback = function (err) {
+                if (err) {
+                    console.log('delete requests error=', err);
+                } else {
+                    //TODO
+                }
+                res.sendStatus(200);
+            };
+            db.run('DELETE FROM requests WHERE (id=?)', [req.body.id], callback);
+        }
+    });
 };

@@ -2,6 +2,8 @@
   .panel-heading
     h3.panel-title
       b فرم درخواست انجام کار واحد خدمات کامپیوتری
+      if (user.isOwner)
+        include parts/requestprimaryconfig.jade
   .request.panel-body
     .row
       include parts/pagination.jade

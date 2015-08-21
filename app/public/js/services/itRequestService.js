@@ -107,10 +107,23 @@ dashboardApp.service('itRequestService', function($http){
           url: '/data/updaterequest/',
           data: data
         }).success(function(data, status, headers, config) {
-          console.log("update request  items OK");
+          console.log("update request items OK");
           callback();
         }).error(function(data, status, headers, config) {
           console.log("error update request items");
+        });
+    };
+    
+    this.deleterequest = function (callback) {
+        $http({
+          method: 'post',
+          url: '/admin/deleterequest/',
+          data: {id: selectedRequestId}
+        }).success(function(data, status, headers, config) {
+          console.log("delete request OK");
+          callback();
+        }).error(function(data, status, headers, config) {
+          console.log("delete request error");
         });
     };
     

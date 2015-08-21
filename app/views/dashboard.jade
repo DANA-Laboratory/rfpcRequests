@@ -2,6 +2,5 @@
   div(ng-hide='hidetable', style='margin : 10px')
     include tableplusnav.jade
   div(style='margin : 10px')
-    div(ng-hide='hiderequest', ng-if='requestLevel<5')
-      div.col-md-12(style='margin: 10px')
-        .ng-view
+    div.col-md-12(ng-hide='hiderequest', ng-if='requestLevel<5', style='margin: 10px')
+      .ng-view

@@ -17,12 +17,17 @@ dashboardApp.config(['$routeProvider', function($routeProvider) {
   }]);
   
 dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
+    $scope.pageid = 1;
     $scope.isCreator = null;
     $scope.hidetable =  false;
     $scope.hiderequest = true;
     var itemsclass = '';
     $scope.selecteditem = '';
     $scope.showConfig = false;
+    
+    $scope.setpageid = function (pid) {
+        $scope.pageid = pid;
+    };
     
     $scope.newrequestclick = function (id) {
         $scope.requestLevel = 0;
@@ -64,6 +69,10 @@ dashboardApp.controller('dashboardCont', function ($scope, itRequestService) {
         $scope.hidetable =  false;
         $scope.hiderequest = true;
     };
+    
+    $scope.deleterequest =function () {
+        itRequestService.deleterequest($scope.backclick);
+    }
     
     $scope.$on('topnavClick', function(event){
         $scope.data = {};
