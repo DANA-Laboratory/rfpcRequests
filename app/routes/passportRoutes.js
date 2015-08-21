@@ -27,6 +27,10 @@ module.exports = function (app, passport, appConfig) {
         res.render('itRequest/itRequest', { userNameIDs: mypassport.users(), user: req.user, 'pathToAssets' : '/bower_components', message: req.flash('error') });
     });
 
+    app.get('/itRequest/:page', mypassport.ensureAuthenticated, function (req, res) {
+        res.render('itRequest/' + req.params.page, { userNameIDs: mypassport.users(), user: req.user, 'pathToAssets' : '/bower_components', message: req.flash('error') });
+    });
+    
     app.get('/', function (req, res) {
         res.render('index', { user: req.user, tasks: JSON.stringify(appConfig.tasks), requestItems: JSON.stringify(appConfig.requestItems), 'pathToAssets' : '/bower_components', message: req.flash('error') });
     });

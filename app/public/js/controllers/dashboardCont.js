@@ -5,11 +5,14 @@ var requestStatus = ['ثبت شده','در دست اقدام','خاتمه ياف
 
 dashboardApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-    .when('/it', {
-      templateUrl: 'itRequest'
+    .when('/primary', {
+      templateUrl: 'itRequest/panelPrimary'
     })
-    .when('/it/:requestid', {
-      templateUrl: 'itRequest/10'
+    .when('/success', {
+      templateUrl: 'itRequest/panelSuccess'
+    })
+    .when('/action', {
+      templateUrl: 'itRequest/panelAction'
     })
   }]);
   
