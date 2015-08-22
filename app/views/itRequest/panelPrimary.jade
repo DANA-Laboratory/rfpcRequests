@@ -15,7 +15,7 @@
         .row
           .col-md-3
             label.control-label(for='checkboxes') موضوع درخواست
-        .well(ng-if='requestLevel<2 && isCreator', ng-controller='dashboardCont')
+        .well(ng-if='requestLevel<2 && isCreator', ng-controller='itemCont')
           include parts/items.jade
         .well(ng-if='requestLevel>1 || !isCreator')
           include parts/itemsreadonly.jade
