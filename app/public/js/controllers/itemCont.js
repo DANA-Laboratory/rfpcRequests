@@ -3,9 +3,10 @@
 dashboardApp.controller('itemCont', function ($scope, itRequestService) {
 
      var itemsclass = '';
-     $scope.newitem = '';
      var selecteditemid = -1;
-    
+     $scope.newitem = '';
+     $scope.selecteditem = '';
+   
     $scope.itemsclass = function(itmcls) {
       if (itmcls!==null) {
         itemsclass=itmcls;
@@ -54,9 +55,11 @@ dashboardApp.controller('itemCont', function ($scope, itRequestService) {
         
     $scope.addnewitem = function() {
         var item = { name : $scope.newitem, itemType : 1 }
-        $scope.requestItems.push(item);
         selecteditemid = -1;
-        itRequestService.doitem(item, 'insert');
+        itRequestService.doitem(item, 'insert', function(data){
+            item.id = data.lastID; 
+            $scope.requestItems.push(item);
+        });
         $('#addRequestModal').modal('hide');
     };
     

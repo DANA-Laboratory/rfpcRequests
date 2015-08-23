@@ -11,6 +11,9 @@ socket.on('message', console.log.bind(console));
 
 dashboardApp.service('itRequestService', function($http){
     
+    this.requestitems = {};
+    this.requesttasks = {};
+    
     this.updatetasks = function(callback, tasks) {
       var selectedtasks = [];
       for (var task in tasks) {
@@ -29,7 +32,7 @@ dashboardApp.service('itRequestService', function($http){
           console.log("error update tasks");
       });
     };
-
+    
     this.getcities = function(callback) {
       $http({
           method: 'GET',
@@ -151,13 +154,15 @@ dashboardApp.service('itRequestService', function($http){
         });
     };
     
-    this.doitem = function (data, whattodo) {
+    this.doitem = function (data, whattodo, callback) {
         $http({
           method: 'post',
           url: '/admin/item/' + whattodo,
           data: data
         }).success(function(data, status, headers, config) {
           console.log(whattodo + ' item OK');
+          if(callback)
+              callback(data);
         }).error(function(data, status, headers, config) {
           console.log('error ' + whattodo + ' item');
         });

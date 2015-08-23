@@ -45,10 +45,12 @@ dashboardApp.controller('taskCont', function ($scope, itRequestService) {
     };
     
     $scope.addnewitem = function() {
-        var item = { name : $scope.newitem, itemType : 0 }
-        $scope.tasks.push(item);
+        var item = { name : $scope.newitem, itemType : 0 } 
         selecteditemid = -1;
-        itRequestService.doitem(item, 'insert');
+        itRequestService.doitem(item, 'insert', function(data){
+            item.id = data.lastID;
+            $scope.tasks.push(item);
+        });
         $('#addTaskModal').modal('hide');
     };
     

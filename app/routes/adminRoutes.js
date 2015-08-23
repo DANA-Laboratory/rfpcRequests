@@ -72,10 +72,14 @@ module.exports = function (app, db, readAppConfig) {
             var callback = function (err) {
                 if (err) {
                     console.log(req.params.whattodo + ' item error=', err);
+                    res.sendStatus(200);
                 } else {
                     readAppConfig();
+                    if (req.params.whattodo === 'insert')
+                        res.json({ lastID: this.lastID });
+                    else
+                        res.sendStatus(200);
                 }
-                res.sendStatus(200);
             };
             if (req.params.whattodo === 'insert') {
                 db.run('INSERT INTO config (itemName,itemType) VALUES (?,?)', [req.body.name, req.body.itemType], callback);
