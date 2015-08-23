@@ -75,10 +75,12 @@ module.exports = function (app, db, readAppConfig) {
                     res.sendStatus(200);
                 } else {
                     readAppConfig();
-                    if (req.params.whattodo === 'insert')
-                        res.json({ lastID: this.lastID });
-                    else
+                    if (req.params.whattodo === 'insert') {
+                        res.json({lastID: this.lastID});
+                    }
+                    else {
                         res.sendStatus(200);
+                    }
                 }
             };
             if (req.params.whattodo === 'insert') {

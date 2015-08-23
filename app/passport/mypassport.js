@@ -8,6 +8,7 @@ var file = 'app/database/Requests.sqlite';
 var exists = fs.existsSync(file);
 var sqlite3 = null;
 var db = null;
+var ownerRowID = -1;
 
 function findById(id, fn) {
   var idx = 0;
@@ -94,6 +95,10 @@ exports.userAccounts = function () {
   return userAccounts;
 };
 
+exports.ownerRowID = function () {
+  return ownerRowID;
+}
+
 exports.readAccounts = function () {
   if (!exists) {
       console.log('database not exists!');
@@ -106,6 +111,8 @@ exports.readAccounts = function () {
               var tmpAccount = JSON.parse(data[item].itemName);
               tmpAccount.id = data[item].id;
               userAccounts.push(tmpAccount);
+              if (tmpAccount.isOwner)
+                  ownerRowID=tmpAccount.id;
           }
       };
       db.all('SELECT * FROM config WHERE itemType=2', setUsers);
