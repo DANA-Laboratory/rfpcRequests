@@ -23,8 +23,22 @@ module.exports = function (app, io, appConfig, db) {
         //replaceIDwithNameFamily
         replaceIDwithNameFamily(row);
         row.init = row.initdate + ' ' + row.inittime;
-        row.end = row.enddate + ' ' + row.endtime;
-        row.start = row.startdate + ' ' + row.starttime;
+        if (row.end) {
+          row.end = row.enddate + ' ' + row.endtime;
+        } else {
+          row.end = 'X';
+        }        
+        if (row.start) {
+          row.start = row.startdate + ' ' + row.starttime;
+        } else {
+          row.start = 'X';
+        }
+        if (row.end === null) {
+          row.end = 'X';
+        }
+        if (row.start === null) {
+          row.start = 'X';
+        }
         //remove formats from string
         if (row.requesttasks !== null) {
             row.requesttasks = row.requesttasks.replace(/[\"\[\]]/g, ' ');
