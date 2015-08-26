@@ -22,7 +22,9 @@ module.exports = function (app, io, appConfig, db) {
     var formatdata = function (row) {
         //replaceIDwithNameFamily
         replaceIDwithNameFamily(row);
-        
+        row.init = row.initdate + ' ' + row.inittime;
+        row.end = row.enddate + ' ' + row.endtime;
+        row.start = row.startdate + ' ' + row.starttime;
         //remove formats from string
         if (row.requesttasks !== null) {
             row.requesttasks = row.requesttasks.replace(/[\"\[\]]/g, ' ');

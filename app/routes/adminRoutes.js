@@ -51,7 +51,7 @@ module.exports = function (app, db, readAppConfig) {
                 }
                 res.sendStatus(200);
             };
-            if (req.params.whattodo === 'dalate') {
+            if (req.params.whattodo === 'delete' && req.user.id !== req.body.id) {
                 db.run('DELETE FROM config WHERE (id=? AND itemType=2)', [req.body.id], callback);
             } else {
                 if (req.params.whattodo === 'update') {

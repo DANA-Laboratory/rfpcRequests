@@ -42,7 +42,7 @@ dashboardApp.controller('usermanCont', function ($scope, itRequestService) {
           data.id = $scope.selectedUser.id;
           itRequestService.douser(data, $scope.onLoad, 'update');
         } else {
-          itRequestService.doinsertuser(data, $scope.onLoad, 'update');
+          itRequestService.douser(data, $scope.onLoad, 'insert');
         }
         $scope.updateclass = 'disabled';
     }
