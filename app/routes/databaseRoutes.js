@@ -24,20 +24,20 @@ module.exports = function (app, io, appConfig, db) {
         replaceIDwithNameFamily(row);
         row.init = row.initdate + ' ' + row.inittime;
         if (row.end) {
-          row.end = row.enddate + ' ' + row.endtime;
+            row.end = row.enddate + ' ' + row.endtime;
         } else {
-          row.end = 'X';
-        }        
+            row.end = 'X';
+        }
         if (row.start) {
-          row.start = row.startdate + ' ' + row.starttime;
+            row.start = row.startdate + ' ' + row.starttime;
         } else {
-          row.start = 'X';
+            row.start = 'X';
         }
         if (row.end === null) {
-          row.end = 'X';
+            row.end = 'X';
         }
         if (row.start === null) {
-          row.start = 'X';
+            row.start = 'X';
         }
         //remove formats from string
         if (row.requesttasks !== null) {
